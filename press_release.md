@@ -1,4 +1,4 @@
-##SPURR: your personal post secret##
+##SPURR: Your Personal Post Secret##
 
 >Combining Snapchat with PostSecret to produce a cathartic release of stress and a rush of excitement for millennials.
 Releasing tense thoughts and indulge in gossip
