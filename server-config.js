@@ -1,14 +1,17 @@
-const express                 = require('express');
-var app                       = express();
-const morgan                  = require('morgan');
-const bodyParser              = require('body-parser');
-const methodOverride          = require('method-override');
-const router                  = express.Router();
-const mysql                   = require('mysql');
-const HOST                    = process.env.HOST;
-const USER                    = process.env.USER;
-const PASSWORD                = process.env.PASSWORD;
-const DATABASE                = process.env.DATABASE;
+/* eslint no-multi-spaces: ["error", { exceptions: { "VariableDeclarator": true } }] */
+const express        = require('express');
+const morgan         = require('morgan');
+const bodyParser     = require('body-parser');
+const methodOverride = require('method-override');
+// const router      = express.Router();
+const mysql          = require('mysql');
+const path           = require('path');
+
+const app              = express();
+const HOST           = process.env.HOST;
+const USER           = process.env.USER;
+const PASSWORD       = process.env.PASSWORD;
+const DATABASE       = process.env.DATABASE;
 
 // Authentication ==========================================================
 // app.use(cookieParser('shhhh, very secret'));
@@ -17,7 +20,6 @@ const DATABASE                = process.env.DATABASE;
 //   resave: false,
 //   saveUninitialized: true
 // }));
-
 
 const dbConnection = mysql.createConnection({
   host: HOST,
@@ -61,7 +63,7 @@ app.get('/', (req, res) => {
 
 
 // middlewares ===================================================================
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, '/public')));
 app.use(morgan('dev')); // log every request to the console
 app.use(bodyParser.urlencoded({ extended: 'true' })); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json

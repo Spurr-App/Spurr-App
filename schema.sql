@@ -1,4 +1,6 @@
-CREATE DATABASE secrets;
+-- DROP DATABASE spurr;
+
+CREATE DATABASE spurr;
 
 USE spurr;
 
@@ -12,8 +14,23 @@ CREATE TABLE users (
   UNIQUE (username)
 );
 
+CREATE TABLE saved_spurrs (
+  spurr_id int not null auto_increment,
+  timestamp int,
+  message varchar(15),
+  location varchar(15),
+  Primary key(spurr_id)
+);
+
+CREATE TABLE spurrs (
+  spurr_id int not null auto_increment,
+  timestamp int,
+  message varchar(15),
+  location varchar(15),
+  Primary key(spurr_id)
+);
+
 CREATE TABLE user_saved_spurrs (
-  /* Describe your table here.*/
   id int not null auto_increment,
   user_id int,
   spurr_id int,
@@ -23,24 +40,6 @@ CREATE TABLE user_saved_spurrs (
   Primary key(id),
   foreign key(user_id) references users (user_id),
   foreign key(spurr_id) references saved_spurrs (spurr_id)
-);
-
-CREATE TABLE saved_spurrs (
-  /* Describe your table here.*/
-  spurr_id int not null auto_increment,
-  timestamp int,
-  message varchar(15),
-  location varchar(15),
-  Primary key(spurr_id)
-);
-
-CREATE TABLE spurrs (
-  /* Describe your table here.*/
-  spurr_id int not null auto_increment,
-  timestamp int,
-  message varchar(15),
-  location varchar(15),
-  Primary key(spurr_id)
 );
 
 /* Create other tables and define schemas for them here! */
