@@ -1,12 +1,16 @@
-var express                 = require('express');
-var app                     = express();
-var morgan                  = require('morgan');
-var bodyParser              = require('body-parser');
-var methodOverride          = require('method-override');
-const router                = express.Router();
-var mysql                   = require('mysql');
+const express                 = require('express');
+var app                       = express();
+const morgan                  = require('morgan');
+const bodyParser              = require('body-parser');
+const methodOverride          = require('method-override');
+const router                  = express.Router();
+const mysql                   = require('mysql');
+const HOST                    = process.env.HOST;
+const USER                    = process.env.USER;
+const PASSWORD                = process.env.PASSWORD;
+const DATABASE                = process.env.DATABASE;
 
-//Authentication ==========================================================
+// Authentication ==========================================================
 // app.use(cookieParser('shhhh, very secret'));
 // app.use(session({
 //   secret: 'shhh, it\'s a secret',
@@ -15,12 +19,13 @@ var mysql                   = require('mysql');
 // }));
 
 
-var dbConnection = mysql.createConnection({
-  host: '',
-  user: 'root',
-  password: '',
-  database: '',
+const dbConnection = mysql.createConnection({
+  host: HOST,
+  user: USER,
+  password: PASSWORD,
+  database: DATABASE,
 });
+
 dbConnection.connect((err) => {
   if (err) {
     console.log(err);
@@ -45,21 +50,11 @@ dbConnection.connect((err) => {
 // dbConnection.end(err =>
 //   console.log('connection ended gracefully')
 // );
+
 app.get('/', (req, res) => {
   res.send('hello');
 });
 
-
-
-// connection.connect();
-//
-// connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-//   if (error) throw error;
-//   console.log('The solution is: ', results[0].solution);
-// });
-//
-// connection.end();
-//testing mongoose
 
 //Connecting to our models ======
 // require('./models/prayerRequestModel.js'); // which executes 'mongoose.connect()'
