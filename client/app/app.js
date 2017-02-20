@@ -1,4 +1,4 @@
 angular.module('Spurr', [
-  'SpurrCtrl',
-  'SpurrFact',
+  'Spurr-Ctrl',
+  'Spurr-Fact',
 ]);

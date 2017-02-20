@@ -1,7 +1,8 @@
-angular.module('SpurrCtrl', [])
-.controller('Spurr-Ctrl', function ctrl() {
+angular.module('Spurr-Ctrl', [])
+.controller('SpurrCtrl', function ctrl($scope, SpurrFact) {
   this.default = '';
-  this.test = function(input) {
-    return input ? console.log(input) : console.log('Error, input is', input);
+
+  $scope.test = function (input) {
+    SpurrFact.test(input);
   };
 });
