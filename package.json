@@ -18,6 +18,7 @@
     "body-parser": "^1.4.3",
     "cookie-parser": "^1.4.3",
     "cookieparser": "^0.1.0",
+    "dotenv": "^4.0.0",
     "express": "^4.14.1",
     "grunt": "1.0.1",
     "grunt-cli": "^1.2.0",

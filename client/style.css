@@ -1,0 +1,22 @@
+body {
+  text-align: center;
+}
+
+.spurr {
+  width:400px;
+}
+
+.upper {
+
+}
+
+.upper ul {
+  background: red;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lower {
+
+}

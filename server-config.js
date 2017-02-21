@@ -6,21 +6,13 @@ const methodOverride = require('method-override');
 // const router      = express.Router();
 const mysql          = require('mysql');
 const path           = require('path');
+require('dotenv').config();
 
 const app            = express();
-const HOST           = process.env.HOST;
-const USER           = process.env.USER;
-const PASSWORD       = process.env.PASSWORD;
-const DATABASE       = process.env.DB;
-
-// Authentication ==========================================================
-// app.use(cookieParser('shhhh, very secret'));
-// app.use(session({
-//   secret: 'shhh, it\'s a secret',
-//   resave: false,
-//   saveUninitialized: true
-// }));
-
+// const HOST           = process.env.HOST;
+// const USER           = process.env.USER;
+// const PASSWORD       = process.env.PASSWORD;
+// const DATABASE       = process.env.DB;
 const dbConnection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -32,12 +24,30 @@ const dbConnection = mysql.createConnection({
   // database: DATABASE,
 });
 
+// Authentication ==========================================================
+// app.use(cookieParser('shhhh, very secret'));
+// app.use(session({
+//   secret: 'shhh, it\'s a secret',
+//   resave: false,
+//   saveUninitialized: true
+// }));
+
+// middlewares ===================================================================
+
+app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, '/client')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+// app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
+// app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
+
 dbConnection.connect((err) => {
   if (err) {
     console.log(err);
     return;
   }
   console.log('Connection with mysql established');
+
 });
 
 // @input requests (array) : array of
@@ -58,33 +68,11 @@ const get = function get(reqs, table, db) {
 
 get(['username', 'user_id'], 'users', dbConnection);
 
-// dbConnection.query('INSERT INTO users (username) VALUE ("liv")', function(err, rows, fields) {
-//   if (!err)
-//     console.log('The solution is: ', rows);
-//   else
-//     console.log('Error while performing Query.' + err);
-// });
-
-// dbConnection.end(err =>
-//   console.log('connection ended gracefully')
-// );
-
-app.get('/', (req, res) => {
-  res.send('hello');
-});
+// app.use(express.static(path.join(__dirname, './client/index.html')));
 
 
 // Connecting to our models ======
 // require('./models/prayerRequestModel.js'); // which executes 'mongoose.connect()'
-
-
-// middlewares ===================================================================
-app.use(express.static(path.join(__dirname, '/public')));
-app.use(morgan('dev')); // log every request to the console
-app.use(bodyParser.urlencoded({ extended: 'true' })); // parse application/x-www-form-urlencoded
-app.use(bodyParser.json()); // parse application/json
-app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
-app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
 
 module.exports = app;
 

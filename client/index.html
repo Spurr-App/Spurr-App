@@ -3,22 +3,26 @@
   <head>
     <meta charset="utf-8">
     <title>Spurr</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body ng-app="Spurr" ng-controller="SpurrCtrl">
-    <h1>Hello Spurr</h1>
+    <h1><a href="/">Hello Spurr</a></h1>
     <input type="text" ng-model="default">
     <button ng-click="test(default)">Test</button>
-    <button><a href="#/secrets">View Secrets</a></button>
+    <button><a href="#!/test">View Test</a></button>
+    <button><a href="#!/secrets">View Secrets</a></button>
+    <button><a href="#!/confess">View Secrets</a></button>
 
-    <div ng-view></div>
+    <div ng-view=""></div>
 
     <br><hr><br>
     <p>{{default}}</p>
-
   <script src="./lib/angular/angular.js"></script>
   <script src="./lib/angular-route/angular-route.js"></script>
   <script src="./app/controller.js"></script>
   <script src="./app/factory.js"></script>
+  <script src="./app/confessCtrl.js"></script>
+  <script src="./app/confessFact.js"></script>
   <script src="./app/app.js"></script>
   </body>
 </html>
