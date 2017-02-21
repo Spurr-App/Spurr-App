@@ -23,5 +23,6 @@ angular.module('Spurr', [
   'Confess-Ctrl',
   'Confess-Fact',
   'ngRoute',
+  'ngMessages',
 ])
 .config(router);

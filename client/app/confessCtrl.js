@@ -2,8 +2,11 @@ angular.module('Confess-Ctrl', [])
 .controller('confessCtrl', function ($scope) {
   $scope.message = '';
 
-  $scope.background = '';
+  $scope.name = true;
+  $scope.date = true;
+  $scope.location = true;
 
+  $scope.background = '';
   $scope.fonts = [
     'Arial',
     'Helvetica',
@@ -17,6 +20,6 @@ angular.module('Confess-Ctrl', [])
   ].sort();
 
   $scope.sizes = [
-    12, 14, 16, 18, 20, 24, 28, 32, 36
+    12, 14, 16, 18, 20, 24, 28, 32, 36,
   ].sort();
 });

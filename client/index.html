@@ -14,17 +14,12 @@
       </ul>
     </nav>
 
-    <input type="text" ng-model="default">
-    <button ng-click="test(default)">Test</button>
-    <button></button>
-    <button><a href="#!/secrets">View Secrets</a></button>
-    <button><a href="#!/confess">View Secrets</a></button>
-
     <div ng-view=""></div>
 
     <br><hr><br>
     <p>{{default}}</p>
   <script src="./lib/angular/angular.js"></script>
+  <script src="./lib/angular-messages/angular-messages.js"></script>
   <script src="./lib/angular-route/angular-route.js"></script>
   <script src="./app/controller.js"></script>
   <script src="./app/factory.js"></script>

@@ -1,26 +1,30 @@
 <div class="confess">
 
   <div class="interface">
-    <input type="text" ng-model="secret.what"><br>
-    <input type="checkbox" name="date">Show date<br>
-    <input type="checkbox" name="location">Show location<br>
-    <input type="text"><br>
+    <h1>Confess</h1><br>
+
     <select name="text-fonts" ng-model="selectedFont"
     ng-options="font for font in fonts">
        <option value="" disabled selected style="display: none;">Font</option>
     </select>
-    <select name="text-size" ng-model="selectedFont"
+    <select name="text-size" ng-model="selectedSize"
     ng-options="size for size in sizes">
        <option value="" disabled selected style="display: none;">Size</option>
-    </select>
+    </select><br>
+
+    Show name <input type="checkbox" checked ng-model="name"><br>
+    Show date <input type="checkbox" checked ng-model="date"><br>
+    Show location <input type="checkbox" checked ng-model="location"><br>
+
+    <button>Submit</button>
   </div>
 
   <div class="message">
     <div class="upper">
       <ul>
-        <li>{{ secret.who }}</li>
-        <li>{{ secret.when }}</li>
-        <li>{{ secret.where }}</li>
+        <li ng-show="name">{{ secret.who }}</li>
+        <li ng-show="date">{{ secret.when }}</li>
+        <li ng-show="location">{{ secret.where }}</li>
       </ul>
     </div>
     <textarea class="msginput" ng-model="secret.what"></textarea>
