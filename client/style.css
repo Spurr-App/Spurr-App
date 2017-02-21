@@ -20,3 +20,24 @@ body {
 .lower {
 
 }
+
+
+.confess {
+  margin: auto;
+  background: green;
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+}
+
+.interface {
+  background: blue;
+  width: 200px;
+  height: 200px;
+}
+
+.message {
+  background: red;
+  width: 200px;
+  height: 200px;
+}

@@ -1,0 +1,18 @@
+<div class="confess">
+
+  <div class="interface">
+    <input type="text" ng-model="message">
+    <input type="color">
+    <input type="date">
+    <input type="tel">
+    <input type="time">
+    <select name="fonts" ng-model="selectedFont"
+    ng-options="font for font in fonts"></select>
+  </div>
+
+  <div class="message">
+    <p>
+      {{ message }}
+    </p>
+  </div>
+</div>

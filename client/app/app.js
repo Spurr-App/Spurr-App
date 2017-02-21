@@ -10,7 +10,7 @@ const router = function ($routeProvider) {
     })
     .when('/confess', {
       templateUrl: '../views/confess.html',
-      controller: 'confessCtrl.js',
+      controller: 'confessCtrl',
     })
     .otherwise({
       redirectTo: '/test',
