@@ -1,0 +1,60 @@
+body {
+  text-align: center;
+}
+
+nav, ul {
+  margin: 0;
+  background: red;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav {
+  margin-bottom: 25px;
+  padding: 15px;
+}
+
+.spurr {
+  width:400px;
+}
+
+.upper {
+  margin-bottom: 15px;
+}
+
+.lower {
+
+}
+
+
+.confess {
+  margin: auto;
+  background: green;
+  display: flex;
+  justify-content: space-between;
+  width: 850px;
+}
+
+.interface {
+  background: blue;
+  width: 201px;
+  height: 376px;
+  padding: 12px;
+}
+
+.message {
+  background: red;
+  width: 576px;
+  height: 376px;
+  padding: 12px;
+}
+
+.msginput {
+  text-align: center;
+  width: 500px;
+  height: 300px;
+  border: none;
+  background: none;
+  outline: 0;
+}
