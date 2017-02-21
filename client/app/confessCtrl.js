@@ -15,4 +15,8 @@ angular.module('Confess-Ctrl', [])
     'Arial Black',
     'Impact'
   ].sort();
+
+  $scope.sizes = [
+    12, 14, 16, 18, 20, 24, 28, 32, 36
+  ].sort();
 });

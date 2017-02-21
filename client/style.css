@@ -2,19 +2,24 @@ body {
   text-align: center;
 }
 
+nav, ul {
+  margin: 0;
+  background: red;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav {
+  padding: 15px;
+}
+
 .spurr {
   width:400px;
 }
 
 .upper {
-
-}
-
-.upper ul {
-  background: red;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
+  margin-bottom: 15px;
 }
 
 .lower {
@@ -27,17 +32,28 @@ body {
   background: green;
   display: flex;
   justify-content: space-between;
-  width: 500px;
+  width: 850px;
 }
 
 .interface {
   background: blue;
-  width: 200px;
-  height: 200px;
+  width: 201px;
+  height: 376px;
+  padding: 12px;
 }
 
 .message {
   background: red;
-  width: 200px;
-  height: 200px;
+  width: 576px;
+  height: 376px;
+  padding: 12px;
+}
+
+.msginput {
+  text-align: center;
+  width: 500px;
+  height: 300px;
+  border: none;
+  background: none;
+  outline: 0;
 }

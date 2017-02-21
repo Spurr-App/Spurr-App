@@ -6,10 +6,17 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body ng-app="Spurr" ng-controller="SpurrCtrl">
-    <h1><a href="/">Hello Spurr</a></h1>
+    <nav>
+      <a href="/">Hello Spurr</a>
+      <ul>
+        <li><a href="#!/test">View Test</a></li>        <li><a href="#!/confess">Confess</a></li>
+        <li><a href="#!/secrets">View Secrets</a></li>
+      </ul>
+    </nav>
+
     <input type="text" ng-model="default">
     <button ng-click="test(default)">Test</button>
-    <button><a href="#!/test">View Test</a></button>
+    <button></button>
     <button><a href="#!/secrets">View Secrets</a></button>
     <button><a href="#!/confess">View Secrets</a></button>
 
