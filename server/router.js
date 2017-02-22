@@ -31,25 +31,25 @@ router.get = function get(reqs, table, db) {
   });
 };
 
-
 router.post = function post(attrs, columns, table, db) {
   const attr = attrs.join('", "');
   const cols = columns.join(',');
   const query = `INSERT INTO ${table} (${cols}) VALUES ("${attr}")`;
+  console.log(query);
   return db.query(query, (err, rows) => {
     if (!err) {
-      console.log(rows);
+      console.log(rows)
     } else {
       console.log(err);
     }
   });
 };
 
-router.spurrAPI = function ({ body }) {
-  console.log(body);
+router.spurrAPI = function ({ body }, res) {
   let attrs = [body.location, body.message];
   let columns = ['location', 'message'];
   router.post(attrs, columns, 'spurrs', db);
+  res.send(200);
 };
 
 module.exports = router;
