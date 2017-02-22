@@ -11,8 +11,22 @@ angular.module('Receive-Fact', [])
     });
   };
 
+  const saveSpurr = function(secret) {
+    return new Promise(function(resolve, reject) {
+      $http({
+        method: 'POST',
+        url: '/api/savedSpurrs',
+        data: secret,
+      }).then(function (res) {
+        console.log('done');
+        resolve(res.data);
+      });
+    });
+  };
+
   return {
-    get: grabOneSpurr
+    get: grabOneSpurr,
+    post: saveSpurr,
   };
 });
 

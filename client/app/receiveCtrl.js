@@ -1,13 +1,6 @@
 angular.module('Receive-Ctrl', [])
 .controller('receiveCtrl', function ($scope, receiveFact) {
 
-  $scope.secret = {
-    name: 'null',
-    date: 'null',
-    location: 'null',
-    message: 'null',
-  };
-
   // $scope.secret = {
   //   name: null,
   //   date: null,
@@ -15,9 +8,15 @@ angular.module('Receive-Ctrl', [])
   //   message: null,
   // };
 
-  $scope.start = function() {
-    receiveFact.get();
+  $scope.get = function() {
+    receiveFact.get()
+    .then(function(data) {
+      $scope.secret = data;
+    });
   };
 
-  $scope.start();
+  $scope.save = function(secret) {
+    receiveFact.post(secret);
+  };
+
 });
