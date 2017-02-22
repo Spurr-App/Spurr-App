@@ -47,8 +47,8 @@ router.post = function post(attrs, columns, table, db) {
 
 router.spurrAPI = function ({ body }) {
   console.log(body);
-  let attrs = [body.date, body.location, body.message];
-  let columns = ['timestamp', 'location', 'message'];
+  let attrs = [body.location, body.message];
+  let columns = ['location', 'message'];
   router.post(attrs, columns, 'spurrs', db);
 };
 

@@ -51,7 +51,7 @@ dbConnection.connect((err) => {
 
 app.post('/api/spurrs', reqTo.spurrAPI);
 
-reqTo.get(['*'], 'spurrs', dbConnection); 
+reqTo.get(['*'], 'spurrs', dbConnection);
 
 module.exports = app;
 

@@ -1,4 +1,4 @@
--- DROP DATABASE spurr;
+DROP DATABASE spurr;
 
 CREATE DATABASE spurr;
 
@@ -25,7 +25,7 @@ CREATE TABLE saved_spurrs (
 CREATE TABLE spurrs (
   spurr_id int not null auto_increment,
   timestamp int,
-  message varchar(15),
+  message varchar(450),
   location varchar(15),
   Primary key(spurr_id)
 );
@@ -34,8 +34,8 @@ CREATE TABLE user_saved_spurrs (
   id int not null auto_increment,
   user_id int,
   spurr_id int,
-  timestamp int,
-  message varchar(15),
+  timestamp varchar(15),
+  message varchar(450),
   location varchar(15),
   Primary key(id),
   foreign key(user_id) references users (user_id),
