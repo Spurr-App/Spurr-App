@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<div class="userForm">
+  <h1>SIGN UP</h1>
+  <form name="signUp" ng-submit="signup(user)">
+    <table>
+      <tr>
+        <td>Username:</td>
+        <td><input type="text" ng-model="user.username"></td>
+      </tr>
+      <tr>
+        <td>eMail:</td>
+        <td><input type="text" ng-model="user.email"></td>
+      </tr>
+      <tr>
+        <td>Password:</td>
+        <td><input type="password" ng-model="user.password" ng-minlength="3" ng-maxlength="20" required></td>
+      </tr>
+    </table>
+
+    <button type="submit">Submit</button>
+
+    <div ng-messages="signUp.$error" class="error" role="alert">
+      <div ng-show="username">That username is already in use!</div>
+      <div ng-show="email">That email is already in use!</div>
+      <div ng-message="minlength maxlength">Password must be 3-20 characters</div>
+    </div>
+  </form>
+</div>
