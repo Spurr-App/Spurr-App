@@ -66,7 +66,24 @@ const get = function get(reqs, table, db) {
   });
 };
 
+
+const post = function post(attrs, columns, table, db) {
+  const attr = attrs.join('", "');
+  const cols = columns.join(',');
+  const query = `INSERT INTO ${table} (${cols}) VALUES ("${attr}")`;
+  return db.query(query, (err, rows) => {
+    if (!err) {
+      console.log(rows);
+    } else {
+      console.log(err);
+    }
+  });
+};
+
+post(['simone'], ['username'], 'users', dbConnection);
+
 get(['username', 'user_id'], 'users', dbConnection);
+
 
 // app.use(express.static(path.join(__dirname, './client/index.html')));
 
