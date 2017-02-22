@@ -7,21 +7,19 @@ const methodOverride = require('method-override');
 const mysql          = require('mysql');
 const path           = require('path');
 require('dotenv').config();
+const reqTo          = require('./server/router.js');
 
 const app            = express();
-// const HOST           = process.env.HOST;
-// const USER           = process.env.USER;
-// const PASSWORD       = process.env.PASSWORD;
-// const DATABASE       = process.env.DB;
-const dbConnection = mysql.createConnection({
-  host: 'localhost',
+const HOST           = process.env.HOST;
+const USER           = process.env.USER;
+const PASSWORD       = process.env.PASSWORD;
+const DATABASE       = process.env.DB;
+const dbConnection   = mysql.createConnection({
+  host: HOST,
   user: 'root',
-  password: '',
-  database: 'spurr',
-  // host: HOST,
   // user: USER,
-  // password: PASSWORD,
-  // database: DATABASE,
+  password: PASSWORD,
+  database: DATABASE,
 });
 
 // Authentication ==========================================================
@@ -38,8 +36,10 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '/client')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
-// app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
+// app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+// parse application/vnd.api+json as json
+// app.use(methodOverride('X-HTTP-Method-Override'));
+// override with the X-HTTP-Method-Override header in the request
 
 dbConnection.connect((err) => {
   if (err) {
@@ -47,49 +47,11 @@ dbConnection.connect((err) => {
     return;
   }
   console.log('Connection with mysql established');
-
 });
 
-// @input requests (array) : array of
+app.post('/api/spurrs', reqTo.spurrAPI);
 
-// @result
-
-const get = function get(reqs, table, db) {
-  const req = reqs.join(',');
-  const query = `SELECT ${req} FROM ${table}`;
-  return db.query(query, (err, rows) => {
-    if (!err) {
-      console.log(rows);
-    } else {
-      console.log(err);
-    }
-  });
-};
-
-
-const post = function post(attrs, columns, table, db) {
-  const attr = attrs.join('", "');
-  const cols = columns.join(',');
-  const query = `INSERT INTO ${table} (${cols}) VALUES ("${attr}")`;
-  return db.query(query, (err, rows) => {
-    if (!err) {
-      console.log(rows);
-    } else {
-      console.log(err);
-    }
-  });
-};
-
-post(['simone'], ['username'], 'users', dbConnection);
-
-get(['username', 'user_id'], 'users', dbConnection);
-
-
-// app.use(express.static(path.join(__dirname, './client/index.html')));
-
-
-// Connecting to our models ======
-// require('./models/prayerRequestModel.js'); // which executes 'mongoose.connect()'
+reqTo.get(['*'], 'spurrs', dbConnection); 
 
 module.exports = app;
 

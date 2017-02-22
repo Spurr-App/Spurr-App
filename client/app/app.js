@@ -1,16 +1,12 @@
 const router = function ($routeProvider) {
   $routeProvider
-    .when('/test', {
-      templateUrl: '../views/test.html',
-      // controller: '',
+    .when('/confess', {
+      templateUrl: '../views/confess.html',
+      controller: 'confessCtrl',
     })
     .when('/secrets', {
       templateUrl: '../views/secrets.html',
       // controller: '',
-    })
-    .when('/confess', {
-      templateUrl: '../views/confess.html',
-      controller: 'confessCtrl',
     })
     .when('/about', {
       templateUrl: '../views/about.html',
@@ -25,7 +21,7 @@ const router = function ($routeProvider) {
       controller: 'confessCtrl',
     })
     .otherwise({
-      redirectTo: '/test',
+      redirectTo: '/confess',
     });
 };
 

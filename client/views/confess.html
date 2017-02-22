@@ -10,23 +10,24 @@
     <select name="text-size" ng-model="selectedSize"
     ng-options="size for size in sizes">
        <option value="" disabled selected style="display: none;">Size</option>
-    </select><br>
+    </select><br><br>
 
     Show name <input type="checkbox" checked ng-model="name"><br>
     Show date <input type="checkbox" checked ng-model="date"><br>
-    Show location <input type="checkbox" checked ng-model="location"><br>
+    Show location <input type="checkbox" checked ng-model="location"><br><br>
 
-    <button>Submit</button>
+    <button ng-click="confess(secret)">Submit</button>
+    <button ng-click="get(secret)">Submit</button>
   </div>
 
   <div class="message">
     <div class="upper">
       <ul>
-        <li ng-show="name">{{ secret.who }}</li>
-        <li ng-show="date">{{ secret.when }}</li>
-        <li ng-show="location">{{ secret.where }}</li>
+        <li ng-show="showName">{{ secret.name }}</li>
+        <li ng-show="showDate">{{ date.toDateString() }}</li>
+        <li ng-show="showLocation">{{ secret.location }}</li>
       </ul>
     </div>
-    <textarea class="msginput" ng-model="secret.what"></textarea>
+    <textarea class="msginput" ng-model="secret.message"></textarea>
   </div>
 </div>
