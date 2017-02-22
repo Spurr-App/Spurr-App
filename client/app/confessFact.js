@@ -7,7 +7,7 @@ angular.module('Confess-Fact', [])
       data: secret,
     }).then(function (res) {
       console.log('success', res);
-      $window.location.href = "#!/secrets";
+      $window.location.href = "#!/receive";
     });
   };
 

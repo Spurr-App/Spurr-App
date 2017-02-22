@@ -1,0 +1,12 @@
+<button ng-click="start()">get</button>
+
+<div class="message">
+  <div class="upper" ng-model="secret">
+    <ul>
+      <li>{{ secret.name }}</li>
+      <li>{{ secret.date }}</li>
+      <li>{{ secret.location }}</li>
+    </ul>
+  </div>
+  <div>{{secret.message}}</div>
+</div>

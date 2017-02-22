@@ -4,6 +4,10 @@ const router = function ($routeProvider) {
       templateUrl: '../views/confess.html',
       controller: 'confessCtrl',
     })
+    .when('/receive', {
+      templateUrl: '../views/receive.html',
+      controller: 'receiveCtrl',
+    })
     .when('/secrets', {
       templateUrl: '../views/secrets.html',
       // controller: '',
@@ -30,6 +34,8 @@ angular.module('Spurr', [
   'Spurr-Fact',
   'Confess-Ctrl',
   'Confess-Fact',
+  'Receive-Ctrl',
+  'Receive-Fact',
   'ngRoute',
   'ngMessages',
 ])

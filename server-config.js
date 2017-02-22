@@ -49,9 +49,11 @@ dbConnection.connect((err) => {
   console.log('Connection with mysql established');
 });
 
-app.post('/api/spurrs', reqTo.spurrAPI);
+app.post('/api/spurrs', reqTo.postSpurr);
 
-reqTo.get(['*'], 'spurrs', dbConnection);
+app.get('/api/spurrs', reqTo.getSpurr);
+
+// reqTo.get(['*'], 'spurrs', dbConnection);
 
 module.exports = app;
 
