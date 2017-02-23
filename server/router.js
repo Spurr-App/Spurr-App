@@ -33,7 +33,14 @@ router.postSpurr = function ({ body }, res) {
   let attrs = [body.location, body.message];
   let columns = ['location', 'message'];
   router.post(attrs, columns, 'spurrs', db);
-  res.send(200);
+  res.sendStatus(200);
+};
+
+router.saveSpurr = function ({ body }, res) {
+  let attrs = [body.location, body.message];
+  let columns = ['location', 'message'];
+  router.post(attrs, columns, 'saved_spurrs', db);
+  res.sendStatus(200);
 };
 
 // @input requests (array) : array of
@@ -42,12 +49,14 @@ router.postSpurr = function ({ body }, res) {
 
 router.get = function get(reqs, table, db) {
   const req = reqs.join(',');
-  const query = `SELECT ${req} FROM ${table}`;
+  const query = `SELECT ${req} FROM ${table} ORDER BY spurr_id ASC LIMIT 1`;
   return new Promise(function(resolve, reject) {
     db.query(query, (err, rows) => {
       if (!err) {
+        console.log(rows[0]);
         resolve(rows[0])
-        console.log(rows);
+        let del = `DELETE FROM ${table} WHERE spurr_id = ${rows[0].spurr_id}`;
+        db.query(del);
       } else {
         console.log(err);
       }

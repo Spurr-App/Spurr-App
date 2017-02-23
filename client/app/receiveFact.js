@@ -1,5 +1,5 @@
 angular.module('Receive-Fact', [])
-.factory('receiveFact', function ($http) {
+.factory('receiveFact', function ($http, $window) {
   const grabOneSpurr = function() {
     return new Promise(function(resolve, reject) {
       $http({
@@ -19,7 +19,7 @@ angular.module('Receive-Fact', [])
         data: secret,
       }).then(function (res) {
         console.log('done');
-        resolve(res.data);
+        $window.location.href = "#!/receive";
       });
     });
   };

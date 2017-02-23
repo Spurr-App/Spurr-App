@@ -4,7 +4,6 @@ body {
 
 nav, ul {
   margin: 0;
-  background: red;
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -13,6 +12,11 @@ nav, ul {
 nav {
   margin-bottom: 25px;
   padding: 15px;
+  background: red;
+}
+
+nav li {
+  margin-left: 15px;
 }
 
 .spurr {
@@ -57,4 +61,12 @@ nav {
   border: none;
   background: none;
   outline: 0;
+}
+
+#receivedMessage {
+  background: pink;
+  margin:auto;
+  width: 576px;
+  height: 376px;
+  padding: 12px;
 }

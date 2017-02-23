@@ -53,6 +53,9 @@ app.post('/api/spurrs', reqTo.postSpurr);
 
 app.get('/api/spurrs', reqTo.getSpurr);
 
+app.post('/api/savedSpurrs', reqTo.saveSpurr);
+
+
 // reqTo.get(['*'], 'spurrs', dbConnection);
 
 module.exports = app;

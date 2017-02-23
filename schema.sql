@@ -17,7 +17,7 @@ CREATE TABLE users (
 CREATE TABLE saved_spurrs (
   spurr_id int not null auto_increment,
   timestamp int,
-  message varchar(15),
+  message varchar(450),
   location varchar(15),
   Primary key(spurr_id)
 );
@@ -45,5 +45,10 @@ CREATE TABLE user_saved_spurrs (
 /* Create other tables and define schemas for them here! */
 
 /*  Execute this file from the command line by typing:
- *    mysql -u root < server/schema.sql
+ *    mysql -u root < schema.sql
  *  to create the database and the tables.*/
+
+INSERT INTO spurrs (location,message) VALUES ("NOLA", "Check it out");
+INSERT INTO spurrs (location,message) VALUES ("NOLA", "I killed my neighbour");
+INSERT INTO spurrs (location,message) VALUES ("NOLA", "I love you");
+INSERT INTO spurrs (location,message) VALUES ("NOLA", "I hate you");

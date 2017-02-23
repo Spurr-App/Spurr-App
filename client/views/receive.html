@@ -1,6 +1,6 @@
 <button ng-click="get()">OPEN SECRET</button>
 <br><br>
-<div class="message">
+<div id="receivedMessage" ng-show="ready">
   <div class="upper" ng-model="secret">
     <ul>
       <li>{{ secret.name }}</li>
@@ -11,4 +11,4 @@
   <div>{{secret.message}}</div>
 </div>
 <br>
-<button ng-click="save()">SAVE SECRET</button>
+<button ng-click="save(secret)">SAVE SECRET</button>
