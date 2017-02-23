@@ -1,14 +1,14 @@
-<button ng-click="get()">OPEN SECRET</button>
+<button ng-click="get()" ng-show="!ready">OPEN SECRET</button>
 <br><br>
 <div id="receivedMessage" ng-show="ready">
   <div class="upper" ng-model="secret">
     <ul>
       <li>{{ secret.name }}</li>
-      <li>{{ secret.timestamp }}</li>
+      <li>{{ secret.date }}</li>
       <li>{{ secret.location }}</li>
     </ul>
   </div>
   <div>{{secret.message}}</div>
 </div>
 <br>
-<button ng-click="save(secret)">SAVE SECRET</button>
+<button ng-click="save(secret)" ng-show="ready">SAVE SECRET</button>

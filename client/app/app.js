@@ -9,7 +9,7 @@ const router = function ($routeProvider) {
       controller: 'receiveCtrl',
     })
     .when('/secrets', {
-      templateUrl: '../views/secrets.html',
+      templateUrl: '../views/saved.html',
       // controller: '',
     })
     .when('/about', {

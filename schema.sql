@@ -16,7 +16,8 @@ CREATE TABLE users (
 
 CREATE TABLE saved_spurrs (
   spurr_id int not null auto_increment,
-  timestamp int,
+  date varchar(20),
+  name varchar(15),
   message varchar(450),
   location varchar(15),
   Primary key(spurr_id)
@@ -24,7 +25,8 @@ CREATE TABLE saved_spurrs (
 
 CREATE TABLE spurrs (
   spurr_id int not null auto_increment,
-  timestamp int,
+  date varchar(20),
+  name varchar(15),
   message varchar(450),
   location varchar(15),
   Primary key(spurr_id)
@@ -34,7 +36,7 @@ CREATE TABLE user_saved_spurrs (
   id int not null auto_increment,
   user_id int,
   spurr_id int,
-  timestamp varchar(15),
+  date varchar(20),
   message varchar(450),
   location varchar(15),
   Primary key(id),
@@ -48,7 +50,12 @@ CREATE TABLE user_saved_spurrs (
  *    mysql -u root < schema.sql
  *  to create the database and the tables.*/
 
-INSERT INTO spurrs (location,message) VALUES ("NOLA", "Check it out");
-INSERT INTO spurrs (location,message) VALUES ("NOLA", "I killed my neighbour");
-INSERT INTO spurrs (location,message) VALUES ("NOLA", "I love you");
-INSERT INTO spurrs (location,message) VALUES ("NOLA", "I hate you");
+INSERT INTO users (username, location) VALUES ("liv", 'new orleans');
+
+INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "Check it out, I'm lame");
+INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "Things will be okay");
+INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "Imagine... Nothing");
+INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "Check it out again");
+INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "I killed my neighbour");
+INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "I love you");
+INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "I hate you");

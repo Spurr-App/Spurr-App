@@ -15,7 +15,7 @@ const db = mysql.createConnection({
 
 const router = {};
 
-router.post = function post(attrs, columns, table, db) {
+router.post = function post(db, attrs, columns, table) {
   const attr = attrs.join('", "');
   const cols = columns.join(',');
   const query = `INSERT INTO ${table} (${cols}) VALUES ("${attr}")`;
@@ -30,16 +30,17 @@ router.post = function post(attrs, columns, table, db) {
 };
 
 router.postSpurr = function ({ body }, res) {
-  let attrs = [body.location, body.message];
-  let columns = ['location', 'message'];
-  router.post(attrs, columns, 'spurrs', db);
+  const columns = Object.keys(body);
+  const params = columns.reduce((arr, key) => arr.concat([body[key]]), [])
+  console.log(params, columns);
+  router.post(db, params, columns, 'spurrs');
   res.sendStatus(200);
 };
 
 router.saveSpurr = function ({ body }, res) {
-  let attrs = [body.location, body.message];
-  let columns = ['location', 'message'];
-  router.post(attrs, columns, 'saved_spurrs', db);
+  let attrs = [body.location, body.message, body.date];
+  let columns = ['location', 'message', 'date'];
+  router.post(db, attrs, columns, 'saved_spurrs');
   res.sendStatus(200);
 };
 
@@ -47,15 +48,15 @@ router.saveSpurr = function ({ body }, res) {
 
 // @result
 
-router.get = function get(reqs, table, db) {
+router.get = function get(db, reqs, table) {
   const req = reqs.join(',');
   const query = `SELECT ${req} FROM ${table} ORDER BY spurr_id ASC LIMIT 1`;
   return new Promise(function(resolve, reject) {
     db.query(query, (err, rows) => {
       if (!err) {
         console.log(rows[0]);
-        resolve(rows[0])
-        let del = `DELETE FROM ${table} WHERE spurr_id = ${rows[0].spurr_id}`;
+        resolve(rows[0]);
+        const del = `DELETE FROM ${table} WHERE spurr_id = ${rows[0].spurr_id}`;
         db.query(del);
       } else {
         console.log(err);
@@ -65,7 +66,14 @@ router.get = function get(reqs, table, db) {
 };
 
 router.getSpurr = function (req, res) {
-  router.get(['*'], 'spurrs', db)
+  router.get(db, ['*'], 'spurrs')
+  .then(function (data) {
+    res.status(200).send(data);
+  });
+};
+
+router.getSavedSpurrs = function (req, res) {
+  router.get(db, ['*'], 'spurrs')
   .then(function (data) {
     res.status(200).send(data);
   });

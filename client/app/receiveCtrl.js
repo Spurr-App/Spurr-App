@@ -1,12 +1,16 @@
 angular.module('Receive-Ctrl', [])
 .controller('receiveCtrl', function ($scope, receiveFact) {
 
+  $scope.username = 'liv'
+
   $scope.ready = false;
 
   $scope.get = function() {
     receiveFact.get()
-    .then(function(data) {
-      $scope.secret = data;
+    .then(function(secret) {
+      console.log(secret);
+      $scope.secret = secret;
+      $scope.secret.username = $scope.username;
       $scope.ready = true;
     });
   };
@@ -14,5 +18,7 @@ angular.module('Receive-Ctrl', [])
   $scope.save = function(secret) {
     receiveFact.post(secret);
   };
+
+  $scope.get();
 
 });
