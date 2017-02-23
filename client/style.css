@@ -19,8 +19,21 @@ nav li {
   margin-left: 15px;
 }
 
+#savedSpurrHolder {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 850px;
+}
+
 .spurr {
-  width:400px;
+  width: 380px;
+  height: 246px;
+  padding: 10px;
+  background-color: yellow;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 .upper {

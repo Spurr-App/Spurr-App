@@ -19,7 +19,7 @@ angular.module('Receive-Fact', [])
         data: secret,
       }).then(function (res) {
         console.log('done');
-        $window.location.href = "#!/receive";
+        $window.location.href = "#!/secrets";
       });
     });
   };
