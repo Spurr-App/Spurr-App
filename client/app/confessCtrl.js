@@ -1,29 +1,46 @@
 angular.module('Confess-Ctrl', [])
 .controller('confessCtrl', function ($scope, confessFact) {
 
-  $scope.showName = true;
+  $scope.showSender = true;
+  $scope.showRecipient = true;
   $scope.showDate = true;
   $scope.showLocation = true;
 
   $scope.secret = {
-    name: 'Liv',
+    sender: 'Liv',
+    recipient: 'Dear self,',
     date: new Date().toDateString(),
     location: 'NOLA',
-    message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    text_font: 'arial',
-    text_color: 'white',
-    text_size: 20,
-    background: 'blue',
+    message: 'It\'ll be okay.',
+    inner_style: $scope.styleIn,
+    outer_style: $scope.styleOut,
+    // bgColor: 'black',
+    // bgImg: '../extra/letter-back.png',
+    // text_font: 'Arial',
+    // text_color: 'white',
+    // text_size: 20,
   };
 
-  $scope.style = {
-    background: $scope.secret.background,
+  $scope.images = {
+    none: 'none',
+    letter: '../extra/letter-back.png',
+    dot: '../extra/dot-back.png',
+  };
+
+  $scope.styleIn = {
     'font-family': $scope.secret.text_font,
     'font-size': $scope.secret.text_size + 'px',
-    color: $scope.secret.text_color,
+    'color': $scope.secret.text_color,
   };
 
-  $scope.background = '';
+  $scope.styleOut = {
+    'background-image': `url('${$scope.secret.bgImg}')`,
+    'background-color': $scope.secret.bgColor,
+    'font-family': $scope.secret.text_font,
+    'font-size': $scope.secret.text_size + 'px',
+    'color': $scope.secret.text_color,
+  };
+
   $scope.fonts = [
     'Arial',
     'Helvetica',
@@ -44,4 +61,16 @@ angular.module('Confess-Ctrl', [])
     confessFact.post(secret);
   }
 
+  $scope.setFont = function(font, size) {
+    console.log(font, size);
+    confessFact.font(font, size);
+  };
+
+  $scope.setBackground = function(url) {
+    confessFact.img(url);
+  }
+
+  $scope.setBackgroundColor = function(color) {
+    confessFact.bgColor(color);
+  }
 });

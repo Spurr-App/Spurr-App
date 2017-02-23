@@ -26,7 +26,8 @@ CREATE TABLE saved_spurrs (
 CREATE TABLE spurrs (
   spurr_id int not null auto_increment,
   date varchar(20),
-  name varchar(15),
+  sender varchar(15),
+  recipient varchar(15),
   message varchar(450),
   location varchar(15),
   text_font varchar(10),
