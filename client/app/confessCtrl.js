@@ -1,7 +1,5 @@
 angular.module('Confess-Ctrl', [])
 .controller('confessCtrl', function ($scope, confessFact) {
-  $scope.message = '';
-
 
   $scope.showName = true;
   $scope.showDate = true;
@@ -12,10 +10,18 @@ angular.module('Confess-Ctrl', [])
     date: new Date().toDateString(),
     location: 'NOLA',
     message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    text_font: 'arial',
+    text_color: 'white',
+    text_size: 20,
+    background: 'blue',
   };
 
-  console.log(Object.keys($scope.secret));
-  console.log(Object.values($scope.secret));
+  $scope.style = {
+    background: $scope.secret.background,
+    'font-family': $scope.secret.text_font,
+    'font-size': $scope.secret.text_size + 'px',
+    color: $scope.secret.text_color,
+  };
 
   $scope.background = '';
   $scope.fonts = [
@@ -35,12 +41,7 @@ angular.module('Confess-Ctrl', [])
   ].sort();
 
   $scope.confess = function(secret) {
-    console.log('step 1');
     confessFact.post(secret);
   }
 
-  $scope.get = function(secret) {
-    console.log('step 2');
-    confessFact.get(secret);
-  }
 });

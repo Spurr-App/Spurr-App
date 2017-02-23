@@ -15,8 +15,8 @@ const db = mysql.createConnection({
 
 const router = {};
 
-router.post = function post(db, attrs, columns, table) {
-  const attr = attrs.join('", "');
+router.post = function post(db, params, columns, table) {
+  const attr = params.join('", "');
   const cols = columns.join(',');
   const query = `INSERT INTO ${table} (${cols}) VALUES ("${attr}")`;
   console.log(query);
@@ -31,16 +31,15 @@ router.post = function post(db, attrs, columns, table) {
 
 router.postSpurr = function ({ body }, res) {
   const columns = Object.keys(body);
-  const params = columns.reduce((arr, key) => arr.concat([body[key]]), [])
-  console.log(params, columns);
+  const params = columns.reduce((arr, key) => arr.concat([body[key]]), []);
   router.post(db, params, columns, 'spurrs');
   res.sendStatus(200);
 };
 
 router.saveSpurr = function ({ body }, res) {
-  let attrs = [body.location, body.message, body.date];
-  let columns = ['location', 'message', 'date'];
-  router.post(db, attrs, columns, 'saved_spurrs');
+  const columns = Object.keys(body);
+  const params = columns.reduce((arr, key) => arr.concat([body[key]]), []);
+  router.post(db, params, columns, 'saved_spurrs');
   res.sendStatus(200);
 };
 

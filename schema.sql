@@ -29,6 +29,10 @@ CREATE TABLE spurrs (
   name varchar(15),
   message varchar(450),
   location varchar(15),
+  text_font varchar(10),
+  text_color varchar(10),
+  text_size int,
+  background varchar(10),
   Primary key(spurr_id)
 );
 

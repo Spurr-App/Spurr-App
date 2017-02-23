@@ -3,12 +3,10 @@
   <div class="interface">
     <h1>Confess</h1><br>
 
-    <select name="text-fonts" ng-model="selectedFont"
-    ng-options="font for font in fonts">
+    <select ng-model="selectedFont" ng-options="font for font in fonts">
        <option value="" disabled selected style="display: none;">Font</option>
     </select>
-    <select name="text-size" ng-model="selectedSize"
-    ng-options="size for size in sizes">
+    <select ng-model="selectedSize" ng-options="size for size in sizes">
        <option value="" disabled selected style="display: none;">Size</option>
     </select><br><br>
 
@@ -19,7 +17,7 @@
     <button ng-click="confess(secret)">Submit</button>
   </div>
 
-  <div class="message">
+  <div class="message" ng-style="style">
     <div class="upper">
       <ul>
         <li ng-show="showName">{{ secret.name }}</li>
