@@ -17,9 +17,12 @@ CREATE TABLE users (
 CREATE TABLE saved_spurrs (
   spurr_id int not null auto_increment,
   date varchar(20),
-  name varchar(15),
-  message varchar(450),
+  sender varchar(15),
+  recipient varchar(15),
+  message varchar(100),
   location varchar(15),
+  inner_style varchar(200),
+  outer_style varchar(200),
   Primary key(spurr_id)
 );
 
@@ -28,12 +31,10 @@ CREATE TABLE spurrs (
   date varchar(20),
   sender varchar(15),
   recipient varchar(15),
-  message varchar(450),
+  message varchar(100),
   location varchar(15),
-  text_font varchar(10),
-  text_color varchar(10),
-  text_size int,
-  background varchar(10),
+  inner_style varchar(200),
+  outer_style varchar(200),
   Primary key(spurr_id)
 );
 

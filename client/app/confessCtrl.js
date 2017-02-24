@@ -6,15 +6,21 @@ angular.module('Confess-Ctrl', [])
   $scope.showDate = true;
   $scope.showLocation = true;
 
-  $scope.secret = {
-    sender: 'Sender',
-    recipient: 'Recipient',
-    date: new Date().toDateString(),
-    location: 'NOLA',
-    message: 'Message',
-    inner_style: $scope.styleIn,
-    outer_style: $scope.styleOut,
-  };
+  $scope.fonts = [
+    'Arial',
+    'Helvetica',
+    'Futura',
+    'Times',
+    'Comic Sans MS',
+    'Papyrus',
+    'Courier New',
+    'Arial Black',
+    'Impact',
+  ].sort();
+
+  $scope.sizes = [
+    9, 12, 15, 21, 30, 36,
+  ];
 
   $scope.images = {
     none: 'none',
@@ -33,28 +39,23 @@ angular.module('Confess-Ctrl', [])
     'background-color': 'lightgrey',
   };
 
-  $scope.fonts = [
-    'Arial',
-    'Helvetica',
-    'Futura',
-    'Times',
-    'Comic Sans MS',
-    'Papyrus',
-    'Courier New',
-    'Arial Black',
-    'Impact'
-  ].sort();
+  $scope.secret = {
+    sender: 'Sender',
+    recipient: 'Recipient',
+    date: new Date().toDateString(),
+    location: 'NOLA',
+    message: 'Message',
+    inner_style: $scope.styleIn,
+    outer_style: $scope.styleOut,
+  };
 
-  $scope.sizes = [
-    12, 14, 16, 18, 20, 24, 28, 32, 36,
-  ].sort();
-
-  $scope.confess = function(secret) {
-    confessFact.post(secret);
+  $scope.set = function() {
+    $scope.secret.inner_style = JSON.stringify($scope.styleIn);
+    $scope.secret.outer_style = JSON.stringify($scope.styleOut);
+    console.log($scope.secret);
   }
 
   $scope.setFont = function(font, size, color) {
-    console.log(font, size);
     if (font) {
       $scope.styleIn['font-family'] = font;
     } else if (size) {
@@ -62,15 +63,31 @@ angular.module('Confess-Ctrl', [])
     } else if (color) {
       $scope.styleIn.color = color;
     }
-    // confessFact.font(font, size, color);
+    $scope.set();
   };
 
-  $scope.setBackground = function(url) {
+  $scope.setBackground = function(url, color) {
+    if (url) {
+      if (url === 'none') {
+        $scope.styleOut['background-image'] = 'none';
+      }
+      $scope.styleOut['background-image'] = `url(${url})`;
+    } else if (color) {
+      $scope.styleOut['background-color'] = color;
+    }
+    $scope.set();
+  };
 
-    confessFact.img(url);
-  }
-
-  $scope.setBackgroundColor = function(color) {
-    confessFact.bgColor(color);
+  $scope.confess = function(secret) {
+    if (!$scope.showSender) {
+      delete secret.sender;
+    } else if (!$scope.showRecipient) {
+      delete secret.recipient;
+    } else if (!$scope.showDate) {
+      delete secret.date;
+    } else if (!$scope.showlocation) {
+      delete secret.location;
+    }
+    confessFact.post(secret);
   }
 });
