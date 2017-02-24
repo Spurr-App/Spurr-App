@@ -73,10 +73,10 @@ ul {
   font-size: 15px;
 }
 
-.msgText {
-  width: 480px;
+.msgText, .left, .right {
+  width: 100%;
   text-align: center;
-  border: none; 
+  border: none;
   background: none;
   outline: 0;
 }

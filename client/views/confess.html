@@ -3,17 +3,27 @@
   <div class="interface">
     <h1>Confess</h1>
 
-    <select ng-model="selectedFont" ng-options="font for font in fonts" ng-change="setFont(selectedFont, null)">
+    <select ng-model="selectedFont" ng-options="font for font in fonts" ng-change="setFont(selectedFont, null, null)">
        <option value="" disabled selected style="display: none;">Font</option>
     </select>
-    <select ng-model="selectedSize" ng-options="size for size in sizes" ng-change="setFont(null, selectedSize)">
-       <option value="" disabled selected style="display: none;">Size</option>
-    </select><br><br>
 
-    <input type="text" ng-model="backgroundColor" placeholder="Background color"><button ng-click="setBackgroundColor(backgroundColor)">Set color</button>
+    <select ng-model="selectedSize" ng-options="size for size in sizes" ng-change="setFont(null, selectedSize, null)">
+       <option value="" disabled selected style="display: none;">Size</option>
+    </select>
+    <br><br>
+
+    <input type="text" ng-model="textColor" placeholder="Text color">
+    <button ng-click="setFont(null, null, textColor)">Set color</button>
+    <br><br>
+
     <select ng-model="selectedImage" ng-options="image for (image, url) in images" ng-change="setBackground(selectedImage)">
        <option value="" disabled selected style="display: none;">Background Image</option>
-    </select><br><br>
+    </select>
+    <br><br>
+
+    <input type="text" ng-model="backgroundColor" placeholder="Background color">
+    <button ng-click="setBackgroundColor(backgroundColor)">Set color</button>
+    <br><br>
 
     <table>
       <tr>
@@ -42,10 +52,12 @@
 
 
     <button ng-click="confess(secret)">Submit</button>
+
+    <br><br><button ng-click="test(styleIn)">Check style</button>
   </div>
 
   <div id="confessional" class="message" ng-style="styleOut">
-    <div class="upper">
+    <div class="upper" ng-style="styleIn">
       <ul class="msgText">
         <li ng-show="showLocation" class="left">{{ secret.location }}</li>
         <li ng-show="showDate" class="right">{{ secret.date }}</li>
