@@ -1,14 +1,21 @@
-<button ng-click="get()" ng-show="!ready">OPEN SECRET</button>
+<button ng-click="show()" ng-show="!ready">OPEN SECRET</button>
 <br><br>
-<div id="receivedMessage" ng-show="ready">
-  <div class="upper" ng-model="secret">
-    <ul>
-      <li>{{ secret.name }}</li>
-      <li>{{ secret.date }}</li>
-      <li>{{ secret.location }}</li>
+
+<div id="receivedMessage" class="message" ng-style="secret.outer_style" ng-show="ready">
+  <div class="upper" ng-style="secret.inner_style">
+    <ul class="msgText">
+      <li class="left">{{ secret.location }}</li>
+      <li class="right">{{ secret.date }}</li>
     </ul>
   </div>
-  <div>{{secret.message}}</div>
+  <div ng-style="secret.inner_style">
+    <p>{{ secret.recipient }}</p>
+    <p>{{ secret.message }}</p>
+    <p>{{ secret.sender }}</p>
+  </div>
 </div>
+
+
+<br>
 <br>
 <button ng-click="save(secret)" ng-show="ready">SAVE SECRET</button>
