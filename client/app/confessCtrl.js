@@ -35,7 +35,7 @@ angular.module('Confess-Ctrl', [])
   };
 
   $scope.styleOut = {
-    'background-image': `url('$scope.images.none')`,
+    'background-image': 'none',
     'background-color': 'lightgrey',
   };
 
@@ -45,15 +45,16 @@ angular.module('Confess-Ctrl', [])
     date: new Date().toDateString(),
     location: 'NOLA',
     message: 'Message',
-    inner_style: $scope.styleIn,
-    outer_style: $scope.styleOut,
+    inner_style: JSON.stringify($scope.styleIn),
+    outer_style: JSON.stringify($scope.styleOut),
   };
 
   $scope.set = function() {
     $scope.secret.inner_style = JSON.stringify($scope.styleIn);
     $scope.secret.outer_style = JSON.stringify($scope.styleOut);
+    console.log(JSON.stringify($scope.styleIn));
     console.log($scope.secret);
-  }
+  };
 
   $scope.setFont = function(font, size, color) {
     if (font) {
@@ -66,7 +67,7 @@ angular.module('Confess-Ctrl', [])
     $scope.set();
   };
 
-  $scope.setBackground = function(url, color) {
+  $scope.setBackground = function (url, color) {
     if (url) {
       if (url === 'none') {
         $scope.styleOut['background-image'] = 'none';
@@ -78,15 +79,15 @@ angular.module('Confess-Ctrl', [])
     $scope.set();
   };
 
-  $scope.confess = function(secret) {
+  $scope.confess = function (secret) {
     if (!$scope.showSender) {
-      delete secret.sender;
+      secret.sender = null;
     } else if (!$scope.showRecipient) {
-      delete secret.recipient;
+      secret.recipient = null;
     } else if (!$scope.showDate) {
-      delete secret.date;
+      secret.date = null;
     } else if (!$scope.showlocation) {
-      delete secret.location;
+      secret.location = null;
     }
     confessFact.post(secret);
   }

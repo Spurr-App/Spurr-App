@@ -9,6 +9,8 @@ angular.module('Receive-Ctrl', [])
     receiveFact.get()
     .then(function(secret) {
       console.log(secret);
+      console.log(JSON.parse(secret.inner_style));
+      console.log('secret');
       $scope.secret = secret;
       $scope.secret.username = $scope.username;
       $scope.ready = true;

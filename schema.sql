@@ -58,10 +58,10 @@ CREATE TABLE user_saved_spurrs (
 
 INSERT INTO users (username, location) VALUES ("liv", 'new orleans');
 
-INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "Check it out, I'm lame");
-INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "Things will be okay");
-INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "Imagine... Nothing");
-INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "Check it out again");
-INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "I killed my neighbour");
-INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "I love you");
-INSERT INTO spurrs (date, location,message) VALUES ("Wed Feb 22 2017", "NOLA", "I hate you");
+INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 2017", "NOLA", "Check it out, I'm lame", '{"font-family":"arial","font-size":"21px","color":"black"}');
+INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 2017", "NOLA", "Things will be okay", '{"font-family":"arial","font-size":"21px","color":"black"}');
+INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 2017", "NOLA", "Imagine... Nothing", '{"font-family":"arial","font-size":"21px","color":"black"}');
+INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 2017", "NOLA", "Check it out again", '{"font-family":"arial","font-size":"21px","color":"black"}');
+INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 2017", "NOLA", "I killed my neighbour", '{"font-family":"arial","font-size":"21px","color":"black"}');
+INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 2017", "NOLA", "I love you", '{"font-family":"arial","font-size":"21px","color":"black"}');
+INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 2017", "NOLA", "I hate you", '{"font-family":"arial","font-size":"21px","color":"black"}');
