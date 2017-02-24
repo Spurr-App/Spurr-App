@@ -16,9 +16,9 @@ const db = mysql.createConnection({
 const router = {};
 
 router.post = function post(db, params, columns, table) {
-  const attr = params.join('", "');
+  const attr = params.join("', '");
   const cols = columns.join(',');
-  const query = `INSERT INTO ${table} (${cols}) VALUES ("${attr}")`;
+  const query = `INSERT INTO ${table} (${cols}) VALUES ('${attr}')`;
   console.log(query);
   return db.query(query, (err, rows) => {
     if (!err) {

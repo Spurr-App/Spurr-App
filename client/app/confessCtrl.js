@@ -91,3 +91,6 @@ angular.module('Confess-Ctrl', [])
     confessFact.post(secret);
   }
 });
+
+
+// INSERT INTO spurrs (sender,recipient,date,message,inner_style,outer_style) VALUES ("Today's self", "Future self", "Fri Feb 24 2017", "It will be okay", "{"font-family":"Futura","font-size":"21px","color":"red"}", "{"background-image":"url(../extra/dot-back.png)","background-color":"#ffafaf"}")
