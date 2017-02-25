@@ -31,5 +31,3 @@ angular.module('Receive-Fact', [])
     post: saveSpurr,
   };
 });
-
-console.log('yo');

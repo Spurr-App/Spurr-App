@@ -55,6 +55,7 @@ app.get('/api/spurrs', reqTo.getSpurr);
 
 app.post('/api/savedSpurrs', reqTo.saveSpurr);
 
+app.get('/api/savedSpurrs', reqTo.getSavedSpurrs);
 
 // reqTo.get(['*'], 'spurrs', dbConnection);
 

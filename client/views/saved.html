@@ -1,15 +1,18 @@
+<button ng-click="get('hey')">Yo buddy</button><br>
+
 <div id="savedSpurrHolder">
 
-  <div ng-repeat="secret in secrets track by $index" class="spurr">
-    <div class="upper">
-      <ul>
-        <li>{{ secret.who }}</li>
-        <li>{{ secret.when }}</li>
-        <li>{{ secret.where }}</li>
+  <div class="spurr" ng-style="secret.outer_style" ng-repeat="secret in secrets track by $index">
+    <div class="upper" ng-style="secret.inner_style">
+      <ul class="msgText">
+        <li class="left">{{ secret.location }}</li>
+        <li class="right">{{ secret.date }}</li>
       </ul>
     </div>
-    <div class="lower">
-      {{ secret.what }}
+    <div ng-style="secret.inner_style">
+      <p>{{ secret.recipient }}</p>
+      <p>{{ secret.message }}</p>
+      <p>{{ secret.sender }}</p>
     </div>
   </div>
 

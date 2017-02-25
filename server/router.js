@@ -47,16 +47,20 @@ router.saveSpurr = function ({ body }, res) {
 
 // @result
 
-router.get = function get(db, reqs, table) {
+router.get = function get(db, reqs, table, limit, del) {
   const req = reqs.join(',');
-  const query = `SELECT ${req} FROM ${table} ORDER BY spurr_id ASC LIMIT 1`;
+  const query = `SELECT ${req} FROM ${table} ORDER BY spurr_id ASC LIMIT ${limit}`;
   return new Promise(function(resolve, reject) {
     db.query(query, (err, rows) => {
       if (!err) {
-        console.log(rows[0]);
+        console.log(rows);
+        if (del) {
         resolve(rows[0]);
-        const del = `DELETE FROM ${table} WHERE spurr_id = ${rows[0].spurr_id}`;
-        db.query(del);
+          const del = `DELETE FROM ${table} WHERE spurr_id = ${rows[0].spurr_id}`;
+          db.query(del);
+        } else {
+          resolve(rows);
+        }
       } else {
         console.log(err);
       }
@@ -65,14 +69,14 @@ router.get = function get(db, reqs, table) {
 };
 
 router.getSpurr = function (req, res) {
-  router.get(db, ['*'], 'spurrs')
+  router.get(db, ['*'], 'spurrs', 1, true)
   .then(function (data) {
     res.status(200).send(data);
   });
 };
 
 router.getSavedSpurrs = function (req, res) {
-  router.get(db, ['*'], 'spurrs')
+  router.get(db, ['*'], 'saved_spurrs', 8, false)
   .then(function (data) {
     res.status(200).send(data);
   });

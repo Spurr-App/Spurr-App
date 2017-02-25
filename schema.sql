@@ -65,3 +65,33 @@ INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 20
 INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 2017", "NOLA", "I killed my neighbour", '{"font-family":"arial","font-size":"21px","color":"black"}');
 INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 2017", "NOLA", "I love you", '{"font-family":"arial","font-size":"21px","color":"black"}');
 INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 2017", "NOLA", "I hate you", '{"font-family":"arial","font-size":"21px","color":"black"}');
+
+INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
+VALUES ("Wed Feb 2 2017", "liv", "alice", "nola", "Jigeum neon odiya?",
+  '{"font-family":"arial","font-size":"21px","color":"black"}',
+  '{"background-image":"none","background-color":"red"}');
+
+INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
+VALUES ("Wed Feb 5 2017", "liv", "alice", "NOLA", "I fear, I'm real.",
+  '{"font-family":"arial","font-size":"21px","color":"black"}',
+  '{"background-image":"none","background-color":"blue"}');
+
+INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
+VALUES ("Wed Feb 8 2017", "liv", "alice", "Paradise", "I'm not coming back",
+  '{"font-family":"arial","font-size":"21px","color":"black"}',
+  '{"background-image":"none","background-color":"lightgreen"}');
+
+INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
+VALUES ("Wed Feb 10 2017", "liv", "alice", "Dongdaemun", "I miss shopping in Korea",
+  '{"font-family":"helvetica","font-size":"12px","color":"red"}',
+  '{"background-image":"none","background-color":"white"}');
+
+INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
+VALUES ("Wed Feb 21 2017", "liv", "alice", "home", "happy birthday mom!",
+  '{"font-family":"comic sans ms","font-size":"21px","color":"black"}',
+  '{"background-image":"url(../extra/letter-back.png)","background-color":"lightgrey"}');
+
+INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
+VALUES ("Wed Feb 24 2017", "liv", "alice", "Korea", "Hope this shit works",
+  '{"font-family":"arial","font-size":"21px","color":"black"}',
+  '{"background-image":"url(../extra/dot-back.png)","background-color":"lightgrey"}');
