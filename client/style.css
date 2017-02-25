@@ -32,9 +32,10 @@ ul {
 }
 
 .spurr {
-  width: 380px;
-  height: 246px;
-  padding: 10px;
+  background-size: 100%;
+  width: 360px;
+  height: 226px;
+  padding: 20px;
   background-color: yellow;
   margin-top: 25px;
   margin-bottom: 25px;

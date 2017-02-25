@@ -7,7 +7,7 @@ angular.module('Receive-Fact', [])
         url: '/api/spurrs',
       }).then(function (res) {
         res.data.inner_style = JSON.parse(res.data.inner_style);
-          res.data.outer_style = JSON.parse(res.data.outer_style);
+        res.data.outer_style = JSON.parse(res.data.outer_style);
         resolve(res.data);
       });
     });
