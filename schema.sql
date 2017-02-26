@@ -73,7 +73,7 @@ VALUES ("Wed Feb 2 2017", "liv", "alice", "nola", "Jigeum neon odiya?",
 
 INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
 VALUES ("Wed Feb 5 2017", "liv", "alice", "NOLA", "I fear, I'm real.",
-  '{"font-family":"arial","font-size":"21px","color":"black"}',
+  '{"font-family":"arial","font-size":"21px","color":"white"}',
   '{"background-image":"none","background-color":"blue"}');
 
 INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
@@ -84,14 +84,14 @@ VALUES ("Wed Feb 8 2017", "liv", "alice", "Paradise", "I'm not coming back",
 INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
 VALUES ("Wed Feb 10 2017", "liv", "alice", "Dongdaemun", "I miss shopping in Korea",
   '{"font-family":"helvetica","font-size":"12px","color":"red"}',
-  '{"background-image":"none","background-color":"white"}');
+  '{"background-image":"url(../assets/heart-back.png)","background-color":"white"}');
 
 INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
 VALUES ("Wed Feb 21 2017", "liv", "alice", "home", "happy birthday mom!",
   '{"font-family":"comic sans ms","font-size":"21px","color":"black"}',
-  '{"background-image":"url(../extra/letter-back.png)","background-color":"lightgrey"}');
+  '{"background-image":"url(../assets/letter-back.png)","background-color":"lightgrey"}');
 
 INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
 VALUES ("Wed Feb 24 2017", "liv", "alice", "Korea", "Hope this shit works",
   '{"font-family":"arial","font-size":"21px","color":"black"}',
-  '{"background-image":"url(../extra/dot-back.png)","background-color":"lightgrey"}');
+  '{"background-image":"url(../assets/dot-back.png)","background-color":"lightgrey"}');

@@ -22,10 +22,22 @@ angular.module('Confess-Ctrl', [])
     9, 12, 15, 21, 30, 36,
   ];
 
+  $scope.sizes = {
+    'X-Small': 9,
+    Small: 12,
+    Medium: 15,
+    Large: 21,
+    'X-Large': 30,
+  };
+
   $scope.images = {
     none: 'none',
-    letter: '../extra/letter-back.png',
-    dot: '../extra/dot-back.png',
+    paper: '../assets/paper-back.png',
+    letter: '../assets/letter-back.png',
+    dot: '../assets/dot-back.png',
+    wild: '../assets/crazy-back.png',
+    dark: '../assets/cross-back.png',
+    love: '../assets/heart-back.png',
   };
 
   $scope.styleIn = {

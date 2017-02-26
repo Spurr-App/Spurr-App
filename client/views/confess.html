@@ -7,7 +7,7 @@
        <option value="" disabled selected style="display: none;">Font</option>
     </select>
 
-    <select ng-model="selectedSize" ng-options="size for size in sizes" ng-change="setFont(null, selectedSize, null)">
+    <select ng-model="selectedSize" ng-options="size for (size, num) in sizes" ng-change="setFont(null, selectedSize, null)">
        <option value="" disabled selected style="display: none;">Size</option>
     </select>
     <br><br>
