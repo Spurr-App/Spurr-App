@@ -5,10 +5,10 @@ var mysql = require('mysql');
 var request = require('request'); // You might need to npm install the request module!
 var expect = require('chai').expect;
 
-describe('Persistent Node Chat Server', function() {
+describe('Persistent Node Chat Server', function () {
   var dbConnection;
 
-  beforeEach(function(done) {
+  beforeEach(function (done) {
     dbConnection = mysql.createConnection({
       user: 'root',
       password: '',
@@ -23,11 +23,11 @@ describe('Persistent Node Chat Server', function() {
     dbConnection.query('truncate ' + tablename, done);
   });
 
-  afterEach(function() {
+  afterEach(function () {
     dbConnection.end();
   });
 
-  it('Should insert posted messages to the DB', function(done) {
+  it('Should insert posted messages to the DB', function (done) {
     // Post the user to the chat server.
     request({
       method: 'POST',
@@ -52,7 +52,7 @@ describe('Persistent Node Chat Server', function() {
         var queryString = 'SELECT * FROM messages';
         var queryArgs = [];
 
-        dbConnection.query(queryString, queryArgs, function(err, results) {
+        dbConnection.query(queryString, queryArgs, function (err, results) {
 
           // Should have one result:
           // expect(results[0].message).to.equal('results is this!!');
@@ -67,7 +67,7 @@ describe('Persistent Node Chat Server', function() {
     });
   });
 
-  it('Should output all messages from the DB', function(done) {
+  it('Should output all messages from the DB', function (done) {
     // Let's insert a message into the db
     var queryString = 'SELECT * FROM messages';
     var queryArgs = [];
@@ -75,12 +75,12 @@ describe('Persistent Node Chat Server', function() {
     // here depend on the schema you design, so I'll leave
     // them up to you. */
 
-    dbConnection.query(queryString, queryArgs, function(err) {
+    dbConnection.query(queryString, queryArgs, function (err) {
       if (err) { throw err + 'WHAT\'S THE ERROR'; }
 
       // Now query the Node chat server and see if it returns
       // the message we just inserted:
-      request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
+      request('http://127.0.0.1:3000/classes/messages', function (error, response, body) {
         var messageLog = JSON.parse(body);
 
         console.log(arguments, 'check');

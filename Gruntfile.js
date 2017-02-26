@@ -1,4 +1,4 @@
-module.exports = function(grunt) { //hi
+module.exports = function (grunt) { //hi
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
@@ -109,7 +109,7 @@ module.exports = function(grunt) { //hi
   grunt.registerTask('build', [
     'eslint', 'concat', 'uglify', 'cssmin'
   ]);
-  grunt.registerTask('upload', function(n) {
+  grunt.registerTask('upload', function (n) {
     if (grunt.option('prod')) {
       // add your production server task here
       grunt.task.run([ 'shell:prodServer' ]);

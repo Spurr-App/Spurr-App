@@ -1,7 +1,6 @@
 angular.module('Receive-Ctrl', [])
 .controller('receiveCtrl', function ($scope, receiveFact) {
-
-  $scope.username = 'liv'
+  $scope.username = 'liv';
 
   $scope.secret = null;
   $scope.styleIn = null;
@@ -9,10 +8,13 @@ angular.module('Receive-Ctrl', [])
 
   $scope.ready = false;
 
-  $scope.get = function() {
+  /**
+   * Gets one spurr from database
+   * Sets local variables to parts of received data
+   */
+  $scope.get = function () {
     receiveFact.get()
-    .then(function(secret) {
-      console.log(secret);
+    .then((secret) => {
       $scope.secret = secret;
       $scope.secret.username = $scope.username;
       $scope.styleIn = secret.inner_style;
@@ -20,14 +22,21 @@ angular.module('Receive-Ctrl', [])
     });
   };
 
-  $scope.show = function() {
+  /**
+   * Sets $scope.ready to true
+   */
+  $scope.show = function () {
     $scope.ready = true;
-  }
+  };
 
-  $scope.save = function(secret) {
+  /**
+   * Checks if secret should send its sender, recipient, date, and location
+   * Sets any of those four to null if necessary
+   * Runs a function from confessFact to post secret to the database
+   */
+  $scope.save = function (secret) {
     receiveFact.post(secret);
   };
 
   $scope.get();
-
 });

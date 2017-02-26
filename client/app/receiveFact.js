@@ -1,11 +1,16 @@
 angular.module('Receive-Fact', [])
 .factory('receiveFact', function ($http, $window) {
-  const grabOneSpurr = function() {
-    return new Promise(function(resolve, reject) {
+  /**
+   * Gets one spurr from the spurrs database
+   * Resets received data's style to parsed objects
+   * @returns {Function} Promise from get request resolving data
+   */
+  const grabOneSpurr = function () {
+    return new Promise((resolve, reject) => {
       $http({
         method: 'GET',
         url: '/api/spurrs',
-      }).then(function (res) {
+      }).then((res) => {
         res.data.inner_style = JSON.parse(res.data.inner_style);
         res.data.outer_style = JSON.parse(res.data.outer_style);
         resolve(res.data);
@@ -13,15 +18,21 @@ angular.module('Receive-Fact', [])
     });
   };
 
-  const saveSpurr = function(secret) {
-    return new Promise(function(resolve, reject) {
+  /**
+   * Sends secret to the savedSpurrs database
+   * Redirects to secrets view
+   * @param {Object} secret
+   * @returns {Function} Promise from post request
+   */
+  const saveSpurr = function (secret) {
+    return new Promise((resolve, reject) => {
       $http({
         method: 'POST',
         url: '/api/savedSpurrs',
         data: secret,
-      }).then(function (res) {
+      }).then(() => {
         console.log('done');
-        $window.location.href = "#!/secrets";
+        $window.location.href = '#!/secrets';
       });
     });
   };

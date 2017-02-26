@@ -1,6 +1,5 @@
 angular.module('Confess-Ctrl', [])
 .controller('confessCtrl', function ($scope, confessFact) {
-
   $scope.showSender = true;
   $scope.showRecipient = true;
   $scope.showDate = true;
@@ -27,7 +26,6 @@ angular.module('Confess-Ctrl', [])
     Small: 12,
     Medium: 15,
     Large: 21,
-    'X-Large': 30,
   };
 
   $scope.images = {
@@ -43,7 +41,7 @@ angular.module('Confess-Ctrl', [])
   $scope.styleIn = {
     'font-family': 'arial',
     'font-size': '15px',
-    'color': 'black',
+    color: 'black',
   };
 
   $scope.styleOut = {
@@ -61,24 +59,37 @@ angular.module('Confess-Ctrl', [])
     outer_style: JSON.stringify($scope.styleOut),
   };
 
-  $scope.set = function() {
+  /**
+   * Sets styles of $scope.secret object
+   */
+  $scope.set = function () {
     $scope.secret.inner_style = JSON.stringify($scope.styleIn);
     $scope.secret.outer_style = JSON.stringify($scope.styleOut);
-    console.log(JSON.stringify($scope.styleIn));
-    console.log($scope.secret);
   };
 
-  $scope.setFont = function(font, size, color) {
+  /**
+   * Returns the sum of a and b
+   * @param {Number} a
+   * @param {Number} b
+   * @returns {Number} Sum of a and b
+   */
+  $scope.setFont = function (font, size, color) {
     if (font) {
       $scope.styleIn['font-family'] = font;
     } else if (size) {
-      $scope.styleIn['font-size'] = size + 'px';
+      $scope.styleIn['font-size'] = `${size}px`;
     } else if (color) {
       $scope.styleIn.color = color;
     }
     $scope.set();
   };
 
+  /**
+   * Returns the sum of a and b
+   * @param {Number} a
+   * @param {Number} b
+   * @returns {Number} Sum of a and b
+   */
   $scope.setBackground = function (url, color) {
     if (url) {
       if (url === 'none') {
@@ -91,6 +102,12 @@ angular.module('Confess-Ctrl', [])
     $scope.set();
   };
 
+  /**
+   * Checks if secret should send its sender, recipient, date, and location
+   * Sets any of those four to null if necessary
+   * Runs a function from confessFact to post secret to the database
+   * @param {object} secret
+   */
   $scope.confess = function (secret) {
     if (!$scope.showSender) {
       secret.sender = null;
@@ -102,8 +119,5 @@ angular.module('Confess-Ctrl', [])
       secret.location = null;
     }
     confessFact.post(secret);
-  }
+  };
 });
-
-
-// INSERT INTO spurrs (sender,recipient,date,message,inner_style,outer_style) VALUES ("Today's self", "Future self", "Fri Feb 24 2017", "It will be okay", "{"font-family":"Futura","font-size":"21px","color":"red"}", "{"background-image":"url(../extra/dot-back.png)","background-color":"#ffafaf"}")

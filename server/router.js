@@ -50,7 +50,7 @@ router.saveSpurr = function ({ body }, res) {
 router.get = function get(db, reqs, table, limit, del) {
   const req = reqs.join(',');
   const query = `SELECT ${req} FROM ${table} ORDER BY spurr_id ASC LIMIT ${limit}`;
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     db.query(query, (err, rows) => {
       if (!err) {
         console.log(rows);

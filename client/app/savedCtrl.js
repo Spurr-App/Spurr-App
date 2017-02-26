@@ -9,20 +9,20 @@ angular.module('Saved-Ctrl', [])
 
   $scope.secrets = [];
 
-  $scope.get = function(test) {
+  $scope.get = function (test) {
     console.log(test);
     savedFact.get()
-    .then(function(secrets) {
+    .then(function (secrets) {
       console.log(secrets);
       $scope.secrets = secrets;
     });
   };
 
-  $scope.show = function() {
+  $scope.show = function () {
     $scope.ready = true;
   }
 
-  $scope.save = function(secret) {
+  $scope.save = function (secret) {
     receiveFact.post(secret);
   };
 });
