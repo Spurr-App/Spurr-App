@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <div class="userForm">
   <h1>SIGN UP</h1>
-  <form name="signUp" ng-submit="signup(user)">
+  <!-- <form name="signUp" ng-submit="signup(user)">
     <table>
       <tr>
         <td>Username:</td>
@@ -17,8 +17,20 @@
       </tr>
     </table>
 
-    <button type="submit">Submit</button>
-
+    <button type="submit">Submit</button> -->
+    <form action="/signup" method="post">
+      <div class="form-group">
+          <label>Email</label>
+          <input type="text" class="form-control" name="email">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password" />
+      </div>
+      <div>
+        <input type="submit" class="form-control" value="Submit" />
+      </div>
+    </form>
     <div ng-messages="signUp.$error" class="error" role="alert">
       <div ng-show="username">That username is already in use!</div>
       <div ng-show="email">That email is already in use!</div>

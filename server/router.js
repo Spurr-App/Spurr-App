@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 require('dotenv').config();
 
+
 const HOST = process.env.HOST;
 const PASSWORD = process.env.PASSWORD;
 const DATABASE = process.env.DB;
@@ -127,5 +128,7 @@ router.getSavedSpurrs = function (req, res) {
     res.status(200).send(data);
   });
 };
+
+
 
 module.exports = router;
