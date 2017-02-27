@@ -1,5 +1,5 @@
 angular.module('Spurr-Ctrl', [])
-.controller('SpurrCtrl', function ctrl($scope, SpurrFact) {
+.controller('SpurrCtrl', function ($scope, SpurrFact) {
   $scope.default = '';
 
   $scope.secret = {
@@ -16,7 +16,12 @@ angular.module('Spurr-Ctrl', [])
     $scope.secret,
   ];
 
+  /**
+   * Runs a function to console log input
+   * Works on any view to ensure angular is working
+   * @param {Any} input
+   */
   $scope.test = function (input) {
-    SpurrFact.test(input);
+    SpurrFact.esc(input);
   };
 });

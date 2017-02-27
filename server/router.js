@@ -15,49 +15,79 @@ const db = mysql.createConnection({
 
 const router = {};
 
-router.post = function post(db, params, columns, table) {
+/**
+ * Joins params and columns to comma separated string, with quotation marks if necessary
+ * Creates query by combining params, columns, and table
+ * Executes query to database, console logging results
+ * @param {Array} params
+ * @param {Array} columns
+ * @param {String} table
+ * @returns {Function} Promise from post request
+ */
+router.post = function post(params, columns, table) {
   const attr = params.join("', '");
   const cols = columns.join(',');
   const query = `INSERT INTO ${table} (${cols}) VALUES ('${attr}')`;
   console.log(query);
   return db.query(query, (err, rows) => {
     if (!err) {
-      console.log(rows)
+      console.log(rows);
     } else {
       console.log(err);
     }
   });
 };
 
+/**
+ * Creates columns by taking the keys from body
+ * Creates params by taking values from body
+ * Calls post request to spurrs database with created params and columns
+ * Sends 200 status back to client
+ * @param {Object} body
+ * @param {Object} res
+ * @returns {Function} Promise from post request
+ */
 router.postSpurr = function ({ body }, res) {
   const columns = Object.keys(body);
   const params = columns.reduce((arr, key) => arr.concat([body[key]]), []);
-  router.post(db, params, columns, 'spurrs');
+  router.post(params, columns, 'spurrs');
   res.sendStatus(200);
 };
 
+/**
+ * Creates columns by taking the keys from body
+ * Creates params by taking values from body
+ * Calls post request to saved_spurrs database with created params and columns
+ * Sends 200 status back to client
+ * @param {Object} body
+ * @param {Object} res
+ * @returns {Function} Promise from post request
+ */
 router.saveSpurr = function ({ body }, res) {
   const columns = Object.keys(body);
   const params = columns.reduce((arr, key) => arr.concat([body[key]]), []);
-  router.post(db, params, columns, 'saved_spurrs');
+  router.post(params, columns, 'saved_spurrs');
   res.sendStatus(200);
 };
 
-// @input requests (array) : array of
-
-// @result
-
-router.get = function get(db, reqs, table, limit, del) {
-  const req = reqs.join(',');
-  const query = `SELECT ${req} FROM ${table} ORDER BY spurr_id ASC LIMIT ${limit}`;
-  return new Promise(function (resolve, reject) {
+/**
+ * Creates query by combining table, limit, and del
+ * Executes query to database in a promise
+ * Sends data from request in promise resolve
+ * @param {String} table
+ * @param {Number} limit
+ * @param {Boolean} del
+ * @returns {Function} Promise from get request
+ */
+router.get = function get(table, limit, del) {
+  const query = `SELECT * FROM ${table} ORDER BY spurr_id ASC LIMIT ${limit}`;
+  return new Promise(function (resolve) {
     db.query(query, (err, rows) => {
       if (!err) {
-        console.log(rows);
         if (del) {
-        resolve(rows[0]);
-          const del = `DELETE FROM ${table} WHERE spurr_id = ${rows[0].spurr_id}`;
-          db.query(del);
+          resolve(rows[0]);
+          const remove = `DELETE FROM ${table} WHERE spurr_id = ${rows[0].spurr_id}`;
+          db.query(remove);
         } else {
           resolve(rows);
         }
@@ -69,14 +99,14 @@ router.get = function get(db, reqs, table, limit, del) {
 };
 
 router.getSpurr = function (req, res) {
-  router.get(db, ['*'], 'spurrs', 1, true)
+  router.get('spurrs', 1, true)
   .then(function (data) {
     res.status(200).send(data);
   });
 };
 
 router.getSavedSpurrs = function (req, res) {
-  router.get(db, ['*'], 'saved_spurrs', 8, false)
+  router.get('saved_spurrs', 8, false)
   .then(function (data) {
     res.status(200).send(data);
   });

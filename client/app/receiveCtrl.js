@@ -15,6 +15,7 @@ angular.module('Receive-Ctrl', [])
   $scope.get = function () {
     receiveFact.get()
     .then((secret) => {
+      console.log(secret);
       $scope.secret = secret;
       $scope.secret.username = $scope.username;
       $scope.styleIn = secret.inner_style;
@@ -35,6 +36,8 @@ angular.module('Receive-Ctrl', [])
    * Runs a function from confessFact to post secret to the database
    */
   $scope.save = function (secret) {
+    secret.inner_style = JSON.stringify($scope.styleIn);
+    secret.outer_style = JSON.stringify($scope.styleOut);
     receiveFact.post(secret);
   };
 

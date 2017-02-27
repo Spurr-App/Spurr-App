@@ -1,5 +1,5 @@
 angular.module('Confess-Ctrl', [])
-.controller('confessCtrl', function ($scope, confessFact) {
+.controller('confessCtrl', function ($scope, SpurrFact, confessFact) {
   $scope.showSender = true;
   $scope.showRecipient = true;
   $scope.showDate = true;
@@ -118,6 +118,7 @@ angular.module('Confess-Ctrl', [])
     } else if (!$scope.showlocation) {
       secret.location = null;
     }
+    secret.message = SpurrFact.esc(secret.message);
     confessFact.post(secret);
   };
 });
