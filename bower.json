@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "angular": "^1.6.2",
+    "angular-route": "^1.6.2",
     "angular-messages": "^1.6.2"
   }
 }

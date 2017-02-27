@@ -1,32 +1,75 @@
 <div class="confess">
 
   <div class="interface">
-    <h1>Confess</h1><br>
+    <h1>Confess</h1>
 
-    <select name="text-fonts" ng-model="selectedFont"
-    ng-options="font for font in fonts">
+  <div class="text">
+    <select ng-model="selectedFont" ng-options="font for font in fonts" ng-change="setFont(selectedFont, null, null)">
        <option value="" disabled selected style="display: none;">Font</option>
     </select>
-    <select name="text-size" ng-model="selectedSize"
-    ng-options="size for size in sizes">
+
+    <select ng-model="selectedSize" ng-options="size for (size, num) in sizes" ng-change="setFont(null, selectedSize, null)">
        <option value="" disabled selected style="display: none;">Size</option>
-    </select><br>
+    </select>
+    <br><br>
 
-    Show name <input type="checkbox" checked ng-model="name"><br>
-    Show date <input type="checkbox" checked ng-model="date"><br>
-    Show location <input type="checkbox" checked ng-model="location"><br>
-
-    <button>Submit</button>
+    <input type="text" ng-model="textColor" placeholder="Text color">
+    <button ng-click="setFont(null, null, textColor)">Set color</button>
+    <br><br>
   </div>
 
-  <div class="message">
-    <div class="upper">
-      <ul>
-        <li ng-show="name">{{ secret.who }}</li>
-        <li ng-show="date">{{ secret.when }}</li>
-        <li ng-show="location">{{ secret.where }}</li>
+  <div class="background">
+    <select ng-model="selectedImage" ng-options="image for (image, url) in images" ng-change="setBackground(selectedImage, null)">
+       <option value="" disabled selected style="display: none;">Background Image</option>
+    </select>
+    <br><br>
+
+    <input type="text" ng-model="backgroundColor" placeholder="Background color">
+    <button ng-click="setBackground(null, backgroundColor)">Set color</button>
+  </div>
+
+    <table>
+      <tr>
+        <th colspan="2">Show</th>
+      </tr>
+      <tr>
+        <td>
+          Location <input type="checkbox" checked ng-model="showLocation">
+        </td>
+        <td>
+          Date <input type="checkbox" checked ng-model="showDate">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Recipient <input type="checkbox" checked ng-model="showRecipient">
+        </td>
+        <td>
+          Sender <input type="checkbox" checked ng-model="showSender">
+        </td>
+      </tr>
+    </table>
+    <br>
+
+    <button ng-click="confess(secret)">Submit</button>
+
+    <br><br><button ng-click="test(secret.message)">Check style</button>
+  </div>
+
+  <div id="confessional" class="message" ng-style="styleOut">
+    <div class="upper" ng-style="styleIn">
+      <ul class="msgText">
+        <li ng-show="showLocation" class="left">{{ secret.location }}</li>
+        <li ng-show="showDate" class="right">{{ secret.date }}</li>
       </ul>
     </div>
-    <textarea class="msginput" ng-model="secret.what"></textarea>
+
+    <input type="text" class="msgText left" ng-model="secret.recipient" ng-show="showRecipient" ng-style="styleIn" maxlength="15">
+
+    <textarea id="msgbody" rows="4" class="msgText" ng-model="secret.message" ng-style="styleIn" maxlength="100"></textarea>
+
+    <input type="text" class="msgText right" ng-model="secret.sender" ng-show="showSender" ng-style="styleIn" maxlength="15">
+
+
   </div>
 </div>

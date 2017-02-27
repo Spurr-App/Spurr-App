@@ -32,7 +32,7 @@ No two lines should ever have more or less than 2 spaces difference in their ind
 // bad:
 transmogrify({
   a: {
-    b: function(){
+    b: function (){
     }
 }});
 use sublime's arrow collapsing as a guide. do the collapsing lines seem like they should be 'contained' by the line with an arrow on it?
@@ -106,7 +106,7 @@ if(0 == ''){
 Don't use function statements for the entire first half of the course. They introduce a slew of subtle new rules to how the language behaves, and without a clear benefit. Once you and all your peers are expert level in the second half, you can start to use the more (needlessly) complicated option if you like.
 
 // good:
-var go = function(){...};
+var go = function (){...};
 
 // bad:
 function stop(){...};
@@ -133,12 +133,12 @@ if(condition){
 Misleadingly, a function may be used at the end of a normal assignment statement, and would require a semicolon (even though it looks rather like the end of some statement block).
 
 // good:
-var greet = function(){
+var greet = function (){
   alert('hi');
 };
 
 // bad:
-var greet = function(){
+var greet = function (){
   alert('hi');
 }
 Supplemental reading
@@ -206,13 +206,13 @@ Opening or closing too many blocks at once
 The more blocks you open on a single line, the more your reader needs to remember about the context of what they are reading. Try to resolve your blocks early, and refactor. A good rule is to avoid closing more than two blocks on a single line--three in a pinch.
 
 // avoid:
-_.ajax(url, {success: function(){
+_.ajax(url, {success: function (){
   // ...
 }});
 
 // prefer:
 _.ajax(url, {
-  success: function(){
+  success: function (){
     // ...
   }
 });
@@ -243,12 +243,12 @@ Minutia
 Don't rely on JavaScripts implicit global variables. If you are intending to write to the global scope, export things to window.* explicitly instead.
 
 // good:
-var overwriteNumber = function(){
+var overwriteNumber = function (){
   window.exported = Math.random();
 };
 
 // bad:
-var overwriteNumber = function(){
+var overwriteNumber = function (){
   exported = Math.random();
 };
 For lists, put commas at the end of each newline, not at the beginning of each item in a list

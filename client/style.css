@@ -4,7 +4,6 @@ body {
 
 nav, ul {
   margin: 0;
-  background: red;
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -13,10 +12,33 @@ nav, ul {
 nav {
   margin-bottom: 25px;
   padding: 15px;
+  background: red;
+}
+
+nav li {
+  margin-left: 15px;
+}
+
+ul {
+  padding: 0px;
+}
+
+#savedSpurrHolder {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 850px;
 }
 
 .spurr {
-  width:400px;
+  background-size: 100%;
+  width: 360px;
+  height: 226px;
+  padding: 20px;
+  background-color: yellow;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 .upper {
@@ -30,31 +52,53 @@ nav {
 
 .confess {
   margin: auto;
-  background: green;
   display: flex;
   justify-content: space-between;
   width: 850px;
 }
 
 .interface {
-  background: blue;
   width: 201px;
   height: 376px;
   padding: 12px;
 }
 
 .message {
-  background: red;
-  width: 576px;
-  height: 376px;
-  padding: 12px;
+  width: 540px;
+  height: 340px;
+  padding: 30px;
+  background: #eee;
 }
 
-.msginput {
+.message, .message input, textarea {
+  font-size: 15px;
+}
+
+.msgText, .left, .right {
+  width: 100%;
   text-align: center;
-  width: 500px;
-  height: 300px;
   border: none;
   background: none;
   outline: 0;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+#msgbody {
+  width: 480px;
+  /*height: 210px;*/
+}
+
+#receivedMessage {
+  background: pink;
+  margin:auto;
+  width: 576px;
+  height: 376px;
+  padding: 12px;
 }
