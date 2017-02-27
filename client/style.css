@@ -49,14 +49,6 @@ nav li a, h1 {
   text-decoration: none;
 }
 
-nav li a {
-  border-bottom: 2px dotted #c3dfeb;
-  border-radius: 3px;
-  color: #ffafaf;
-  font-weight: bold;
-  text-decoration: none;
-}
-
 ul {
   padding: 0px;
 }
@@ -187,11 +179,13 @@ select {
 h2 {
   font-family: Jazz Ball;
 }
+<<<<<<< HEAD
 
 form {
   width: 250px;
   margin: auto;
 }
+<<<<<<< HEAD
 
 .shareButtons {
   position: relative;
@@ -254,3 +248,7 @@ form {
     text-decoration: none;
     cursor: pointer;
 }
+=======
+=======
+>>>>>>> (update) style
+>>>>>>> (update) style
