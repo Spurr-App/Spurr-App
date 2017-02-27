@@ -98,16 +98,32 @@ router.get = function get(table, limit, del) {
   });
 };
 
+/**
+ * Calls get request to spurrs database
+ * Specifies to get 1 spurr
+ * Specifies to delete the received spurr from the database after obtaining it
+ * Sends 200 status and received spurr back to client
+ * @param {Object} req
+ * @param {Object} res
+ */
 router.getSpurr = function (req, res) {
   router.get('spurrs', 1, true)
-  .then(function (data) {
+  .then((data) => {
     res.status(200).send(data);
   });
 };
 
+/**
+ * Calls get request to saved_spurrs database
+ * Specifies to get 8 spurrs
+ * Specifies to not delete anything
+ * Sends 200 status and received spurrs back to client
+ * @param {Object} req
+ * @param {Object} res
+ */
 router.getSavedSpurrs = function (req, res) {
   router.get('saved_spurrs', 8, false)
-  .then(function (data) {
+  .then((data) => {
     res.status(200).send(data);
   });
 };

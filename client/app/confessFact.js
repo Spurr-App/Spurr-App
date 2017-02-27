@@ -17,24 +17,7 @@ angular.module('Confess-Fact', [])
     });
   };
 
-  // /**
-  //  * Sends secret to the spurrs database
-  //  * @param {Object} secret
-  //  * @returns {Secret} Promise from post request
-  //  */
-  // const getSpurr = function post(secret) {
-  //   console.log('post', secret);
-  //   return $http({
-  //     method: 'GET',
-  //     url: '/api/spurrs',
-  //     data: secret,
-  //   }).then((res) => {
-  //     console.log('success', res);
-  //   });
-  // };
-
   return {
     post: postSpurr,
-    // get: getSpurr,
   };
 });

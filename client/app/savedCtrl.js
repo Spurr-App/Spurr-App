@@ -5,8 +5,6 @@ angular.module('Saved-Ctrl', [])
   $scope.styleIn = null;
   $scope.styleOut = null;
 
-  $scope.ready = false;
-
   $scope.secrets = [];
 
   /**
@@ -27,18 +25,8 @@ angular.module('Saved-Ctrl', [])
   $scope.get();
 
   /**
-   * Gets one spurr from the spurrs database
-   * Resets received data's style to parsed objects
-   * @returns {Function} Promise from get request resolving data
-   */
-  $scope.show = function () {
-    $scope.ready = true;
-  };
-
-  /**
-   * Gets one spurr from the spurrs database
-   * Resets received data's style to parsed objects
-   * @returns {Function} Promise from get request resolving data
+   * Escapes quotation marks in secret.message
+   * Saves the secret to database
    */
   $scope.save = function (secret) {
     secret.message = SpurrFact.esc(secret.message);

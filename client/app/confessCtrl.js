@@ -17,10 +17,6 @@ angular.module('Confess-Ctrl', [])
     'Impact',
   ].sort();
 
-  $scope.sizes = [
-    9, 12, 15, 21, 30, 36,
-  ];
-
   $scope.sizes = {
     'X-Small': 9,
     Small: 12,
@@ -61,6 +57,7 @@ angular.module('Confess-Ctrl', [])
 
   /**
    * Sets styles of $scope.secret object
+   * Styles must be stringified before being sent to database
    */
   $scope.set = function () {
     $scope.secret.inner_style = JSON.stringify($scope.styleIn);
@@ -68,10 +65,11 @@ angular.module('Confess-Ctrl', [])
   };
 
   /**
-   * Returns the sum of a and b
-   * @param {Number} a
-   * @param {Number} b
-   * @returns {Number} Sum of a and b
+   * Changes an aspect of the styleIn depending on which arguments are passed
+   * Calls $scope.set to re-stringify styles
+   * @param {String} font
+   * @param {String} size
+   * @param {String} color
    */
   $scope.setFont = function (font, size, color) {
     if (font) {
@@ -85,10 +83,10 @@ angular.module('Confess-Ctrl', [])
   };
 
   /**
-   * Returns the sum of a and b
-   * @param {Number} a
-   * @param {Number} b
-   * @returns {Number} Sum of a and b
+   * Changes an aspect of the styleOut depending on which arguments are passed
+   * Calls $scope.set to re-stringify styles
+   * @param {String} url
+   * @param {String} color
    */
   $scope.setBackground = function (url, color) {
     if (url) {
@@ -105,6 +103,7 @@ angular.module('Confess-Ctrl', [])
   /**
    * Checks if secret should send its sender, recipient, date, and location
    * Sets any of those four to null if necessary
+   * Escapes quotation marks in secret.message
    * Runs a function from confessFact to post secret to the database
    * @param {object} secret
    */

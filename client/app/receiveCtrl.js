@@ -24,7 +24,7 @@ angular.module('Receive-Ctrl', [])
   };
 
   /**
-   * Sets $scope.ready to true
+   * Sets $scope.ready to true, which displays spurr
    */
   $scope.show = function () {
     $scope.ready = true;

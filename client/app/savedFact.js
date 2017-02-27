@@ -1,12 +1,13 @@
 angular.module('Saved-Fact', [])
-.factory('savedFact', function ($http, $window) {
+.factory('savedFact', function ($http) {
   /**
    * Gets saved spurrs from the saved_spurrs database
    * Resets received data's style to parsed objects
+   * Changes font to 2/3 original size
    * @returns {Function} Promise from get request resolving data
    */
   const grabSavedSpurrs = function () {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve) => {
       $http({
         method: 'GET',
         url: '/api/savedSpurrs',

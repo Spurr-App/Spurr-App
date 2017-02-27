@@ -6,7 +6,7 @@ angular.module('Receive-Fact', [])
    * @returns {Function} Promise from get request resolving data
    */
   const grabOneSpurr = function () {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       $http({
         method: 'GET',
         url: '/api/spurrs',
@@ -25,7 +25,7 @@ angular.module('Receive-Fact', [])
    * @returns {Function} Promise from post request
    */
   const saveSpurr = function (secret) {
-    return new Promise((resolve, reject) => {
+    return new Promise(() => {
       $http({
         method: 'POST',
         url: '/api/savedSpurrs',
