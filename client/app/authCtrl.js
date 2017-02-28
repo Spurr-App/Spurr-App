@@ -37,42 +37,38 @@ angular.module('Auth-Ctrl', [])
   // that JWT is then stored in localStorage as 'com.shortly'
   // after you signin/signup open devtools, click resources,
   // then localStorage and you'll see your token from the server
-  var signin = function (user) {
+  const signInUser = function (user) {
     return $http({
       method: 'POST',
       url: '/api/users/signin',
-      data: user
+      data: user,
     })
-    .then(function (resp) {
-      return resp.data.token;
-    });
+    .then(resp => resp.data.token);
   };
 
-  var signup = function (user) {
+  const signUpUser = function (user) {
     return $http({
       method: 'POST',
       url: '/api/users/signup',
-      data: user
+      data: user,
     })
-    .then(function (resp) {
-      return resp.data.token;
-    });
+    .then(resp => resp.data.token);
   };
 
-  var isAuth = function () {
+  const isAuthourized = function () {
     return !!$window.localStorage.getItem('com.spurr');
   };
 
-  var signout = function () {
+  const signOutUser = function () {
     $window.localStorage.removeItem('com.spurr');
     $location.path('/signin');
   };
 
 
   return {
-    signin: signin,
-    signup: signup,
-    isAuth: isAuth,
-    signout: signout
+    signin: signInUser,
+    signup: signUpUser,
+    isAuth: isAuthourized,
+    signout: signOutUser,
   };
 });

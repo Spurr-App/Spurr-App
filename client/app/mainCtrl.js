@@ -2,20 +2,6 @@ angular.module('Spurr-Ctrl', [])
 .controller('SpurrCtrl', function ($scope, SpurrFact, $window, $location) {
   $scope.default = '';
 
-  $scope.secret = {
-    who: 'Liv',
-    when: 'Today',
-    where: 'NOLA',
-    what: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  };
-
-  $scope.secrets = [
-    $scope.secret,
-    $scope.secret,
-    $scope.secret,
-    $scope.secret,
-  ];
-
   /**
    * Runs a function to console log input
    * Works on any view to ensure angular is working
@@ -24,8 +10,13 @@ angular.module('Spurr-Ctrl', [])
   $scope.test = function (input) {
     SpurrFact.esc(input);
   };
-  $scope.signout = function() {
+
+  /**
+   * Clears localstorage, effectively logging out user
+   * Redirects user to root
+   */
+  $scope.signout = function () {
     $window.localStorage.clear();
-    $location.path('/')
-  }
+    $location.path('/');
+  };
 });

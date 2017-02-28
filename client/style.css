@@ -1,5 +1,7 @@
 body {
   text-align: center;
+  margin: 0;
+  background: #eee;
 }
 
 nav, ul {
@@ -12,11 +14,20 @@ nav, ul {
 nav {
   margin-bottom: 25px;
   padding: 15px;
-  background: red;
+  align-items: center;
+  background: #fff;
 }
 
 nav li {
   margin-left: 15px;
+}
+
+nav li a {
+  border-bottom: 2px dotted #c3dfeb;
+  border-radius: 3px;
+  color: #ffafaf;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 ul {
