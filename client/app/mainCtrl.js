@@ -1,5 +1,5 @@
 angular.module('Spurr-Ctrl', [])
-.controller('SpurrCtrl', function ($scope, SpurrFact) {
+.controller('SpurrCtrl', function ($scope, SpurrFact, $window, $location) {
   $scope.default = '';
 
   $scope.secret = {
@@ -24,4 +24,8 @@ angular.module('Spurr-Ctrl', [])
   $scope.test = function (input) {
     SpurrFact.esc(input);
   };
+  $scope.signout = function() {
+    $window.localStorage.clear();
+    $location.path('/')
+  }
 });

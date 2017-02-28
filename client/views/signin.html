@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <div class="userForm">
   <h1>SIGN IN</h1>
-
-    <form action="/signin" method="post">
+  <form name="signinForm" ng-submit='signin()'>
+    <input type='text'ng-model='user.username'>
+    <input type="password" ng-model='user.password'>
+    <button>signin</button>
+  </form>
+    <!-- <form action="/signin" method="post">
   <div class="form-group">
       <label>Email</label>
       <input type="text" class="form-control" name="email">
@@ -14,7 +18,7 @@
   <div>
     <input type="submit" class="form-control" value="Submit" />
   </div>
-</form>
+</form> -->
 
     <div ng-messages="signUp.$error" class="error" role="alert">
       <div ng-show="username">That username isn't registered</div>

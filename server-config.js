@@ -23,15 +23,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // this is listened to by the post form in index.html
-app.post('/signup', passport.authenticate('local-signup', {
+app.post('/api/users/signup', passport.authenticate('local-signup', {
   successRedirect: '/#!/confess',
   failureRedirect: '/#!/signin',
 }));
-app.post('/signin', passport.authenticate('local-login', {
+app.post('/api/users/signin', passport.authenticate('local-login', {
   successRedirect: '/#!/confess',
   failureRedirect: '/#!/signin',
 }));
 
+
+app.get('/#!/signout', function(req, res) {
+  req.logout();
+  res.redirect('/signin');
+});
 
 app.post('/api/spurrs', reqTo.postSpurr);
 
