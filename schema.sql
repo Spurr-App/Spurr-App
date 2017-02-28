@@ -1,4 +1,4 @@
-DROP DATABASE spurr;
+-- DROP DATABASE spurr;
 
 CREATE DATABASE spurr;
 
@@ -8,6 +8,7 @@ CREATE TABLE users (
   /* Describe your table here.*/
   user_id int not null auto_increment,
   username varchar(15),
+  email varchar(20),
   password varchar(15),
   location varchar(15),
   Primary key(user_id),

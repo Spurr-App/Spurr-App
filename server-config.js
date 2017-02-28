@@ -1,35 +1,41 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
 const path = require('path');
 require('dotenv').config();
 const reqTo = require('./server/router.js');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
+require('./config/passport')(passport);
+require('./dbConnection');
+
 
 const app = express();
-const HOST = process.env.HOST;
-// const USER = process.env.USER;
-const PASSWORD = process.env.PASSWORD;
-const DATABASE = process.env.DB;
-const dbConnection = mysql.createConnection({
-  host: HOST,
-  user: 'root',
-  // user: USER,
-  password: PASSWORD,
-  database: DATABASE,
-});
+
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '/client')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(session({ secret: 'shhsecret', resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
-dbConnection.connect((err) => {
-  if (err) {
-    console.log(err);
-    return;
-  }
-    console.log('Connection with mysql established');
+// this is listened to by the post form in index.html
+app.post('/api/users/signup', passport.authenticate('local-signup', {
+  successRedirect: '/#!/confess',
+  failureRedirect: '/#!/signin',
+}));
+app.post('/api/users/signin', passport.authenticate('local-login', {
+  successRedirect: '/#!/confess',
+  failureRedirect: '/#!/signin',
+}));
+
+
+app.get('/#!/signout', function(req, res) {
+  req.logout();
+  res.redirect('/signin');
 });
 
 app.post('/api/spurrs', reqTo.postSpurr);
