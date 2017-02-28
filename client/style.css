@@ -1,7 +1,24 @@
+@font-face {
+  font-family: "Jazz Ball";
+  src: url('./assets/fonts/Jazz_Ball_Regular.ttf');
+}
+
+@font-face {
+  font-family: "Earwig Factory";
+  src: url('./assets/fonts/earwig factory rg.ttf');
+}
+
+@font-face {
+  font-family: "I Love Glitter";
+  src: url('./assets/fonts/I Love Glitter - TTF.ttf');
+}
+
 body {
   text-align: center;
   margin: 0;
   background: #eee;
+  color: grey;
+  font-family: arial;
 }
 
 nav, ul {
@@ -20,9 +37,11 @@ nav {
 
 nav li {
   margin-left: 15px;
+  font-size: 21px;
 }
 
-nav li a {
+nav li a, h1 {
+  font-family: Jazz Ball;
   border-bottom: 2px dotted #c3dfeb;
   border-radius: 3px;
   color: #ffafaf;
@@ -32,6 +51,34 @@ nav li a {
 
 ul {
   padding: 0px;
+}
+
+table {
+  width: 225px;
+}
+
+button {
+  background: #c3dfeb;
+  border: 2px solid #ffafaf;
+  /*border-width: 1px;*/
+  border-radius: 5px;
+}
+
+select {
+  background: #ffafaf;
+  border: 2px solid #c3dfeb;
+  border-radius: 5px;
+}
+
+.bigButton {
+  font-family: Jazz Ball;
+  color: #eee;
+  background: #ffafaf;
+  border: 5px solid #c3dfeb;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px;
+  font-size: 30px;
 }
 
 #savedSpurrHolder {
@@ -56,11 +103,6 @@ ul {
   margin-bottom: 15px;
 }
 
-.lower {
-
-}
-
-
 .confess {
   margin: auto;
   display: flex;
@@ -72,6 +114,12 @@ ul {
   width: 201px;
   height: 376px;
   padding: 12px;
+}
+
+.interface input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px dotted #c3dfeb;
 }
 
 .message {
@@ -113,4 +161,18 @@ ul {
   height: 376px;
   padding: 12px;
 }
- 
+
+#about {
+  width: 450px;
+  margin: auto;
+  margin-bottom: 50px;
+}
+
+h2 {
+  font-family: Jazz Ball;
+}
+
+form {
+  width: 250px;
+  margin: auto;
+}
