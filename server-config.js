@@ -4,15 +4,13 @@ const bodyParser = require('body-parser');
 const path = require('path');
 require('dotenv').config();
 const reqTo = require('./server/router.js');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
 require('./config/passport')(passport);
 require('./dbConnection');
 
-
 const app = express();
-
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '/client')));

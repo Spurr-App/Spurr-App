@@ -31,7 +31,6 @@ angular.module('Receive-Fact', [])
         url: '/api/savedSpurrs',
         data: secret,
       }).then(() => {
-        console.log('done');
         $window.location.href = '#!/secrets';
       });
     });

@@ -19,6 +19,9 @@ const router = function ($routeProvider, $httpProvider) {
       templateUrl: '../views/about.html',
       controller: 'confessCtrl',
     })
+    .when('/home', {
+      templateUrl: '../views/home.html',
+    })
     .when('/signin', {
       templateUrl: '../views/signin.html',
       controller: 'AuthController',
@@ -28,10 +31,9 @@ const router = function ($routeProvider, $httpProvider) {
       controller: 'AuthController',
     })
     .otherwise({
-      redirectTo: '/signin',
+      redirectTo: '/home',
     });
-    $httpProvider.interceptors.push('AttachTokens');
-
+  $httpProvider.interceptors.push('AttachTokens');
 };
 
 angular.module('Spurr', [
@@ -53,15 +55,15 @@ angular.module('Spurr', [
   // its job is to stop all out going request
   // then look in local storage and find the user's token
   // then add it to the header so the server can validate the request
-  var attach = {
+  const attach = {
     request: function (object) {
-      var jwt = $window.localStorage.getItem('com.spurr');
+      const jwt = $window.localStorage.getItem('com.spurr');
       if (jwt) {
         object.headers['x-access-token'] = jwt;
       }
       object.headers['Allow-Control-Allow-Origin'] = '*';
       return object;
-    }
+    },
   };
   return attach;
 })
@@ -73,7 +75,7 @@ angular.module('Spurr', [
   // when it does change routes, we then look for the token in localstorage
   // and send that token to the server to see if it is a real user or hasn't expired
   // if it's not valid, we then redirect back to signin/signup
-  $rootScope.$on('$routeChangeStart', function (evt, next, current) {
+  $rootScope.$on('$routeChangeStart', (evt, next) => {
     if (next.$$route && next.$$route.authenticate && !Auth.isAuth()) {
       $location.path('/signin');
     }

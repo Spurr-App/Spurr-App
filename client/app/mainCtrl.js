@@ -2,19 +2,13 @@ angular.module('Spurr-Ctrl', [])
 .controller('SpurrCtrl', function ($scope, SpurrFact, $window, $location) {
   $scope.default = '';
 
-  $scope.secret = {
-    who: 'Liv',
-    when: 'Today',
-    where: 'NOLA',
-    what: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  };
-
-  $scope.secrets = [
-    $scope.secret,
-    $scope.secret,
-    $scope.secret,
-    $scope.secret,
-  ];
+  /**
+   * Checks the length of $window.localStorage,
+   * which determines whether or not a user is logged in.
+   * Used to alternate visible nav bar links and about page paragraphs
+   * @return {Number} 0 or 1
+   */
+  $scope.user = () => $window.localStorage.length;
 
   /**
    * Runs a function to console log input
@@ -22,10 +16,15 @@ angular.module('Spurr-Ctrl', [])
    * @param {Any} input
    */
   $scope.test = function (input) {
-    SpurrFact.esc(input);
+    SpurrFact.test(input);
   };
-  $scope.signout = function() {
+
+  /**
+   * Clears localstorage, effectively logging out user
+   * Redirects user to root
+   */
+  $scope.signout = function () {
     $window.localStorage.clear();
-    $location.path('/')
-  }
+    $location.path('/');
+  };
 });
