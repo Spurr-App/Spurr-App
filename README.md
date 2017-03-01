@@ -1,4 +1,5 @@
 # Spurr
+![wireframe](./client/assets/logo.png)
 Your Personal Post Secret
 
 ## Team
