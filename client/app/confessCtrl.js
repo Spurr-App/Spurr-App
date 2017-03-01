@@ -16,8 +16,9 @@ angular.module('Confess-Ctrl', [])
     'Arial Black',
     'Impact',
     'Earwig Factory',
-    'I Love Glitter',
     'Jazz Ball',
+    'I Love Glitter',
+    'Andale Mono',
   ].sort();
 
   $scope.sizes = {
@@ -25,6 +26,7 @@ angular.module('Confess-Ctrl', [])
     Small: 12,
     Medium: 15,
     Large: 21,
+    'X-Large': 30,
   };
 
   $scope.images = {
