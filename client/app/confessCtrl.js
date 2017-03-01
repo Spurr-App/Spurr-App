@@ -15,6 +15,9 @@ angular.module('Confess-Ctrl', [])
     'Courier New',
     'Arial Black',
     'Impact',
+    'Earwig Factory',
+    'I Love Glitter',
+    'Jazz Ball',
   ].sort();
 
   $scope.sizes = {
