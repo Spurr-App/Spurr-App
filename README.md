@@ -1,4 +1,4 @@
-# Spurr-App
+# Spurr
 Your Personal Post Secret
 
 ## Team
@@ -9,17 +9,21 @@ Your Personal Post Secret
 
 # How it Works
 
-> I have a secret I can't keep holding, but I can't tell anyone I know!
+> I have a secret I can't keep, but I can't tell anyone I know!
 
-Great! Sign in and you'll be taken to our "confess" page, where you can create your own Spurr to send away!
+Great! Sign in and you'll be taken to our "confess" page, where you can create a Spurr from your secret and send it away!
 
 > Where does it go?
 
 Your Spurr will be sent to one separate user to enjoy! Only one person sees any given Spurr after it is sent, unless they want to save it!
 
+> I want to read someone else's secrets too, but how?
+
+Every time you send a Spurr, you get one to read in return!
+
 > What happens when you save it?
 
-Saving Spurrs adds them to YOUR collection so that you can go back and view it whenever you want!
+Saving Spurrs adds them to your collection so that you can go back and view it whenever you want!
 
 > I sent something bad, like illegal bad, can it be traced back to me?
 
