@@ -17,7 +17,21 @@ angular.module('Confess-Fact', [])
     });
   };
 
+  const queryImage = function get(query) {
+    return $http({
+      method: 'GET',
+      url: '/api/imagequery',
+      params:{
+        data: query
+      },
+    }).then((imageUrl) => {
+      console.log('success', imageUrl);
+
+    });
+  };
+
   return {
     post: postSpurr,
+    query: queryImage,
   };
 });

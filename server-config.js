@@ -7,6 +7,7 @@ const reqTo = require('./server/router.js');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
+const rp = require('request-promise')
 require('./config/passport')(passport);
 require('./dbConnection');
 
@@ -29,6 +30,21 @@ app.post('/api/users/signin', passport.authenticate('local-login', {
   successRedirect: '/#!/confess',
   failureRedirect: '/#!/signin',
 }));
+
+app.get('/api/imagequery', (req, res) => {
+  console.log(req.query.data);
+  let parameters = {
+    url:`https://api.gettyimages.com/v3/search/images?phrase=${req.query.data}`,
+    headers: {
+      'Api-Key': process.env.GETTY_KEY
+    },
+    method: "GET",
+  }
+  rp(parameters)
+    .then(images => console.log(images))
+    .catch(err=>console.log(err));
+
+});
 
 
 app.get('/#!/signout', function(req, res) {
