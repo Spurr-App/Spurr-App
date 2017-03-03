@@ -54,7 +54,7 @@ angular.module('Confess-Ctrl', [])
     sender: 'Sender',
     recipient: 'Recipient',
     date: new Date().toDateString(),
-    location: 'NOLA',
+    location: 'NOLA', // TODO: GEOLOCATE DYNAMIC LOCATION
     message: 'Message',
     inner_style: JSON.stringify($scope.styleIn),
     outer_style: JSON.stringify($scope.styleOut),

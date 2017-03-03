@@ -47,7 +47,7 @@ angular.module('Spurr', [
   'Saved-Fact',
   'Auth-Ctrl',
   'ngRoute',
-  'ngMessages',
+  'ngMessages'
 ])
 .config(router)
 .factory('AttachTokens', function ($window) {

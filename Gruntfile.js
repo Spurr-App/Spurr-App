@@ -1,17 +1,27 @@
 module.exports = function (grunt) { //hi
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    es6transpiler: {
+      options: {
+        disallowUnknownReferences: false
+      },
+      dist: {
+        files: {
+          'client/dist/<%= pkg.name %>Concat.js': 'client/dist/<%= pkg.name %>Concat.js'
+        }
+      }
+    },
     concat: {
       options: {
         separator: ';',
       },
       js: {
-        src: 'public/client/*.js',
-        dest: 'public/dist/<%= pkg.name %>Concat.js'
+        src: ['client/app/*.js'],
+        dest: 'client/dist/<%= pkg.name %>Concat.js'
       },
-      depjs: {
-        src: ['public/lib/jquery.js', 'public/lib/underscore.js', 'public/lib/backbone.js', 'public/lib/handlebars.js'],
-        dest: 'public/dist/<%= pkg.name %>ConcatDep.js',
+      html: {
+        src: ['client/views/*.html'],
+        dest: 'client/dist/<%= pkg.name %>HTMLConcat.html'
       }
     },
     mochaTest: {
@@ -33,9 +43,22 @@ module.exports = function (grunt) { //hi
       },
       dist: {
         files: {
-          'public/dist/<%= pkg.name %>concat.min.js': ['<%= concat.js.dest %>'],
-          'public/dist/<%= pkg.name %>concatDep.min.js': ['<%= concat.depjs.dest %>']
+          'client/dist/<%= pkg.name %>Concat.js': ['client/dist/<%= pkg.name %>Concat.js']
         }
+      }
+    },
+    htmlmin: {
+      dist: {
+        options: {
+          removeComments: true,
+          collapseWhitespace: true
+        },
+        files: [{
+          expand: true,
+          cwd: 'client',
+          src: 'dist/<%= pkg.name %>HTMLConcat.html',
+          dest: 'client/'
+        }]
       }
     },
     eslint: {
@@ -52,6 +75,33 @@ module.exports = function (grunt) { //hi
       target: {
         files: {
           'public/dist/style.css': ['public/*.css']
+        }
+      }
+    },
+    'string-replace': {
+      dist: {
+        files: {
+          'client/index.html': 'client/index.html',
+        },
+        options: {
+          replacements: [
+            {
+                pattern: '<!--start PROD imports',
+                replacement: '<!--start PROD imports-->'
+            },
+            {
+                pattern: 'end PROD imports-->',
+                replacement: '<!--end PROD imports-->'
+            },
+            {
+                pattern: '<!--start Dev imports-->',
+                replacement: '<!--start DEV imports'
+            },
+            {
+                pattern: '<!--end Dev imports-->',
+                replacement: 'end DEV imports-->'
+            }
+          ]
         }
       }
     },
@@ -74,12 +124,7 @@ module.exports = function (grunt) { //hi
     shell: {
       prodServer: {
         command: [
-          'grunt build',
-          'git add public/dist/shortly-deployconcatDep.min.js -f',
-          'git add public/dist/shortly-deployconcat.min.js -f',
-          'git add public/dist/style.css -f',
-          'git commit -m "commit concated files for deployment"',
-          'git push live master'
+          'grunt default'
         ].join('&&')
       }
     }
@@ -94,6 +139,9 @@ module.exports = function (grunt) { //hi
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-es6-transpiler');
+  grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  grunt.loadNpmTasks('grunt-string-replace');
   grunt.registerTask('server-dev', function (target) {
     grunt.task.run([ 'nodemon', 'watch' ]);
   });
@@ -104,7 +152,7 @@ module.exports = function (grunt) { //hi
     'mochaTest'
   ]);
   grunt.registerTask('default', [
-    'build'
+    'concat', 'es6transpiler', 'uglify', 'htmlmin'
   ]);
   grunt.registerTask('build', [
     'eslint', 'concat', 'uglify', 'cssmin'
@@ -119,6 +167,6 @@ module.exports = function (grunt) { //hi
   });
   grunt.registerTask('deploy', [
     // add your deploy tasks here
-    'upload'
+    'string-replace'
   ]);
 };
