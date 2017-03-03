@@ -4,3 +4,4 @@ build/*.js
 .env
 /client/lib
 /client/dist
+/server/spec/auth.js

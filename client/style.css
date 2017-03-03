@@ -155,6 +155,7 @@ select {
 }
 
 #receivedMessage {
+  background-size: 100%;
   background: pink;
   margin:auto;
   width: 576px;

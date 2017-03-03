@@ -24,9 +24,8 @@ angular.module('Confess-Fact', [])
       params:{
         data: query
       },
-    }).then((imageUrl) => {
-      console.log('success', imageUrl);
-
+    }).then((imagesUrls) => {
+      return imagesUrls;
     });
   };
 
