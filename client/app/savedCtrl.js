@@ -33,16 +33,7 @@ angular.module('Saved-Ctrl', [])
     savedFact.post(secret);
   };
 
-  $scope.fbShare = (secret) => {
-    const homeURL = 'https://www.spurralizious.com';
-    const pictureLink = 'http://imgur.com/a/uHorC';
-    const url = `http://www.facebook.com/dialog/feed?app_id=${1767308383585120}` +
-    `&link=${encodeURIComponent('www.spurralizious.com')}&picture=http://i.imgur.com/Ej3LoGC.png` +
-    `&name=${encodeURIComponent('Spurr')}&caption=${'Don\'t you have a secret?'}` +
-    `&description=${encodeURIComponent(`Someone whispurred a secret: ${secret.message}`)}&display=popup`;
-    window.open(url,
-                'feedDialog',
-                'toolbar=0,status=0,width=626,height=436'
-    );
+  $scope.socialShare = (secret, service) => {
+    savedFact.openWind(secret, service);
   };
 });
