@@ -105,6 +105,13 @@ angular.module('Confess-Ctrl', [])
     $scope.set();
   };
 
+  $scope.searchForImage = function(query) {
+    confessFact.query(query)
+        .then(imageUrl => console.log(imageUrl,'img'))
+        .catch(err => console.warn(err));
+  }
+
+
   /**
    * Checks if secret should send its sender, recipient, date, and location
    * Sets any of those four to null if necessary

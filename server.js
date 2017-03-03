@@ -1,6 +1,6 @@
-const app = require('./server-config.js');
+var app = require('./server-config.js');
 
-const PORT = process.env.PORT || 5000;
+var PORT = process.env.PORT || 5000;
 
 app.listen(PORT);
 
