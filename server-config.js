@@ -41,7 +41,18 @@ app.get('/api/imagequery', (req, res) => {
     method: "GET",
   }
   rp(parameters)
-    .then(images => console.log(images))
+    .then((images) => {
+      images = JSON.parse(images).images;
+      var uris = images.reduce((accum,image)=>{
+          accum.push({
+          id:image.id,
+          url:image.display_sizes[0].uri
+        })
+        console.log(image)
+        return accum;
+      },[]);
+      res.send(uris)
+    })
     .catch(err=>console.log(err));
 
 });

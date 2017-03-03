@@ -42,10 +42,11 @@ angular.module('Confess-Ctrl', [])
   $scope.styleIn = {
     'font-family': 'arial',
     'font-size': '15px',
-    color: 'black',
+     color: 'black',
   };
 
   $scope.styleOut = {
+    'background-size':'',
     'background-image': 'none',
     'background-color': 'lightgrey',
   };
@@ -106,9 +107,23 @@ angular.module('Confess-Ctrl', [])
   };
 
   $scope.searchForImage = function(query) {
+    $scope.images = {
+      none: 'none',
+      paper: '../assets/paper-back.png',
+      letter: '../assets/letter-back.png',
+      dot: '../assets/dot-back.png',
+      wild: '../assets/crazy-back.png',
+      dark: '../assets/cross-back.png',
+      love: '../assets/heart-back.png',
+    };
     confessFact.query(query)
-        .then(imageUrl => console.log(imageUrl,'img'))
-        .catch(err => console.warn(err));
+        .then((imagesUrls) => {
+        console.log(imagesUrls,'img')
+        // $scope.images[]=blah
+        imagesUrls.data.forEach((image)=>{
+          $scope.images[image.id] = image.url
+        });
+      }).catch(err => console.warn(err));
   }
 
 
