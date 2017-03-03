@@ -25,11 +25,11 @@ angular.module('Saved-Fact', [])
   const openWind = (secret, service) => {
     switch (service) {
       case 'facebook':
-        const url = `http://www.facebook.com/dialog/feed?app_id=${1767308383585120}` +
+        const fbURL = `http://www.facebook.com/dialog/feed?app_id=${1767308383585120}` +
           `&link=${encodeURIComponent('www.spurralizious.com')}&picture=http://i.imgur.com/Ej3LoGC.png` +
           `&name=${encodeURIComponent('Spurr')}&caption=${'Don\'t you have a secret?'}` +
           `&description=${encodeURIComponent(`Someone whispurred a secret: ${secret.message}`)}&display=popup`;
-        window.open(url,
+        window.open(fbURL,
                     'feedDialog',
                     'toolbar=0,status=0,width=626,height=436'
         );
