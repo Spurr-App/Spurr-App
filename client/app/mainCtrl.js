@@ -1,7 +1,7 @@
 angular.module('Spurr-Ctrl', [])
 .controller('SpurrCtrl', function ($scope, SpurrFact, $window, $location) {
   $scope.default = '';
-
+  // TODO: CREATING A TOKEN IN BROWSER CHANGES NAVIGATION LINK, FIX THIS
   /**
    * Checks the length of $window.localStorage,
    * which determines whether or not a user is logged in.

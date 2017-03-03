@@ -48,9 +48,11 @@ router.post = function post(params, columns, table) {
  * @param {Object} res
  * @returns {Function} Promise from post request
  */
-router.postSpurr = function ( body , res) {
-  const columns = Object.keys(body);
-  const params = columns.reduce((arr, key) => arr.concat([body[key]]), []);
+
+router.postSpurr = function (req, res) {
+  const columns = Object.keys(req.body);
+  console.log(columns);
+  const params = columns.reduce((arr, key) => arr.concat([req.body[key]]), []);
   router.post(params, columns, 'spurrs');
   res.sendStatus(200);
 };
@@ -64,9 +66,10 @@ router.postSpurr = function ( body , res) {
  * @param {Object} res
  * @returns {Function} Promise from post request
  */
-router.saveSpurr = function ( body , res) {
-  const columns = Object.keys(body);
-  const params = columns.reduce((arr, key) => arr.concat([body[key]]), []);
+
+router.saveSpurr = function (req, res) {
+  const columns = Object.keys(req.body);
+  const params = columns.reduce((arr, key) => arr.concat([req.body[key]]), []);
   router.post(params, columns, 'saved_spurrs');
   res.sendStatus(200);
 };
