@@ -29,10 +29,8 @@ angular.module('Saved-Fact', [])
           `&link=${encodeURIComponent('www.spurralizious.com')}&picture=http://i.imgur.com/Ej3LoGC.png` +
           `&name=${encodeURIComponent('Spurr')}&caption=${'Don\'t you have a secret?'}` +
           `&description=${encodeURIComponent(`Someone whispurred a secret: ${secret.message}`)}&display=popup`;
-        window.open(fbURL,
-                    'feedDialog',
-                    'toolbar=0,status=0,width=626,height=436'
-        );
+
+        window.open(fbURL, 'feedDialog', 'toolbar=0,status=0,width=626,height=436');
         break;
       case 'twitter':
         const twitURL = `https://twitter.com/share?url=${'https://spurralizious.com'}` +
@@ -42,6 +40,7 @@ angular.module('Saved-Fact', [])
             opts = `status=1,width=${width},height=${height}`;
 
         window.open(twitURL, 'twitter', opts);
+        break;
     }
   };
 
