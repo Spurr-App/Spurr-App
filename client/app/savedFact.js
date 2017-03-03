@@ -22,7 +22,31 @@ angular.module('Saved-Fact', [])
     });
   };
 
+  const openWind = (secret, service) => {
+    switch (service) {
+      case 'facebook':
+        const url = `http://www.facebook.com/dialog/feed?app_id=${1767308383585120}` +
+          `&link=${encodeURIComponent('www.spurralizious.com')}&picture=http://i.imgur.com/Ej3LoGC.png` +
+          `&name=${encodeURIComponent('Spurr')}&caption=${'Don\'t you have a secret?'}` +
+          `&description=${encodeURIComponent(`Someone whispurred a secret: ${secret.message}`)}&display=popup`;
+        window.open(url,
+                    'feedDialog',
+                    'toolbar=0,status=0,width=626,height=436'
+        );
+        break;
+      case 'twitter':
+        const twitURL = `https://twitter.com/share?url=${'https://spurralizious.com'}` +
+          `&via=Spurr&text=${encodeURIComponent(`Someone whispurred: ${secret.message}`)}`
+          const width = 575,
+            height = 400,
+            opts = `status=1,width=${width},height=${height}`;
+
+        window.open(twitURL, 'twitter', opts);
+    }
+  };
+
   return {
     get: grabSavedSpurrs,
+    openWind,
   };
 });
