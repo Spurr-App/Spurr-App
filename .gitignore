@@ -2,6 +2,7 @@
 node_modules/
 build/*.js
 .env
+/config/auth.js
 /client/lib
 /client/dist
 /server/spec/auth.js
