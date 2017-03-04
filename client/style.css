@@ -212,13 +212,20 @@ form {
 
 /* Modal Content */
 .modal-content {
-    background-color: #fefefe;
+    background-color: #ffafaf;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 30%;
+    height: 30%;
 }
-
+.modal-content:hover{
+  background-color: #c3dfeb;
+}
+.modalimage {
+  max-height: 100%;
+  max-width: 100%;
+}
 /* The Close Button */
 .close {
     color: #aaaaaa;

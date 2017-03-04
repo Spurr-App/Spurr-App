@@ -61,12 +61,12 @@
     <button ng-click="confess(secret)" class="bigButton">Submit</button>
 
   </div>
-<!-- modal -->
+  <!-- modal -->
   <div id="myModal" class="modal">
     <span class="close">&times;</span>
     <div ng-repeat="(id,image) in images" class="modal-content">
-      <img id="modalimage" ng-src="{{image}}"/>
-      <div>{{id}}<div>
+      <img class="modalimage" src="{{image}}">
+      <div>{{id}}</div>
     </div>
   </div>
 <!-- modal end -->
@@ -77,8 +77,6 @@
         <li ng-show="showDate" class="right">{{ secret.date }}</li>
       </ul>
     </div>
-
-
     <input type="text"
       class="msgText left"
       ng-model="secret.recipient"
@@ -86,9 +84,6 @@
       ng-style="styleIn"
       maxlength="15">
     <textarea id="msgbody" rows="4" class="msgText" ng-model="secret.message" ng-style="styleIn" maxlength="100"></textarea>
-
     <input type="text" class="msgText right" ng-model="secret.sender" ng-show="showSender" ng-style="styleIn" maxlength="15">
-
-
   </div>
 </div>
