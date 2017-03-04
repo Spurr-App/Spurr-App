@@ -22,9 +22,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // this is listened to by the post form in index.html
-app.post('/api/users/signup', passport.authenticate('local-signup'));
+app.post('/api/users/signup', passport.authenticate('local-signup'), (req, res) => {
+  res.json(req.body.username);
+});
 app.post('/api/users/signin', passport.authenticate('local-login'), (req, res) => {
-  res.json(JSON.stringify(req.body.username));
+  res.json(req.body.username);
 });
 
 app.get('/api/imagequery', (req, res) => {

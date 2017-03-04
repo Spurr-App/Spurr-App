@@ -3,15 +3,15 @@
 // in our signup/signin forms using the injected Auth service
 angular.module('Auth-Ctrl', [])
 
-.controller('AuthController', function ($scope, $window, $location, Auth) {
+.controller('AuthController', function ($rootScope, $scope, $window, $location, Auth) {
   $scope.user = {};
 
   $scope.signin = function () {
     Auth.signin($scope.user)
-      .then(function (data) {
+      .then((data) => {
         $scope.user = { data };
+        $rootScope.user = { data };
         $window.localStorage.setItem('com.spurr', undefined);
-        console.log(data)
         $location.path('/confess');
       })
       .catch(function (error) {
@@ -21,8 +21,9 @@ angular.module('Auth-Ctrl', [])
 
   $scope.signup = function () {
     Auth.signup($scope.user)
-      .then(function (token) {
-        $window.localStorage.setItem('com.spurr', token);
+      .then((data) => {
+        $scope.user = { data };
+        $window.localStorage.setItem('com.spurr', undefined);
         $location.path('/confess');
       })
       .catch(function (error) {
@@ -39,26 +40,22 @@ angular.module('Auth-Ctrl', [])
   // after you signin/signup open devtools, click resources,
   // then localStorage and you'll see your token from the server
   const signInUser = function (user) {
-    console.log(user);
     return $http({
       method: 'POST',
       url: '/api/users/signin',
       data: user,
     })
-    .then(resp => {
-      //TODO: remove consolelog here
-      console.log(resp);
-      return resp.data;
-    });
+    .then(resp => resp.data);
   };
 
   const signUpUser = function (user) {
+    console.log(user);
     return $http({
       method: 'POST',
       url: '/api/users/signup',
       data: user,
     })
-    .then(resp => resp.data.token);
+    .then(resp => resp.data);
   };
 
   const isAuthourized = function () {

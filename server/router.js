@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 require('dotenv').config();
+const Q = require('q');
 
 
 const HOST = process.env.HOST;
@@ -68,10 +69,22 @@ router.postSpurr = function (req, res) {
  */
 
 router.saveSpurr = function (req, res) {
-  const columns = Object.keys(req.body);
-  const params = columns.reduce((arr, key) => arr.concat([req.body[key]]), []);
-  router.post(params, columns, 'saved_spurrs');
-  res.sendStatus(200);
+  const columns = Object.keys(req.body.secret);
+  console.log(req.body.user.data);
+  const query = `Select * FROM users WHERE username = '${req.body.user.data}'`;
+  db.query(query, (err, rows) => {
+    if (err) {
+      throw new Error(err);
+    }
+    const columns = Object.keys(req.body.secret);
+    const params = columns.reduce((arr, key) => arr.concat([req.body.secret[key]]), []);
+    columns.push('user_id');
+    params.push(rows[0].id);
+
+    router.post(params, columns, 'saved_spurrs');
+    res.sendStatus(200);
+  });
+
 };
 
 /**
@@ -83,8 +96,9 @@ router.saveSpurr = function (req, res) {
  * @param {Boolean} del
  * @returns {Function} Promise from get request
  */
-router.get = function get(table, limit, del) {
-  const query = `SELECT * FROM ${table} ORDER BY spurr_id ASC LIMIT ${limit}`;
+router.get = function get(table, limit, del, user) {
+  const query = user ? `SELECT * FROM ${table} WHERE user_idLIMIT ${limit}`
+    : `SELECT * FROM ${table} ORDER BY spurr_id ASC LIMIT ${limit}`;
   return new Promise(function (resolve) {
     db.query(query, (err, rows) => {
       if (!err) {
@@ -126,10 +140,13 @@ router.getSpurr = function (req, res) {
  * @param {Object} res
  */
 router.getSavedSpurrs = function (req, res) {
-  router.get('saved_spurrs', 8, false)
-  .then((data) => {
-    res.status(200).send(data);
-  });
+  if (req.query.data) {
+
+      router.get('saved_spurrs', 20, false, req.query.data)
+      .then((data) => {
+        res.status(200).send(data);
+      });
+  }
 };
 
 

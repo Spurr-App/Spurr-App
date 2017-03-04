@@ -24,12 +24,15 @@ angular.module('Receive-Fact', [])
    * @param {Object} secret
    * @returns {Function} Promise from post request
    */
-  const saveSpurr = function (secret) {
+  const saveSpurr = function (secret, user) {
     return new Promise(() => {
       $http({
         method: 'POST',
         url: '/api/savedSpurrs',
-        data: secret,
+        data: {
+          secret,
+          user,
+        }
       }).then(() => {
         $window.location.href = '#!/secrets';
       });

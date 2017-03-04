@@ -1,6 +1,5 @@
 angular.module('Receive-Ctrl', [])
-.controller('receiveCtrl', function ($scope, receiveFact) {
-  $scope.username = 'liv';
+.controller('receiveCtrl', function ($rootScope, $scope, receiveFact) {
 
   $scope.secret = null;
   $scope.styleIn = null;
@@ -15,9 +14,7 @@ angular.module('Receive-Ctrl', [])
   $scope.get = function () {
     receiveFact.get()
     .then((secret) => {
-      console.log(secret);
       $scope.secret = secret;
-      $scope.secret.username = $scope.username;
       $scope.styleIn = secret.inner_style;
       $scope.styleOut = secret.outer_style;
     });
@@ -38,7 +35,7 @@ angular.module('Receive-Ctrl', [])
   $scope.save = function (secret) {
     secret.inner_style = JSON.stringify($scope.styleIn);
     secret.outer_style = JSON.stringify($scope.styleOut);
-    receiveFact.post(secret);
+    receiveFact.post(secret, $rootScope.user);
   };
 
   $scope.get();

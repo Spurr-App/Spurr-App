@@ -10,9 +10,8 @@ angular.module('Confess-Fact', [])
     return $http({
       method: 'POST',
       url: '/api/spurrs',
-      data: secret,
+      data: secret
     }).then((res) => {
-      console.log('success', res);
       $window.location.href = '#!/receive';
     });
   };
