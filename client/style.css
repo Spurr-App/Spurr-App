@@ -127,6 +127,7 @@ select {
   height: 340px;
   padding: 30px;
   background: #eee;
+  background-size:cover;
 }
 
 .message, .message input, textarea {
