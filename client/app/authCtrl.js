@@ -8,9 +8,10 @@ angular.module('Auth-Ctrl', [])
 
   $scope.signin = function () {
     Auth.signin($scope.user)
-      .then(function (token) {
-        $window.localStorage.setItem('com.spurr', token);
-        console.log(token, 'token')
+      .then(function (data) {
+        $scope.user = { data };
+        $window.localStorage.setItem('com.spurr', undefined);
+        console.log(data)
         $location.path('/confess');
       })
       .catch(function (error) {
@@ -38,12 +39,17 @@ angular.module('Auth-Ctrl', [])
   // after you signin/signup open devtools, click resources,
   // then localStorage and you'll see your token from the server
   const signInUser = function (user) {
+    console.log(user);
     return $http({
       method: 'POST',
       url: '/api/users/signin',
       data: user,
     })
-    .then(resp => resp.data.token);
+    .then(resp => {
+      //TODO: remove consolelog here
+      console.log(resp);
+      return resp.data;
+    });
   };
 
   const signUpUser = function (user) {
