@@ -26,7 +26,6 @@ angular.module('Confess-Ctrl', [])
   };
 
   $scope.images = {
-    none: 'none',
     paper: '../assets/paper-back.png',
     letter: '../assets/letter-back.png',
     dot: '../assets/dot-back.png',
@@ -92,9 +91,6 @@ angular.module('Confess-Ctrl', [])
    */
   $scope.setBackground = function (url, color) {
     if (url) {
-      if (url === 'none') {
-        $scope.styleOut['background-image'] = 'none';
-      }
       $scope.styleOut['background-image'] = `url(${url})`;
     } else if (color) {
       $scope.styleOut['background-color'] = color;
@@ -107,7 +103,6 @@ angular.module('Confess-Ctrl', [])
 
   $scope.searchForImage = function(query) {
     $scope.images = {
-      none: 'none',
       paper: '../assets/paper-back.png',
       letter: '../assets/letter-back.png',
       dot: '../assets/dot-back.png',
