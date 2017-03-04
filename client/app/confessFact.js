@@ -1,12 +1,12 @@
 angular.module('Confess-Fact', [])
-.factory('confessFact', function ($http, $window) {
+.factory('confessFact', ($http, $window) => {
   /**
    * Sends secret to the spurrs database
    * Redirects to receive view
    * @param {Object} secret
    * @returns {Secret} Promise from post request
    */
-  const postSpurr = function post(secret) {
+  const postSpurr = (secret) => {
     return $http({
       method: 'POST',
       url: '/api/spurrs',
@@ -16,7 +16,7 @@ angular.module('Confess-Fact', [])
     });
   };
 
-  const queryImage = function get(query) {
+  const queryImage = (query) => {
     return $http({
       method: 'GET',
       url: '/api/imagequery',

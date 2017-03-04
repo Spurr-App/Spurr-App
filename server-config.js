@@ -17,7 +17,6 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '/client')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(session({ secret: 'shhsecret', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -30,7 +29,6 @@ app.post('/api/users/signin', passport.authenticate('local-login'), (req, res) =
 });
 
 app.get('/api/imagequery', (req, res) => {
-  console.log(req.query.data);
   let parameters = {
     url:`https://api.gettyimages.com/v3/search/images?phrase=${req.query.data}`,
     headers: {
@@ -50,11 +48,11 @@ app.get('/api/imagequery', (req, res) => {
       },[]);
       res.send(uris)
     })
-    .catch(err => console.log('ERROR:', err));
+    .catch(err => console.warn('ERROR:', err));
 });
 
 
-app.get('/#!/signout', function(req, res) {
+app.get('/#!/signout', (req, res) => {
   req.logout();
   res.redirect('/signin');
 });

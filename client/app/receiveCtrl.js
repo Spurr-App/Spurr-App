@@ -1,5 +1,5 @@
 angular.module('Receive-Ctrl', [])
-.controller('receiveCtrl', function ($rootScope, $scope, receiveFact) {
+.controller('receiveCtrl', ($rootScope, $scope, receiveFact) => {
 
   $scope.secret = null;
   $scope.styleIn = null;

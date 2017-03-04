@@ -1,5 +1,5 @@
 angular.module('Spurr-Ctrl', [])
-.controller('SpurrCtrl', function ($scope, SpurrFact, $window, $location) {
+.controller('SpurrCtrl', ($scope, SpurrFact, $window, $location) => {
   $scope.default = '';
   // TODO: CREATING A TOKEN IN BROWSER CHANGES NAVIGATION LINK, FIX THIS
   /**
@@ -15,7 +15,7 @@ angular.module('Spurr-Ctrl', [])
    * Works on any view to ensure angular is working
    * @param {Any} input
    */
-  $scope.test = function (input) {
+  $scope.test = (input) => {
     SpurrFact.test(input);
   };
 
@@ -23,7 +23,7 @@ angular.module('Spurr-Ctrl', [])
    * Clears localstorage, effectively logging out user
    * Redirects user to root
    */
-  $scope.signout = function () {
+  $scope.signout = () => {
     $window.localStorage.clear();
     $location.path('/');
   };

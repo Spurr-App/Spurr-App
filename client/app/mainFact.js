@@ -1,10 +1,10 @@
 angular.module('Spurr-Fact', [])
-.factory('SpurrFact', function () {
+.factory('SpurrFact', () => {
   /**
    * Console log truthy input, or error message followed by input
    * @param {Any} input
    */
-  const tester = function (input) {
+  const tester = (input) => {
     return input ? console.log(input) : console.log('Error, input is', input);
   };
 
@@ -13,7 +13,7 @@ angular.module('Spurr-Fact', [])
    * @param {String} str
    * @return {String} res
    */
-  const escapeText = function (str) {
+  const escapeText = (str) => {
     let res;
     res = str.replace(/"/g, '\\"');
     res = str.replace(/'/g, "\\'");

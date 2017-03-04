@@ -1,5 +1,5 @@
 angular.module('Confess-Ctrl', [])
-.controller('confessCtrl', function ($rootScope, $scope, SpurrFact, confessFact) {
+.controller('confessCtrl', ($rootScope, $scope, SpurrFact, confessFact) => {
   $scope.showSender = true;
   $scope.showRecipient = true;
   $scope.showDate = true;
@@ -60,7 +60,7 @@ angular.module('Confess-Ctrl', [])
    * Sets styles of $scope.secret object
    * Styles must be stringified before being sent to database
    */
-  $scope.set = function () {
+  $scope.set = () => {
     $scope.secret.inner_style = JSON.stringify($scope.styleIn);
     $scope.secret.outer_style = JSON.stringify($scope.styleOut);
   };
@@ -72,7 +72,7 @@ angular.module('Confess-Ctrl', [])
    * @param {String} size
    * @param {String} color
    */
-  $scope.setFont = function (font, size, color) {
+  $scope.setFont = (font, size, color) => {
     if (font) {
       $scope.styleIn['font-family'] = font;
     } else if (size) {
@@ -89,7 +89,7 @@ angular.module('Confess-Ctrl', [])
    * @param {String} url
    * @param {String} color
    */
-  $scope.setBackground = function (url, color) {
+  $scope.setBackground = (url, color) => {
     if (url) {
       $scope.styleOut['background-image'] = `url(${url})`;
     } else if (color) {
@@ -101,7 +101,7 @@ angular.module('Confess-Ctrl', [])
     $scope.set();
   };
 
-  $scope.searchForImage = function(query) {
+  $scope.searchForImage = (query) => {
     $scope.images = {
       paper: '../assets/paper-back.png',
       letter: '../assets/letter-back.png',
@@ -114,16 +114,13 @@ angular.module('Confess-Ctrl', [])
     modal.style.display = "block";
     if (query) {
       confessFact.query(query)
-          .then((imagesUrls) => {
-          console.log(imagesUrls,'img')
-          // $scope.images[]=blah
-          imagesUrls.data.forEach((image)=>{
+        .then((imagesUrls) => {
+          imagesUrls.data.forEach((image) => {
             $scope.images[image.id] = image.url
           });
         }).catch(err => console.warn(err));
     }
   }
-
 
   /**
    * Checks if secret should send its sender, recipient, date, and location
@@ -132,7 +129,7 @@ angular.module('Confess-Ctrl', [])
    * Runs a function from confessFact to post secret to the database
    * @param {object} secret
    */
-  $scope.confess = function (secret) {
+  $scope.confess = (secret) => {
     if (!$scope.showSender) {
       secret.sender = null;
     } else if (!$scope.showRecipient) {
