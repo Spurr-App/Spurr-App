@@ -1,14 +1,10 @@
 var LocalStrategy = require('passport-local').Strategy;
-// var FacebookStrategy = require('passport-facebook').Strategy;
-// var TwitterStrategy = require('passport-twitter').Strategy;
-// var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var connection = require('../dbConnection.js');
 
 
 module.exports = function(passport) {
 // turn the user info into serialized
   passport.serializeUser(function(user, done) {
-    console.log(user, 'OHHH HELL')
     done(null, user.id);
   });
 // deserialize the user
@@ -20,12 +16,11 @@ module.exports = function(passport) {
   });
 // use the local sign up method
   passport.use('local-signup', new LocalStrategy({
-    usernameField: 'email',
+    usernameField: 'username',
     passwordField: 'password',
     passReqToCallback: true
   },
   function(req, username, password, done) {
-    console.log(username, password);
     process.nextTick(function() {
       connection.query("select * from users where username = '"+username+"'",function(err,rows){
         if (err) {
@@ -35,16 +30,12 @@ module.exports = function(passport) {
           return done(null, false);
         } else {
           const newUserMysql = new Object();
-          newUserMysql.email    = email;
+          newUserMysql.username = username;
           newUserMysql.password = password; // use the generateHash function in our user model
           // newUser.local.password = newUser.generateHash(password);
-          const insertQuery = "INSERT INTO users ( email, password ) values ('" + email +"','"+ password +"')";
-          console.log(insertQuery);
+          const insertQuery = "INSERT INTO users ( username, password ) values ('" + username +"','"+ password +"')";
           connection.query(insertQuery, (error, rowsTwo) => {
-            console.log(rowsTwo, 'rowsTwo')
-            console.log(newUserMysql, 'newUserMysql')
-            newUserMysql.user_id = rowsTwo.insertId;
-
+            newUserMysql.id = rowsTwo.insertId;
             return done(null, newUserMysql);
           });
         }
@@ -58,7 +49,6 @@ module.exports = function(passport) {
     passReqToCallback: true
   },
   function(req, username, password, done) {
-    console.log(username, password, 'U AND P');
     connection.query("SELECT * FROM `users` WHERE `username` = '" + username + "'", (err, rows) => {
       if (err) {
         return done(err);
@@ -74,7 +64,6 @@ module.exports = function(passport) {
       }
 
   // all is well, return successful user
-    console.log('ALL IS WELL', rows[0].id);
       return done(null, rows[0]);
     });
   }));

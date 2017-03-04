@@ -21,8 +21,8 @@ CREATE TABLE saved_spurrs (
   recipient varchar(50),
   message varchar(100),
   location varchar(200),
-  user_id int,
   inner_style varchar(200),
+  user_id int,
   outer_style varchar(200),
   Primary key(spurr_id),
   foreign key(user_id) references users(id)

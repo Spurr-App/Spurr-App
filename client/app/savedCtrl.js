@@ -1,5 +1,5 @@
 angular.module('Saved-Ctrl', [])
-.controller('savedCtrl', function ($scope, SpurrFact, savedFact) {
+.controller('savedCtrl', function ($rootScope, $scope, SpurrFact, savedFact) {
   $scope.username = 'liv';
 
   $scope.styleIn = null;
@@ -14,7 +14,7 @@ angular.module('Saved-Ctrl', [])
    */
   $scope.get = function () {
     console.log('get');
-    savedFact.get()
+    savedFact.get($rootScope.user)
     .then((secrets) => {
       $scope.secrets = secrets;
     });
