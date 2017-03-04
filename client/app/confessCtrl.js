@@ -6,8 +6,6 @@ angular.module('Confess-Ctrl', [])
   $scope.showLocation = true;
 
   $scope.fonts = [
-    'Arial','Helvetica','Futura','Times','Comic Sans MS','Papyrus','Courier New',
-    'Arial Black','Impact','Earwig Factory','Jazz Ball','I Love Glitter','Andale Mono',
     'Tangerine','Poiret One','Open Sans','Diplomata SC','Baloo','Griffy','Oswald',
     'Montserrat','Merriweather','Rochester','Sirin Stencil','Indie Flower','Bitter',
     'Fjalla One','Inconsolata','Dosis','Anton','Cabin','Arvo','Fascinate Inline',
