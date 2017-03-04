@@ -6,3 +6,4 @@ build/*.js
 /client/lib
 /client/dist
 /server/spec/auth.js
+/npm-debug.log
