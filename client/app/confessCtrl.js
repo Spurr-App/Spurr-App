@@ -4,7 +4,7 @@ angular.module('Confess-Ctrl', [])
   $scope.showRecipient = true;
   $scope.showDate = true;
   $scope.showLocation = true;
-
+  var modal = document.getElementById('myModal');
   $scope.fonts = [
     'Tangerine','Poiret One','Open Sans','Diplomata SC','Baloo','Griffy','Oswald',
     'Montserrat','Merriweather','Rochester','Sirin Stencil','Indie Flower','Bitter',
@@ -90,6 +90,7 @@ angular.module('Confess-Ctrl', [])
    * @param {String} color
    */
   $scope.setBackground = function (url, color) {
+    console.log('call',url);
     if (url) {
       if (url === 'none') {
         $scope.styleOut['background-image'] = 'none';
@@ -98,6 +99,8 @@ angular.module('Confess-Ctrl', [])
     } else if (color) {
       $scope.styleOut['background-color'] = color;
     }
+    //close modal
+    modal.style.display = "none";
     $scope.set();
   };
 
@@ -111,14 +114,18 @@ angular.module('Confess-Ctrl', [])
       dark: '../assets/cross-back.png',
       love: '../assets/heart-back.png',
     };
-    confessFact.query(query)
-        .then((imagesUrls) => {
-        console.log(imagesUrls,'img')
-        // $scope.images[]=blah
-        imagesUrls.data.forEach((image)=>{
-          $scope.images[image.id] = image.url
-        });
-      }).catch(err => console.warn(err));
+    //open modal//
+    modal.style.display = "block";
+    if (query) {
+      confessFact.query(query)
+          .then((imagesUrls) => {
+          console.log(imagesUrls,'img')
+          // $scope.images[]=blah
+          imagesUrls.data.forEach((image)=>{
+            $scope.images[image.id] = image.url
+          });
+        }).catch(err => console.warn(err));
+    }
   }
 
 
@@ -142,28 +149,20 @@ angular.module('Confess-Ctrl', [])
     secret.message = SpurrFact.esc(secret.message);
     confessFact.post(secret);
   };
-  var modal = document.getElementById('myModal');
 
-  // Get the button that opens the modal
-  var btn = document.getElementById("myBtn");
 
   // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
-
-  // When the user clicks the button, open the modal
-  btn.onclick = function() {
-      modal.style.display = "block";
-  }
-
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
-      modal.style.display = "none";
-  }
-
+  // var img = document.getElementsByClassName("modal")[0];
+  // When the user clicks on <img> (x), close the modal
+  // img.onclick = function(e) {
+  //     console.log(e, 'target')
+  //     $scope.setBackground(e.target.src)
+  //     modal.style.display = "none";
+  // }
   // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-      if (event.target == modal) {
-          modal.style.display = "none";
-      }
-  }
+  // window.onclick = function(event) {
+  //     if (event.target == modal) {
+  //         modal.style.display = "none";
+  //     }
+  // }
 });
