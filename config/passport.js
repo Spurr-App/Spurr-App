@@ -8,13 +8,13 @@ var connection = require('../dbConnection.js');
 module.exports = function(passport) {
 // turn the user info into serialized
   passport.serializeUser(function(user, done) {
-    console.log(user, 'user')
-    done(null, user.user_id);
+    console.log(user, 'OHHH HELL')
+    done(null, user.id);
   });
 // deserialize the user
   passport.deserializeUser(function(id, done) {
     //by finding by the id
-    connection.query(`select * from users where user_id = ${id}`, (err, rows) => {
+    connection.query(`select * from users where id = ${id}`, (err, rows) => {
       done(err, rows);
     });
   });
@@ -22,13 +22,12 @@ module.exports = function(passport) {
   passport.use('local-signup', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
-    passReqToCallback: true,
+    passReqToCallback: true
   },
-  function(req, email, password, done) {
+  function(req, username, password, done) {
+    console.log(username, password);
     process.nextTick(function() {
-      connection.query("select * from users where email = '"+email+"'",function(err,rows){
-      console.log(rows);
-      console.log("above row object");
+      connection.query("select * from users where username = '"+username+"'",function(err,rows){
         if (err) {
           return done(err);
         }
@@ -54,15 +53,17 @@ module.exports = function(passport) {
   }));
 
   passport.use('local-login', new LocalStrategy({
-    usernameField: 'email',
+    usernameField: 'username',
     passwordField: 'password',
-    passReqToCallback: true,
+    passReqToCallback: true
   },
-  function(req, email, password, done) {
-    connection.query("SELECT * FROM `users` WHERE `email` = '" + email + "'", (err, rows) => {
+  function(req, username, password, done) {
+    console.log(username, password, 'U AND P');
+    connection.query("SELECT * FROM `users` WHERE `username` = '" + username + "'", (err, rows) => {
       if (err) {
         return done(err);
       }
+      console.log(rows, 'ROWS');
       if (!rows.length) {
         return done(null, false); // req.flash is the way to set flashdata using connect-flash
       }
@@ -73,6 +74,7 @@ module.exports = function(passport) {
       }
 
   // all is well, return successful user
+    console.log('ALL IS WELL', rows[0].id);
       return done(null, rows[0]);
     });
   }));
