@@ -33,13 +33,7 @@ router.post = function post(params, columns, table) {
   const cols = columns.join(',');
   const query = `INSERT INTO ${table} (${cols}) VALUES ('${attr}')`;
   console.log(query);
-  return db.query(query, (err, rows) => {
-    if (!err) {
-      console.log(rows);
-    } else {
-      console.log(err);
-    }
-  });
+  return db.query(query)
 };
 
 /**
@@ -74,19 +68,18 @@ router.saveSpurr = function (req, res) {
   const columns = Object.keys(req.body.secret);
   console.log(req.body.user.data);
   const query = `Select * FROM users WHERE username = '${req.body.user.data}'`;
-  db.query(query, (err, rows) => {
-    if (err) {
+  dbBlue.queryAsync(query)
+    .then((rows) => {
+      const columns = Object.keys(req.body.secret);
+      const params = columns.reduce((arr, key) => arr.concat([req.body.secret[key]]), []);
+      columns.push('user_id');
+      params.push(rows[0].id);
+      router.post(params, columns, 'saved_spurrs');
+      res.sendStatus(200);
+    })
+    .catch((err) => {
       throw new Error(err);
-    }
-    const columns = Object.keys(req.body.secret);
-    const params = columns.reduce((arr, key) => arr.concat([req.body.secret[key]]), []);
-    columns.push('user_id');
-    params.push(rows[0].id);
-
-    router.post(params, columns, 'saved_spurrs');
-    res.sendStatus(200);
-  });
-
+    });
 };
 
 /**
@@ -102,8 +95,8 @@ router.get = function get(table, limit, del, id) {
   const query = id ? `SELECT * FROM ${table} WHERE user_id = ${id} LIMIT ${limit}`
     : `SELECT * FROM ${table} ORDER BY spurr_id ASC LIMIT ${limit}`;
   return new Promise(function (resolve) {
-    db.query(query, (err, rows) => {
-      if (!err) {
+    dbBlue.queryAsync(query)
+      .then((rows) => {
         if (del) {
           resolve(rows[0]);
           const remove = `DELETE FROM ${table} WHERE spurr_id = ${rows[0].spurr_id}`;
@@ -111,12 +104,13 @@ router.get = function get(table, limit, del, id) {
         } else {
           resolve(rows);
         }
-      } else {
-        console.log(err);
-      }
-    });
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
   });
 };
+
 
 /**
  * Calls get request to spurrs database
@@ -147,7 +141,6 @@ router.getSavedSpurrs = function (req, res) {
     dbBlue.queryAsync(query)
       .then((rows) => {
         return router.get('saved_spurrs', 20, false, rows[0].id)
-
       })
       .then((data) => {
         res.status(200).send(data);
