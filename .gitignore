@@ -5,4 +5,4 @@ build/*.js
 /config/auth.js
 /client/lib
 /client/dist
-/npm-debug.log
+npm-debug.log
