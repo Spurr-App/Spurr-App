@@ -4,10 +4,9 @@ angular.module('Confess-Ctrl', [])
   $scope.showRecipient = true;
   $scope.showDate = true;
   $scope.showLocation = true;
+  var modal = document.getElementById('myModal');
 
   $scope.fonts = [
-    'Arial','Helvetica','Futura','Times','Comic Sans MS','Papyrus','Courier New',
-    'Arial Black','Impact','Earwig Factory','Jazz Ball','I Love Glitter','Andale Mono',
     'Tangerine','Poiret One','Open Sans','Diplomata SC','Baloo','Griffy','Oswald',
     'Montserrat','Merriweather','Rochester','Sirin Stencil','Indie Flower','Bitter',
     'Fjalla One','Inconsolata','Dosis','Anton','Cabin','Arvo','Fascinate Inline',
@@ -27,7 +26,6 @@ angular.module('Confess-Ctrl', [])
   };
 
   $scope.images = {
-    none: 'none',
     paper: '../assets/paper-back.png',
     letter: '../assets/letter-back.png',
     dot: '../assets/dot-back.png',
@@ -93,19 +91,18 @@ angular.module('Confess-Ctrl', [])
    */
   $scope.setBackground = function (url, color) {
     if (url) {
-      if (url === 'none') {
-        $scope.styleOut['background-image'] = 'none';
-      }
       $scope.styleOut['background-image'] = `url(${url})`;
     } else if (color) {
       $scope.styleOut['background-color'] = color;
     }
+    //close modal on click
+    modal.style.display = "none";
+
     $scope.set();
   };
 
   $scope.searchForImage = function(query) {
     $scope.images = {
-      none: 'none',
       paper: '../assets/paper-back.png',
       letter: '../assets/letter-back.png',
       dot: '../assets/dot-back.png',
@@ -113,14 +110,18 @@ angular.module('Confess-Ctrl', [])
       dark: '../assets/cross-back.png',
       love: '../assets/heart-back.png',
     };
-    confessFact.query(query)
-        .then((imagesUrls) => {
-        console.log(imagesUrls,'img')
-        // $scope.images[]=blah
-        imagesUrls.data.forEach((image)=>{
-          $scope.images[image.id] = image.url
-        });
-      }).catch(err => console.warn(err));
+    //open modal//
+    modal.style.display = "block";
+    if (query) {
+      confessFact.query(query)
+          .then((imagesUrls) => {
+          console.log(imagesUrls,'img')
+          // $scope.images[]=blah
+          imagesUrls.data.forEach((image)=>{
+            $scope.images[image.id] = image.url
+          });
+        }).catch(err => console.warn(err));
+    }
   }
 
 
@@ -144,4 +145,5 @@ angular.module('Confess-Ctrl', [])
     secret.message = SpurrFact.esc(secret.message);
     confessFact.post(secret);
   };
+
 });

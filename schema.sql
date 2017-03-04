@@ -68,12 +68,12 @@ INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 20
 INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 2017", "NOLA", "I killed my neighbour", '{"font-family":"arial","font-size":"21px","color":"black"}');
 INSERT INTO spurrs (date, location, message, inner_style) VALUES ("Wed Feb 22 2017", "NOLA", "I love you", '{"font-family":"arial","font-size":"21px","color":"black"}');
 INSERT INTO spurrs (date, location, message, inner_style, outer_style) VALUES ("Wed Feb 22 2017", "NOLA", "I hate you", '{"font-family":"arial","font-size":"21px","color":"black"}', '{"background-image":"url(../assets/crazy-back.png)"}');
-
-INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
-VALUES ("Wed Feb 2 2017", "립", "아리스", "서울", "지금 어디야??",
-  '{"font-family":"arial","font-size":"21px","color":"black"}',
-  '{"background-image":"none","background-color":"red"}');
-
+/*
+-- INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
+-- VALUES ("Wed Feb 2 2017", "립", "아리스", "서울", "지금 어디야??",
+--   '{"font-family":"arial","font-size":"21px","color":"black"}',
+--   '{"background-image":"none","background-color":"red"}');
+*/
 INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
 VALUES ("Wed Feb 5 2017", "liv", "alice", "NOLA", "I fear, I'm real.",
   '{"font-family":"arial","font-size":"21px","color":"white"}',
@@ -83,11 +83,12 @@ INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_styl
 VALUES ("Wed Feb 8 2017", "liv", "alice", "Paradise", "I'm not coming back",
   '{"font-family":"arial","font-size":"21px","color":"black"}',
   '{"background-image":"url(../assets/cross-back.png)","background-color":"lightgreen"}');
-
+/*
 INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
 VALUES ("Wed Feb 10 2017", "liv", "alice", "동대문", "I miss shopping in Korea",
   '{"font-family":"helvetica","font-size":"12px","color":"red"}',
   '{"background-image":"url(../assets/heart-back.png)","background-color":"white"}');
+*/
 
 INSERT INTO saved_spurrs (date, sender, recipient, location, message, inner_style, outer_style)
 VALUES ("Wed Feb 21 2017", "liv", "mom", "home", "happy birthday mom!",
