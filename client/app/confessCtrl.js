@@ -5,6 +5,7 @@ angular.module('Confess-Ctrl', [])
   $scope.showDate = true;
   $scope.showLocation = true;
   var modal = document.getElementById('myModal');
+
   $scope.fonts = [
     'Tangerine','Poiret One','Open Sans','Diplomata SC','Baloo','Griffy','Oswald',
     'Montserrat','Merriweather','Rochester','Sirin Stencil','Indie Flower','Bitter',
@@ -90,7 +91,6 @@ angular.module('Confess-Ctrl', [])
    * @param {String} color
    */
   $scope.setBackground = function (url, color) {
-    console.log('call',url);
     if (url) {
       if (url === 'none') {
         $scope.styleOut['background-image'] = 'none';
@@ -99,8 +99,9 @@ angular.module('Confess-Ctrl', [])
     } else if (color) {
       $scope.styleOut['background-color'] = color;
     }
-    //close modal
+    //close modal on click
     modal.style.display = "none";
+
     $scope.set();
   };
 
@@ -150,19 +151,4 @@ angular.module('Confess-Ctrl', [])
     confessFact.post(secret);
   };
 
-
-  // Get the <span> element that closes the modal
-  // var img = document.getElementsByClassName("modal")[0];
-  // When the user clicks on <img> (x), close the modal
-  // img.onclick = function(e) {
-  //     console.log(e, 'target')
-  //     $scope.setBackground(e.target.src)
-  //     modal.style.display = "none";
-  // }
-  // When the user clicks anywhere outside of the modal, close it
-  // window.onclick = function(event) {
-  //     if (event.target == modal) {
-  //         modal.style.display = "none";
-  //     }
-  // }
 });
