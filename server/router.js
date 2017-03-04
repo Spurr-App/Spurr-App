@@ -32,7 +32,6 @@ router.post = function post(params, columns, table) {
   const attr = params.join("', '");
   const cols = columns.join(',');
   const query = `INSERT INTO ${table} (${cols}) VALUES ('${attr}')`;
-  console.log(query);
   return db.query(query)
 };
 
@@ -48,7 +47,6 @@ router.post = function post(params, columns, table) {
 
 router.postSpurr = function (req, res) {
   const columns = Object.keys(req.body);
-  console.log(columns);
   const params = columns.reduce((arr, key) => arr.concat([req.body[key]]), []);
   router.post(params, columns, 'spurrs');
   res.sendStatus(200);
@@ -66,7 +64,6 @@ router.postSpurr = function (req, res) {
 
 router.saveSpurr = function (req, res) {
   const columns = Object.keys(req.body.secret);
-  console.log(req.body.user.data);
   const query = `Select * FROM users WHERE username = '${req.body.user.data}'`;
   dbBlue.queryAsync(query)
     .then((rows) => {
