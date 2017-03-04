@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 require('dotenv').config();
-const Q = require('q');
+const Bluebird = require('bluebird');
 
 
 const HOST = process.env.HOST;
@@ -16,6 +16,8 @@ const db = mysql.createConnection({
 });
 
 const router = {};
+
+const dbBlue = Bluebird.promisifyAll(db);
 
 /**
  * Joins params and columns to comma separated string, with quotation marks if necessary
@@ -96,8 +98,8 @@ router.saveSpurr = function (req, res) {
  * @param {Boolean} del
  * @returns {Function} Promise from get request
  */
-router.get = function get(table, limit, del, user) {
-  const query = user ? `SELECT * FROM ${table} WHERE user_idLIMIT ${limit}`
+router.get = function get(table, limit, del, id) {
+  const query = id ? `SELECT * FROM ${table} WHERE user_id = ${id} LIMIT ${limit}`
     : `SELECT * FROM ${table} ORDER BY spurr_id ASC LIMIT ${limit}`;
   return new Promise(function (resolve) {
     db.query(query, (err, rows) => {
@@ -141,11 +143,23 @@ router.getSpurr = function (req, res) {
  */
 router.getSavedSpurrs = function (req, res) {
   if (req.query.data) {
+    const query = `Select * FROM users WHERE username = '${req.query.data}'`;
+    dbBlue.queryAsync(query)
+      .then((rows) => {
+        return router.get('saved_spurrs', 20, false, rows[0].id)
 
-      router.get('saved_spurrs', 20, false, req.query.data)
+      })
       .then((data) => {
         res.status(200).send(data);
+      })
+      .catch((err) => {
+        throw new Error(err);
       });
+  } else {
+    router.get('saved_spurrs', 20, false)
+    .then((data) => {
+      res.status(200).send(data);
+    });
   }
 };
 
