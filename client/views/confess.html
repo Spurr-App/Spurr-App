@@ -25,6 +25,7 @@
       </select>
       <input type="text" ng-model="searchImage" value="find a background">
       <button ng-click="searchForImage(searchImage)" name="" value="" >FindImage</button>
+      <button id="myBtn">Open Modal</button>
 
       <br><br>
 
@@ -60,7 +61,15 @@
     <button ng-click="confess(secret)" class="bigButton">Submit</button>
 
   </div>
-
+<!-- modal -->
+  <div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <div ng-repeat="(id,image) in images" class="modal-content">
+      <img id="modalimage" ng-src="{{image}}"/>
+      <div>{{id}}<div>
+    </div>
+  </div>
+<!-- modal end -->
   <div id="confessional" class="message" ng-style="styleOut">
     <div class="upper" ng-style="styleIn">
       <ul class="msgText">
@@ -68,6 +77,7 @@
         <li ng-show="showDate" class="right">{{ secret.date }}</li>
       </ul>
     </div>
+
 
     <input type="text"
       class="msgText left"
