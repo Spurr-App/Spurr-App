@@ -111,7 +111,7 @@ select {
 }
 
 .interface {
-  width: 201px;
+  width: 231px;
   height: 376px;
   padding: 12px;
 }
@@ -127,8 +127,12 @@ select {
   height: 340px;
   padding: 30px;
   background: #eee;
-  background-size:cover;
-}
+  background-repeat: no-repeat;
+  background-position-y: 50%;
+  background-position-x: 50%;
+  background-size: contain;
+  background-origin: content-box;
+  }
 
 .message, .message input, textarea {
   font-size: 15px;

@@ -100,10 +100,14 @@ angular.module('Confess-Ctrl', [])
    * @param {String} url
    * @param {String} color
    */
-  $scope.setBackground = (url, color) => {
-    if (url) {
+
+  $scope.setBackground = function (url, color) {
+    if(!url&&!color){
+      $scope.styleOut['background-image'] = `none`;
+      $scope.styleOut['background-color'] = 'lightgrey';
+    } else if (url) {
       $scope.styleOut['background-image'] = `url(${url})`;
-    } else if (color) {
+    } else {
       $scope.styleOut['background-color'] = color;
     }
     //close modal on click
@@ -112,24 +116,29 @@ angular.module('Confess-Ctrl', [])
     $scope.set();
   };
 
-  $scope.searchForImage = (query) => {
-    $scope.images = {
-      paper: '../assets/paper-back.png',
-      letter: '../assets/letter-back.png',
-      dot: '../assets/dot-back.png',
-      wild: '../assets/crazy-back.png',
-      dark: '../assets/cross-back.png',
-      love: '../assets/heart-back.png',
-    };
-    //open modal//
+
+  let previousQuery;
+
+  $scope.searchForImage = function(query) {
     modal.style.display = "block";
-    if (query) {
+    if (query!== previousQuery) {
+      previousQuery = query;
+      $scope.images = {
+        paper: '../assets/paper-back.png',
+        letter: '../assets/letter-back.png',
+        dot: '../assets/dot-back.png',
+        wild: '../assets/crazy-back.png',
+        dark: '../assets/cross-back.png',
+        love: '../assets/heart-back.png',
+      };
+      //open modal//
+
       confessFact.query(query)
-        .then((imagesUrls) => {
-          imagesUrls.data.forEach((image) => {
-            $scope.images[image.id] = image.url
-          });
-        }).catch(err => console.warn(err));
+          .then((imagesUrls) => {
+            imagesUrls.data.forEach((image)=>{
+              $scope.images[image.id] = image.url
+            });
+          }).catch(err => console.warn(err));
     }
   }
 

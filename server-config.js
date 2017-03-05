@@ -26,11 +26,32 @@ app.post('/api/users/signin', passport.authenticate('local-login'), (req, res) =
   res.json(req.body.username);
 });
 
-app.get('/api/imagequery', (req, res) => {
-  const parameters = {
-    url: `https://api.gettyimages.com/v3/search/images?phrase=${req.query.data}`,
+
+
+app.get('/api/imagequery',
+(req, res, next) => {
+  let parameters = {
+    method: "POST",
+    url: "https://connect.gettyimages.com/oauth2/token",
+    body:`grant_type=client_credentials&client_id=${process.env.GETTY_KEY}&client_secret=${process.env.GETTY_SECRET}`,
+    headers:{
+      "Content-Type" : "application/x-www-form-urlencoded",
+    },
+  }
+  rp(parameters)
+    .then((token) => {
+      token =JSON.parse(token).access_token
+      process.env.GETTY_TOKEN = token;
+      next();
+    })
+    .catch(err => console.err('ERROR:', err));
+}
+, (req, res) => {
+  let parameters = {
+    url:`https://api.gettyimages.com/v3/search/images?phrase=${req.query.data}`,
     headers: {
       'Api-Key': process.env.GETTY_KEY,
+      'Authorization':`Bearer ${process.env.GETTY_TOKEN}`
     },
     method: 'GET',
   };
@@ -46,7 +67,7 @@ app.get('/api/imagequery', (req, res) => {
       }, []);
       res.send(uris);
     })
-    .catch(err => console.warn('ERROR:', err));
+    .catch(err => console.err('ERROR:', err));
 });
 
 
