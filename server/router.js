@@ -65,6 +65,7 @@ router.saveSpurr = function (req, res) {
   const query = `Select * FROM users WHERE username = '${req.body.user.data}'`;
   dbBlue.queryAsync(query)
     .then((rows) => {
+      const columns = Object.keys(req.body.secret);
       const params = columns.reduce((arr, key) => arr.concat([req.body.secret[key]]), []);
       columns.push('user_id');
       params.push(rows[0].id);
