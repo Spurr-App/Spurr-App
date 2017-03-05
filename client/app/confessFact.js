@@ -1,32 +1,28 @@
 angular.module('Confess-Fact', [])
-.factory('confessFact', function($http, $window) {
+.factory('confessFact', function ($http, $window) {
   /**
    * Sends secret to the spurrs database
    * Redirects to receive view
    * @param {Object} secret
    * @returns {Secret} Promise from post request
    */
-  const postSpurr = (secret) => {
-    return $http({
+  const postSpurr = secret =>
+    $http({
       method: 'POST',
       url: '/api/spurrs',
-      data: secret
-    }).then((res) => {
+      data: secret,
+    }).then(() => {
       $window.location.href = '#!/receive';
     });
-  };
 
-  const queryImage = (query) => {
-    return $http({
+  const queryImage = query =>
+    $http({
       method: 'GET',
       url: '/api/imagequery',
-      params:{
-        data: query
+      params: {
+        data: query,
       },
-    }).then((imagesUrls) => {
-      return imagesUrls;
-    });
-  };
+    }).then(imagesUrls => imagesUrls);
 
   return {
     post: postSpurr,

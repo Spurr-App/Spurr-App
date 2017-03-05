@@ -15,7 +15,7 @@ dbConnection.connect((err) => {
     console.warn(err);
     return;
   }
-    console.warn('Connection with mysql established');
+  console.warn('Connection with mysql established');
 });
 
 module.exports = dbConnection;
