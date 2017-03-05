@@ -1,6 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const connection = require('../dbConnection.js');
 const Bluebird = require('bluebird');
+const bcrypt = Bluebird.promisifyAll(require('bcryptjs'));
 
 const connBlue = Bluebird.promisifyAll(connection);
 
@@ -35,16 +36,18 @@ module.exports = (passport) => {
           }
           const newUserMysql = {};
           newUserMysql.username = username;
-          newUserMysql.password = password; // use the generateHash function in our user model
-          // newUser.local.password = newUser.generateHash(password);
-          const insertQuery = `INSERT INTO users ( username, password ) VALUES ('${username}','${password}')`;
-          return connBlue.queryAsync(insertQuery)
-            .then((rowsTwo) => {
-              newUserMysql.id = rowsTwo.insertId;
-              return done(null, newUserMysql);
-            })
-            .catch((err) => {
-              throw new Error(err);
+          return bcrypt.hashAsync(password, 15)
+            .then((hash) => {
+              newUserMysql.password = hash;
+              const insertQuery = `INSERT INTO users ( username, password ) VALUES ('${username}','${hash}')`;
+              return connBlue.queryAsync(insertQuery)
+                .then((rowsTwo) => {
+                  newUserMysql.id = rowsTwo.insertId;
+                  return done(null, newUserMysql);
+                })
+                .catch((err) => {
+                  throw new Error(err);
+                });
             });
         })
         .catch(err => done(null, err));
@@ -64,11 +67,18 @@ module.exports = (passport) => {
 
     // if the user is found but the password is wrong
         if (!(rows[0].password === password)) {
-          return done(null, false); // create the loginMessage and save it to session as flashdata
+           // create the loginMessage and save it to session as flashdata
         }
-
-    // all is well, return successful user
-        return done(null, rows[0]);
+        return bcrypt.compare(password, rows[0].password)
+          .then((result) => {
+            if (result) {
+              return done(null, rows[0]);
+            }
+            return done(null, false);
+          })
+          .catch((err) => {
+            throw new Error(err);
+          });
       })
       .catch(err => done(err));
   }));
