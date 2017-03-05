@@ -116,10 +116,9 @@ angular.module('Confess-Ctrl', [])
     $scope.set();
   };
 
-
   let previousQuery;
 
-  $scope.searchForImage = function (query) {
+  $scope.searchForImage = (query) => {
     modal.style.display = 'block';
     if (query !== previousQuery) {
       previousQuery = query;
@@ -132,7 +131,6 @@ angular.module('Confess-Ctrl', [])
         love: '../assets/heart-back.png',
       };
       // open modal//
-
       confessFact.query(query)
           .then((imagesUrls) => {
             imagesUrls.data.forEach((image) => {
