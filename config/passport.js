@@ -4,28 +4,28 @@ const Bluebird = require('bluebird');
 
 const connBlue = Bluebird.promisifyAll(connection);
 
-
 module.exports = (passport) => {
-// turn the user info into serialized
+// turn the user info into serialize
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 // deserialize the user
   passport.deserializeUser((id, done) => {
-    // by finding by the id
+  // by finding by the id
     connBlue.queryAsync(`select * from users where id = ${id}`)
-      .then((rows) => {
-        done(null, rows);
-      })
-      .catch((err) => {
-        done(err, null);
-      });
+    .then((rows) => {
+      done(null, rows);
+    })
+    .catch((err) => {
+      done(err, null);
+    });
   });
 // use the local sign up method
   passport.use('local-signup', new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
     passReqToCallback: true,
+
   }, (req, username, password, done) => {
     process.nextTick(() => {
       connBlue.queryAsync(`select * from users where username = '${username}'`)
