@@ -5,9 +5,7 @@ const path = require('path');
 require('dotenv').config();
 const reqTo = require('./server/router.js');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const session = require('express-session');
-const rp = require('request-promise')
+const rp = require('request-promise');
 require('./config/passport')(passport);
 require('./dbConnection');
 
@@ -29,24 +27,24 @@ app.post('/api/users/signin', passport.authenticate('local-login'), (req, res) =
 });
 
 app.get('/api/imagequery', (req, res) => {
-  let parameters = {
-    url:`https://api.gettyimages.com/v3/search/images?phrase=${req.query.data}`,
+  const parameters = {
+    url: `https://api.gettyimages.com/v3/search/images?phrase=${req.query.data}`,
     headers: {
-      'Api-Key': process.env.GETTY_KEY
+      'Api-Key': process.env.GETTY_KEY,
     },
-    method: "GET",
-  }
+    method: 'GET',
+  };
   rp(parameters)
     .then((images) => {
       images = JSON.parse(images).images;
-      var uris = images.reduce((accum,image) => {
-          accum.push({
-          id:image.id,
-          url:image.display_sizes[0].uri
-        })
+      const uris = images.reduce((accum, image) => {
+        accum.push({
+          id: image.id,
+          url: image.display_sizes[0].uri,
+        });
         return accum;
-      },[]);
-      res.send(uris)
+      }, []);
+      res.send(uris);
     })
     .catch(err => console.warn('ERROR:', err));
 });

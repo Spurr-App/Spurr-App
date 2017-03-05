@@ -1,20 +1,20 @@
 angular.module('Confess-Ctrl', [])
-.controller('confessCtrl', function($rootScope, $scope, SpurrFact, confessFact) {
+.controller('confessCtrl', function ($rootScope, $scope, SpurrFact, confessFact) {
   $scope.showSender = true;
   $scope.showRecipient = true;
   $scope.showDate = true;
   $scope.showLocation = true;
-  var modal = document.getElementById('myModal');
+  const modal = document.getElementById('myModal');
 
   $scope.fonts = [
-    'Tangerine','Poiret One','Open Sans','Diplomata SC','Baloo','Griffy','Oswald',
-    'Montserrat','Merriweather','Rochester','Sirin Stencil','Indie Flower','Bitter',
-    'Fjalla One','Inconsolata','Dosis','Anton','Cabin','Arvo','Fascinate Inline',
-    'Vampiro One','Josefin Sans','Ravi Prakash','Mr Dafoe','Plaster','Frijole','Mogra',
-    'Faster One','Bungee','Monoton','Aladin','Rancho','Mirza','Simonetta','Farsan',
-    'Yesteryear','Lancelot','Wallpoet','Patrick Hand SC','Barrio','Rakkas','Angkor',
-    'Concert One','Mrs Saint Delafield','Erica One','Almendra Display','Squada One',
-    'New Rocker','Audiowide','Chelsea Market',
+    'Tangerine', 'Poiret One', 'Open Sans', 'Diplomata SC', 'Baloo', 'Griffy', 'Oswald',
+    'Montserrat', 'Merriweather', 'Rochester', 'Sirin Stencil', 'Indie Flower', 'Bitter',
+    'Fjalla One', 'Inconsolata', 'Dosis', 'Anton', 'Cabin', 'Arvo', 'Fascinate Inline',
+    'Vampiro One', 'Josefin Sans', 'Ravi Prakash', 'Mr Dafoe', 'Plaster', 'Frijole', 'Mogra',
+    'Faster One', 'Bungee', 'Monoton', 'Aladin', 'Rancho', 'Mirza', 'Simonetta', 'Farsan',
+    'Yesteryear', 'Lancelot', 'Wallpoet', 'Patrick Hand SC', 'Barrio', 'Rakkas', 'Angkor',
+    'Concert One', 'Mrs Saint Delafield', 'Erica One', 'Almendra Display', 'Squada One',
+    'New Rocker', 'Audiowide', 'Chelsea Market',
   ].sort();
 
   $scope.sizes = {
@@ -37,11 +37,11 @@ angular.module('Confess-Ctrl', [])
   $scope.styleIn = {
     'font-family': 'arial',
     'font-size': '15px',
-     color: 'black',
+    color: 'black',
   };
 
   $scope.styleOut = {
-    'background-size':'',
+    'background-size': '',
     'background-image': 'none',
     'background-color': 'lightgrey',
   };
@@ -61,7 +61,7 @@ angular.module('Confess-Ctrl', [])
       .then((citySt) => {
         $scope.secret.location = citySt;
       })
-      .catch((err) => {
+      .catch(() => {
         $scope.secret.location = 'Earth';
       });
   };

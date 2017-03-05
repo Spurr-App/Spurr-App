@@ -3,7 +3,7 @@
 // in our signup/signin forms using the injected Auth service
 angular.module('Auth-Ctrl', [])
 
-.controller('AuthController', function($rootScope, $scope, $window, $location, Auth) {
+.controller('AuthController', function ($rootScope, $scope, $window, $location, Auth) {
   $scope.user = {};
 
   $scope.signin = () => {
@@ -39,27 +39,23 @@ angular.module('Auth-Ctrl', [])
   // that JWT is then stored in localStorage as 'com.shortly'
   // after you signin/signup open devtools, click resources,
   // then localStorage and you'll see your token from the server
-  const signInUser = (user) => {
-    return $http({
+  const signInUser = user =>
+    $http({
       method: 'POST',
       url: '/api/users/signin',
       data: user,
     })
     .then(resp => resp.data);
-  };
 
-  const signUpUser = (user) => {
-    return $http({
+  const signUpUser = user =>
+    $http({
       method: 'POST',
       url: '/api/users/signup',
       data: user,
     })
     .then(resp => resp.data);
-  };
 
-  const isAuthourized = () => {
-    return !!$window.localStorage.getItem('com.spurr');
-  };
+  const isAuthourized = () => !!$window.localStorage.getItem('com.spurr');
 
   const signOutUser = () => {
     $window.localStorage.removeItem('com.spurr');

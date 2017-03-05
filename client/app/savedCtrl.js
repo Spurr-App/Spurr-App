@@ -1,5 +1,5 @@
 angular.module('Saved-Ctrl', [])
-.controller('savedCtrl', function($rootScope, $scope, SpurrFact, savedFact) {
+.controller('savedCtrl', function ($rootScope, $scope, SpurrFact, savedFact) {
   $scope.styleIn = null;
   $scope.styleOut = null;
   $scope.secrets = [];

@@ -32,7 +32,7 @@ router.post = function post(params, columns, table) {
   const attr = params.join("', '");
   const cols = columns.join(',');
   const query = `INSERT INTO ${table} (${cols}) VALUES ('${attr}')`;
-  return db.query(query)
+  return db.query(query);
 };
 
 /**
@@ -63,7 +63,6 @@ router.postSpurr = function (req, res) {
  */
 
 router.saveSpurr = function (req, res) {
-  const columns = Object.keys(req.body.secret);
   const query = `Select * FROM users WHERE username = '${req.body.user.data}'`;
   dbBlue.queryAsync(query)
     .then((rows) => {
@@ -102,7 +101,7 @@ router.get = function get(table, limit, del, id) {
           resolve(rows);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         throw new Error(err);
       });
   });
@@ -136,9 +135,7 @@ router.getSavedSpurrs = function (req, res) {
   if (req.query.data) {
     const query = `Select * FROM users WHERE username = '${req.query.data}'`;
     dbBlue.queryAsync(query)
-      .then((rows) => {
-        return router.get('saved_spurrs', 20, false, rows[0].id)
-      })
+      .then(rows => router.get('saved_spurrs', 20, false, rows[0].id))
       .then((data) => {
         res.status(200).send(data);
       })
@@ -152,7 +149,5 @@ router.getSavedSpurrs = function (req, res) {
     });
   }
 };
-
-
 
 module.exports = router;
