@@ -1,11 +1,11 @@
 angular.module('Spurr-Fact', [])
-.factory('SpurrFact', function () {
+.factory('SpurrFact', function($http) {
   /**
    * Console log truthy input, or error message followed by input
    * @param {Any} input
    */
-  const tester = function (input) {
-    return input ? console.log(input) : console.log('Error, input is', input);
+  const tester = (input) => {
+    return input ? console.warn(input) : console.warn('Error, input is', input);
   };
 
   /**
@@ -13,15 +13,31 @@ angular.module('Spurr-Fact', [])
    * @param {String} str
    * @return {String} res
    */
-  const escapeText = function (str) {
+  const escapeText = (str) => {
     let res;
     res = str.replace(/"/g, '\\"');
     res = str.replace(/'/g, "\\'");
     return res;
   };
 
+  const geo = () => {
+    return new Promise((resolve) => {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const geocoder = new google.maps.Geocoder();
+        const geolocate = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        geocoder.geocode({'latLng': geolocate}, (results, status) => {
+          const result = results.length > 4 ? results[5] : results[2];
+          if (status == google.maps.GeocoderStatus.OK) {
+             resolve(`${result.formatted_address}`);
+           }
+        });
+      });
+    });
+  };
+
   return {
     test: tester,
     esc: escapeText,
+    geo
   };
 });

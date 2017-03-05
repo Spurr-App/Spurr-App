@@ -1,34 +1,28 @@
 var LocalStrategy = require('passport-local').Strategy;
-// var FacebookStrategy = require('passport-facebook').Strategy;
-// var TwitterStrategy = require('passport-twitter').Strategy;
-// var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var connection = require('../dbConnection.js');
 
 
 module.exports = function(passport) {
 // turn the user info into serialized
   passport.serializeUser(function(user, done) {
-    console.log(user, 'user')
-    done(null, user.user_id);
+    done(null, user.id);
   });
 // deserialize the user
   passport.deserializeUser(function(id, done) {
     //by finding by the id
-    connection.query(`select * from users where user_id = ${id}`, (err, rows) => {
+    connection.query(`select * from users where id = ${id}`, (err, rows) => {
       done(err, rows);
     });
   });
 // use the local sign up method
   passport.use('local-signup', new LocalStrategy({
-    usernameField: 'email',
+    usernameField: 'username',
     passwordField: 'password',
-    passReqToCallback: true,
+    passReqToCallback: true
   },
-  function(req, email, password, done) {
+  function(req, username, password, done) {
     process.nextTick(function() {
-      connection.query("select * from users where email = '"+email+"'",function(err,rows){
-      console.log(rows);
-      console.log("above row object");
+      connection.query("select * from users where username = '"+username+"'",function(err,rows){
         if (err) {
           return done(err);
         }
@@ -36,16 +30,12 @@ module.exports = function(passport) {
           return done(null, false);
         } else {
           const newUserMysql = new Object();
-          newUserMysql.email    = email;
+          newUserMysql.username = username;
           newUserMysql.password = password; // use the generateHash function in our user model
           // newUser.local.password = newUser.generateHash(password);
-          const insertQuery = "INSERT INTO users ( email, password ) values ('" + email +"','"+ password +"')";
-          console.log(insertQuery);
+          const insertQuery = "INSERT INTO users ( username, password ) values ('" + username +"','"+ password +"')";
           connection.query(insertQuery, (error, rowsTwo) => {
-            console.log(rowsTwo, 'rowsTwo')
-            console.log(newUserMysql, 'newUserMysql')
-            newUserMysql.user_id = rowsTwo.insertId;
-
+            newUserMysql.id = rowsTwo.insertId;
             return done(null, newUserMysql);
           });
         }
@@ -54,12 +44,12 @@ module.exports = function(passport) {
   }));
 
   passport.use('local-login', new LocalStrategy({
-    usernameField: 'email',
+    usernameField: 'username',
     passwordField: 'password',
-    passReqToCallback: true,
+    passReqToCallback: true
   },
-  function(req, email, password, done) {
-    connection.query("SELECT * FROM `users` WHERE `email` = '" + email + "'", (err, rows) => {
+  function(req, username, password, done) {
+    connection.query("SELECT * FROM `users` WHERE `username` = '" + username + "'", (err, rows) => {
       if (err) {
         return done(err);
       }

@@ -1,4 +1,4 @@
-const router = function ($routeProvider, $httpProvider) {
+const router = function($routeProvider, $httpProvider) {
   $routeProvider
     .when('/confess', {
       templateUrl: '../views/confess.html',

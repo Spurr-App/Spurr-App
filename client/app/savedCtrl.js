@@ -1,10 +1,7 @@
 angular.module('Saved-Ctrl', [])
-.controller('savedCtrl', function ($scope, SpurrFact, savedFact) {
-  $scope.username = 'liv';
-
+.controller('savedCtrl', function($rootScope, $scope, SpurrFact, savedFact) {
   $scope.styleIn = null;
   $scope.styleOut = null;
-
   $scope.secrets = [];
 
   /**
@@ -12,9 +9,8 @@ angular.module('Saved-Ctrl', [])
    * Resets received data's style to parsed objects
    * @returns {Function} Promise from get request resolving data
    */
-  $scope.get = function () {
-    console.log('get');
-    savedFact.get()
+  $scope.get = () => {
+    savedFact.get($rootScope.user)
     .then((secrets) => {
       $scope.secrets = secrets;
     });
@@ -28,7 +24,7 @@ angular.module('Saved-Ctrl', [])
    * Escapes quotation marks in secret.message
    * Saves the secret to database
    */
-  $scope.save = function (secret) {
+  $scope.save = (secret) => {
     secret.message = SpurrFact.esc(secret.message);
     savedFact.post(secret);
   };

@@ -3,14 +3,15 @@
 // in our signup/signin forms using the injected Auth service
 angular.module('Auth-Ctrl', [])
 
-.controller('AuthController', function ($scope, $window, $location, Auth) {
+.controller('AuthController', function($rootScope, $scope, $window, $location, Auth) {
   $scope.user = {};
 
-  $scope.signin = function () {
+  $scope.signin = () => {
     Auth.signin($scope.user)
-      .then(function (token) {
-        $window.localStorage.setItem('com.spurr', token);
-        console.log(token, 'token')
+      .then((data) => {
+        $scope.user = { data };
+        $rootScope.user = { data };
+        $window.localStorage.setItem('com.spurr', undefined);
         $location.path('/confess');
       })
       .catch(function (error) {
@@ -18,18 +19,19 @@ angular.module('Auth-Ctrl', [])
       });
   };
 
-  $scope.signup = function () {
+  $scope.signup = () => {
     Auth.signup($scope.user)
-      .then(function (token) {
-        $window.localStorage.setItem('com.spurr', token);
+      .then((data) => {
+        $scope.user = { data };
+        $window.localStorage.setItem('com.spurr', undefined);
         $location.path('/confess');
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.error(error);
       });
   };
 })
-.factory('Auth', function ($http, $location, $window) {
+.factory('Auth', ($http, $location, $window) => {
   // Don't touch this Auth service!!!
   // it is responsible for authenticating our user
   // by exchanging the user's username and password
@@ -37,29 +39,29 @@ angular.module('Auth-Ctrl', [])
   // that JWT is then stored in localStorage as 'com.shortly'
   // after you signin/signup open devtools, click resources,
   // then localStorage and you'll see your token from the server
-  const signInUser = function (user) {
+  const signInUser = (user) => {
     return $http({
       method: 'POST',
       url: '/api/users/signin',
       data: user,
     })
-    .then(resp => resp.data.token);
+    .then(resp => resp.data);
   };
 
-  const signUpUser = function (user) {
+  const signUpUser = (user) => {
     return $http({
       method: 'POST',
       url: '/api/users/signup',
       data: user,
     })
-    .then(resp => resp.data.token);
+    .then(resp => resp.data);
   };
 
-  const isAuthourized = function () {
+  const isAuthourized = () => {
     return !!$window.localStorage.getItem('com.spurr');
   };
 
-  const signOutUser = function () {
+  const signOutUser = () => {
     $window.localStorage.removeItem('com.spurr');
     $location.path('/signin');
   };
