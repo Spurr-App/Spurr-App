@@ -160,12 +160,14 @@ select {
 }
 
 #receivedMessage {
-  background-size: 100%;
   background: pink;
   margin:auto;
   width: 576px;
   height: 376px;
   padding: 12px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50% 50%;
 }
 
 #about {

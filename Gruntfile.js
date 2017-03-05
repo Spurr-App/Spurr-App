@@ -1,15 +1,15 @@
-module.exports = function (grunt) { //hi
+module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     es6transpiler: {
       options: {
-        disallowUnknownReferences: false
+        disallowUnknownReferences: false,
       },
       dist: {
         files: {
-          'client/dist/<%= pkg.name %>Concat.js': 'client/dist/<%= pkg.name %>Concat.js'
-        }
-      }
+          'client/dist/<%= pkg.name %>Concat.js': 'client/dist/<%= pkg.name %>Concat.js',
+        },
+      },
     },
     concat: {
       options: {
@@ -17,66 +17,66 @@ module.exports = function (grunt) { //hi
       },
       js: {
         src: ['client/app/*.js'],
-        dest: 'client/dist/<%= pkg.name %>Concat.js'
+        dest: 'client/dist/<%= pkg.name %>Concat.js',
       },
       html: {
         src: ['client/views/*.html'],
-        dest: 'client/dist/<%= pkg.name %>HTMLConcat.html'
-      }
+        dest: 'client/dist/<%= pkg.name %>HTMLConcat.html',
+      },
     },
     mochaTest: {
       test: {
         options: {
-          reporter: 'spec'
+          reporter: 'spec',
         },
-        src: ['test/**/*.js']
-      }
+        src: ['test/**/*.js'],
+      },
     },
     nodemon: {
       dev: {
-        script: 'server.js'
-      }
+        script: 'server.js',
+      },
     },
     uglify: {
       options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n',
       },
       dist: {
         files: {
-          'client/dist/<%= pkg.name %>Concat.js': ['client/dist/<%= pkg.name %>Concat.js']
-        }
-      }
+          'client/dist/<%= pkg.name %>Concat.js': ['client/dist/<%= pkg.name %>Concat.js'],
+        },
+      },
     },
     htmlmin: {
       dist: {
         options: {
           removeComments: true,
-          collapseWhitespace: true
+          collapseWhitespace: true,
         },
         files: [{
           expand: true,
           cwd: 'client',
           src: 'dist/<%= pkg.name %>HTMLConcat.html',
-          dest: 'client/'
-        }]
-      }
+          dest: 'client/',
+        }],
+      },
     },
     eslint: {
       target: [
         'server-config.js', 'server.js', 'app/*.js', 'app/**/*.js',
-        'public/client/*.js'
-      ]
+        'public/client/*.js',
+      ],
     },
     cssmin: {
       options: {
         mergeIntoShorthands: true,
-        roundingPrecision: -1
+        roundingPrecision: -1,
       },
       target: {
         files: {
-          'public/dist/style.css': ['public/*.css']
-        }
-      }
+          'public/dist/style.css': ['public/*.css'],
+        },
+      },
     },
     'string-replace': {
       dist: {
@@ -86,24 +86,24 @@ module.exports = function (grunt) { //hi
         options: {
           replacements: [
             {
-                pattern: '<!--start PROD imports',
-                replacement: '<!--start PROD imports-->'
+              pattern: '<!--start PROD imports',
+              replacement: '<!--start PROD imports-->',
             },
             {
-                pattern: 'end PROD imports-->',
-                replacement: '<!--end PROD imports-->'
+              pattern: 'end PROD imports-->',
+              replacement: '<!--end PROD imports-->',
             },
             {
-                pattern: '<!--start Dev imports-->',
-                replacement: '<!--start DEV imports'
+              pattern: '<!--start Dev imports-->',
+              replacement: '<!--start DEV imports',
             },
             {
-                pattern: '<!--end Dev imports-->',
-                replacement: 'end DEV imports-->'
-            }
-          ]
-        }
-      }
+              pattern: '<!--end Dev imports-->',
+              replacement: 'end DEV imports-->',
+            },
+          ],
+        },
+      },
     },
     watch: {
       scripts: {
@@ -113,21 +113,21 @@ module.exports = function (grunt) { //hi
         ],
         tasks: [
           'concat',
-          'uglify'
-        ]
+          'uglify',
+        ],
       },
       css: {
         files: 'public/*.css',
-        tasks: ['cssmin']
-      }
+        tasks: ['cssmin'],
+      },
     },
     shell: {
       prodServer: {
         command: [
-          'grunt default'
-        ].join('&&')
-      }
-    }
+          'grunt default',
+        ].join('&&'),
+      },
+    },
   });
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-env');
@@ -142,31 +142,31 @@ module.exports = function (grunt) { //hi
   grunt.loadNpmTasks('grunt-es6-transpiler');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-string-replace');
-  grunt.registerTask('server-dev', function (target) {
-    grunt.task.run([ 'nodemon', 'watch' ]);
+  grunt.registerTask('server-dev', () => {
+    grunt.task.run(['nodemon', 'watch']);
   });
-  ////////////////////////////////////////////////////
-  // Main grunt tasks
-  ////////////////////////////////////////////////////
+   // //////////////////////////////////////////////////
+   //  Main grunt tasks
+   // //////////////////////////////////////////////////
   grunt.registerTask('test', [
-    'mochaTest'
+    'mochaTest',
   ]);
   grunt.registerTask('default', [
-    'concat', 'es6transpiler', 'uglify', 'htmlmin'
+    'concat', 'es6transpiler', 'uglify', 'htmlmin',
   ]);
   grunt.registerTask('build', [
-    'eslint', 'concat', 'uglify', 'cssmin'
+    'eslint', 'concat', 'uglify', 'cssmin',
   ]);
-  grunt.registerTask('upload', function (n) {
+  grunt.registerTask('upload', () => {
     if (grunt.option('prod')) {
       // add your production server task here
-      grunt.task.run([ 'shell:prodServer' ]);
+      grunt.task.run(['shell:prodServer']);
     } else {
-      grunt.task.run([ 'server-dev' ]);
+      grunt.task.run(['server-dev']);
     }
   });
   grunt.registerTask('deploy', [
     // add your deploy tasks here
-    'string-replace'
+    'string-replace',
   ]);
 };
