@@ -36,7 +36,7 @@ module.exports = (passport) => {
           }
           const newUserMysql = {};
           newUserMysql.username = username;
-          return bcrypt.hashAsync(password, 15)
+          return bcrypt.hashAsync(password, 10)
             .then((hash) => {
               newUserMysql.password = hash;
               const insertQuery = `INSERT INTO users ( username, password ) VALUES ('${username}','${hash}')`;
