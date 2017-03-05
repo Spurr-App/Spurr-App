@@ -1,3 +1,5 @@
+
+ /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 const app = require('./server-config.js');
 
 const PORT = process.env.PORT || 5000;

@@ -38,7 +38,6 @@ angular.module('Saved-Fact', [])
         const width = 575;
         const height = 400;
         const opts = `status=1,width=${width},height=${height}`;
-
         return window.open(twitURL, 'twitter', opts);
       }
       default: {

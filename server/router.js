@@ -18,7 +18,6 @@ const db = mysql.createConnection({
 const router = {};
 
 const dbBlue = Bluebird.promisifyAll(db);
-
 /**
  * Joins params and columns to comma separated string, with quotation marks if necessary
  * Creates query by combining params, columns, and table
@@ -106,7 +105,6 @@ router.get = function get(table, limit, del, id) {
       });
   });
 };
-
 
 /**
  * Calls get request to spurrs database
