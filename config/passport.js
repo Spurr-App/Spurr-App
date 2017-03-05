@@ -11,14 +11,14 @@ module.exports = (passport) => {
   });
 // deserialize the user
   passport.deserializeUser((id, done) => {
-  // by finding by the id
-    connBlue.queryAsync(`select * from users where id = ${id}`)
-    .then((rows) => {
-      done(null, rows);
-    })
-    .catch((err) => {
-      done(err, null);
-    });
+    // by finding by the id
+    connBlue.queryAsync(`SELECT * FROM users WHERE id = ${id}`)
+      .then((rows) => {
+        done(null, rows);
+      })
+      .catch((err) => {
+        done(err, null);
+      });
   });
 // use the local sign up method
   passport.use('local-signup', new LocalStrategy({
@@ -28,7 +28,7 @@ module.exports = (passport) => {
 
   }, (req, username, password, done) => {
     process.nextTick(() => {
-      connBlue.queryAsync(`select * from users where username = '${username}'`)
+      connBlue.queryAsync(`SELECT * FROM users WHERE username = '${username}'`)
         .then((rows) => {
           if (rows.length) {
             return done(null, false);
@@ -37,7 +37,7 @@ module.exports = (passport) => {
           newUserMysql.username = username;
           newUserMysql.password = password; // use the generateHash function in our user model
           // newUser.local.password = newUser.generateHash(password);
-          const insertQuery = `INSERT INTO users ( username, password ) values ('${username}','${password}')`;
+          const insertQuery = `INSERT INTO users ( username, password ) VALUES ('${username}','${password}')`;
           return connBlue.queryAsync(insertQuery)
             .then((rowsTwo) => {
               newUserMysql.id = rowsTwo.insertId;
