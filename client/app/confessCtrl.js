@@ -106,8 +106,8 @@ angular.module('Confess-Ctrl', [])
     } else if (color) {
       $scope.styleOut['background-color'] = color;
     }
-    //close modal on click
-    modal.style.display = "none";
+    // close modal on click
+    modal.style.display = 'none';
 
     $scope.set();
   };
@@ -121,17 +121,17 @@ angular.module('Confess-Ctrl', [])
       dark: '../assets/cross-back.png',
       love: '../assets/heart-back.png',
     };
-    //open modal//
-    modal.style.display = "block";
+    // open modal//
+    modal.style.display = 'block';
     if (query) {
       confessFact.query(query)
         .then((imagesUrls) => {
           imagesUrls.data.forEach((image) => {
-            $scope.images[image.id] = image.url
+            $scope.images[image.id] = image.url;
           });
         }).catch(err => console.warn(err));
     }
-  }
+  };
 
   /**
    * Checks if secret should send its sender, recipient, date, and location
@@ -153,5 +153,4 @@ angular.module('Confess-Ctrl', [])
     secret.message = SpurrFact.esc(secret.message);
     confessFact.post(secret, $rootScope.user);
   };
-
 });
