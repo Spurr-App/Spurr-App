@@ -14,7 +14,7 @@ angular.module('Auth-Ctrl', [])
         $window.localStorage.setItem('com.spurr', undefined);
         $location.path('/confess');
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -48,11 +48,11 @@ angular.module('Auth-Ctrl', [])
     .then(resp => resp.data);
 
   const signUpUser = user =>
-    $http({
-      method: 'POST',
-      url: '/api/users/signup',
-      data: user,
-    })
+   $http({
+     method: 'POST',
+     url: '/api/users/signup',
+     data: user,
+   })
     .then(resp => resp.data);
 
   const isAuthourized = () => !!$window.localStorage.getItem('com.spurr');

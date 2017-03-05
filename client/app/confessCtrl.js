@@ -101,17 +101,17 @@ angular.module('Confess-Ctrl', [])
    * @param {String} color
    */
 
-  $scope.setBackground = function (url, color) {
-    if(!url&&!color){
-      $scope.styleOut['background-image'] = `none`;
+  $scope.setBackground = (url, color) => {
+    if (!url && !color) {
+      $scope.styleOut['background-image'] = 'none';
       $scope.styleOut['background-color'] = 'lightgrey';
     } else if (url) {
       $scope.styleOut['background-image'] = `url(${url})`;
     } else {
       $scope.styleOut['background-color'] = color;
     }
-    //close modal on click
-    modal.style.display = "none";
+    // close modal on click
+    modal.style.display = 'none';
 
     $scope.set();
   };
@@ -119,9 +119,9 @@ angular.module('Confess-Ctrl', [])
 
   let previousQuery;
 
-  $scope.searchForImage = function(query) {
-    modal.style.display = "block";
-    if (query!== previousQuery) {
+  $scope.searchForImage = function (query) {
+    modal.style.display = 'block';
+    if (query !== previousQuery) {
       previousQuery = query;
       $scope.images = {
         paper: '../assets/paper-back.png',
@@ -131,16 +131,16 @@ angular.module('Confess-Ctrl', [])
         dark: '../assets/cross-back.png',
         love: '../assets/heart-back.png',
       };
-      //open modal//
+      // open modal//
 
       confessFact.query(query)
           .then((imagesUrls) => {
-            imagesUrls.data.forEach((image)=>{
-              $scope.images[image.id] = image.url
+            imagesUrls.data.forEach((image) => {
+              $scope.images[image.id] = image.url;
             });
           }).catch(err => console.warn(err));
     }
-  }
+  };
 
   /**
    * Checks if secret should send its sender, recipient, date, and location
@@ -150,17 +150,17 @@ angular.module('Confess-Ctrl', [])
    * @param {object} secret
    */
   $scope.confess = (secret) => {
+    const secretBuilder = secret;
     if (!$scope.showSender) {
-      secret.sender = null;
+      secretBuilder.sender = null;
     } else if (!$scope.showRecipient) {
-      secret.recipient = null;
+      secretBuilder.recipient = null;
     } else if (!$scope.showDate) {
-      secret.date = null;
+      secretBuilder.date = null;
     } else if (!$scope.showlocation || $scope.location === 'Getting location...') {
-      secret.location = null;
+      secretBuilder.location = null;
     }
-    secret.message = SpurrFact.esc(secret.message);
-    confessFact.post(secret, $rootScope.user);
+    secretBuilder.message = SpurrFact.esc(secretBuilder.message);
+    confessFact.post(secretBuilder, $rootScope.user);
   };
-
 });
