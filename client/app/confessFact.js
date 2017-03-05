@@ -1,5 +1,5 @@
 angular.module('Confess-Fact', [])
-.factory('confessFact', ($http, $window) => {
+.factory('confessFact', function($http, $window) {
   /**
    * Sends secret to the spurrs database
    * Redirects to receive view

@@ -1,5 +1,5 @@
 angular.module('Saved-Fact', [])
-.factory('savedFact', ($http) => {
+.factory('savedFact', function($http) {
   /**
    * Gets saved spurrs from the saved_spurrs database
    * Resets received data's style to parsed objects

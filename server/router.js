@@ -91,7 +91,7 @@ router.saveSpurr = function (req, res) {
 router.get = function get(table, limit, del, id) {
   const query = id ? `SELECT * FROM ${table} WHERE user_id = ${id} LIMIT ${limit}`
     : `SELECT * FROM ${table} ORDER BY spurr_id ASC LIMIT ${limit}`;
-  return new Promise(function (resolve) {
+  return new Promise((resolve) => {
     dbBlue.queryAsync(query)
       .then((rows) => {
         if (del) {

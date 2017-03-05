@@ -3,7 +3,7 @@
 // in our signup/signin forms using the injected Auth service
 angular.module('Auth-Ctrl', [])
 
-.controller('AuthController', function ($rootScope, $scope, $window, $location, Auth) {
+.controller('AuthController', function($rootScope, $scope, $window, $location, Auth) {
   $scope.user = {};
 
   $scope.signin = () => {

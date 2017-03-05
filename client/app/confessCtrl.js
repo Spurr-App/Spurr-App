@@ -1,5 +1,5 @@
 angular.module('Confess-Ctrl', [])
-.controller('confessCtrl', ($rootScope, $scope, SpurrFact, confessFact) => {
+.controller('confessCtrl', function($rootScope, $scope, SpurrFact, confessFact) {
   $scope.showSender = true;
   $scope.showRecipient = true;
   $scope.showDate = true;
@@ -50,11 +50,22 @@ angular.module('Confess-Ctrl', [])
     sender: 'Sender',
     recipient: 'Recipient',
     date: new Date().toDateString(),
-    location: 'NOLA', // TODO: GEOLOCATE DYNAMIC LOCATION
+    location: 'Getting location...',
     message: 'Message',
     inner_style: JSON.stringify($scope.styleIn),
     outer_style: JSON.stringify($scope.styleOut),
   };
+
+  $scope.setLocation = () => {
+    SpurrFact.geo()
+      .then((citySt) => {
+        $scope.secret.location = citySt;
+      })
+      .catch((err) => {
+        $scope.secret.location = 'Earth';
+      });
+  };
+  $scope.setLocation();
 
   /**
    * Sets styles of $scope.secret object
@@ -136,7 +147,7 @@ angular.module('Confess-Ctrl', [])
       secret.recipient = null;
     } else if (!$scope.showDate) {
       secret.date = null;
-    } else if (!$scope.showlocation) {
+    } else if (!$scope.showlocation || $scope.location === 'Getting location...') {
       secret.location = null;
     }
     secret.message = SpurrFact.esc(secret.message);

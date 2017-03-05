@@ -53,7 +53,6 @@ module.exports = function(passport) {
       if (err) {
         return done(err);
       }
-      console.log(rows, 'ROWS');
       if (!rows.length) {
         return done(null, false); // req.flash is the way to set flashdata using connect-flash
       }

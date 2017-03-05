@@ -1,5 +1,5 @@
 angular.module('Receive-Fact', [])
-.factory('receiveFact', ($http, $window) {
+.factory('receiveFact', function($http, $window) {
   /**
    * Gets one spurr from the spurrs database
    * Resets received data's style to parsed objects

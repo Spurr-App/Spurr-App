@@ -1,5 +1,5 @@
 angular.module('Saved-Ctrl', [])
-.controller('savedCtrl', ($rootScope, $scope, SpurrFact, savedFact) => {
+.controller('savedCtrl', function($rootScope, $scope, SpurrFact, savedFact) {
   $scope.styleIn = null;
   $scope.styleOut = null;
   $scope.secrets = [];
@@ -10,7 +10,6 @@ angular.module('Saved-Ctrl', [])
    * @returns {Function} Promise from get request resolving data
    */
   $scope.get = () => {
-    console.log('get');
     savedFact.get($rootScope.user)
     .then((secrets) => {
       $scope.secrets = secrets;
