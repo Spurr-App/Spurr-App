@@ -116,23 +116,14 @@ angular.module('Confess-Ctrl', [])
     $scope.set();
   };
 
-
   let previousQuery;
 
-  $scope.searchForImage = function (query) {
+  $scope.searchForImage = (query) => {
     modal.style.display = 'block';
     if (query !== previousQuery) {
       previousQuery = query;
-      $scope.images = {
-        paper: '../assets/paper-back.png',
-        letter: '../assets/letter-back.png',
-        dot: '../assets/dot-back.png',
-        wild: '../assets/crazy-back.png',
-        dark: '../assets/cross-back.png',
-        love: '../assets/heart-back.png',
-      };
+      $scope.images = $scope.images;
       // open modal//
-
       confessFact.query(query)
           .then((imagesUrls) => {
             imagesUrls.data.forEach((image) => {
