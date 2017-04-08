@@ -7,6 +7,7 @@ require('dotenv').config();
 const reqTo = require('./server/router.js');
 const passport = require('passport');
 const rp = require('request-promise');
+// const LocalStrategy = require('passport-local').Strategy;
 require('./config/passport')(passport);
 require('./dbConnection');
 
@@ -26,8 +27,6 @@ app.post('/api/users/signup', passport.authenticate('local-signup'), (req, res) 
 app.post('/api/users/signin', passport.authenticate('local-login'), (req, res) => {
   res.json(req.body.username);
 });
-
-
 
 app.get('/api/imagequery',
 (req, res, next) => {
