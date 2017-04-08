@@ -6,18 +6,26 @@ angular.module('Confess-Fact', [])
    * @param {Object} secret
    * @returns {Secret} Promise from post request
    */
-  const postSpurr = function post(secret) {
-    return $http({
+  const postSpurr = secret =>
+    $http({
       method: 'POST',
       url: '/api/spurrs',
       data: secret,
-    }).then((res) => {
-      console.log('success', res);
+    }).then(() => {
       $window.location.href = '#!/receive';
     });
-  };
+
+  const queryImage = query =>
+    $http({
+      method: 'GET',
+      url: '/api/imagequery',
+      params: {
+        data: query,
+      },
+    }).then(imagesUrls => imagesUrls);
 
   return {
     post: postSpurr,
+    query: queryImage,
   };
 });

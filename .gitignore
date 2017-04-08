@@ -2,4 +2,7 @@
 node_modules/
 build/*.js
 .env
+/config/auth.js
 /client/lib
+/client/dist
+npm-debug.log

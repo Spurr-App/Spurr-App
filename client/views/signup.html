@@ -2,16 +2,34 @@
 <div class="userForm">
   <h1>SIGN UP</h1>
     <form name="signupForm" ng-submit="signup()">
-      <input type="text" ng-model="user.username">
+      <input
+        type="text"
+        name="username"
+        ng-model="user.username"
+        required
+        placeholder="username"
+      >
       <br><br>
-      <input type="password" ng-model="user.password">
+      <input
+        type="password"
+        name="password"
+        ng-model="user.password"
+        required
+        ng-minlength="8"
+        ng-maxlength="30"
+        placeholder="password"
+      >
       <br><br>
+      <div ng-if="signupForm.username.$error.required">
+        Username Required
+      </div>
+      <div ng-if="signupForm.password.$error.required">
+        Password Required
+      </div>
+      <div ng-if="signupForm.password.$error.minlength">
+        Password must be 8-30 characters
+      </div>
+
       <button class="bigButton">Sign up</button>
     </form>
-
-    <div ng-messages="signUp.$error" class="error" role="alert">
-      <div ng-show="username">That username is already in use!</div>
-      <div ng-show="email">That email is already in use!</div>
-      <div ng-message="minlength maxlength">Password must be 3-20 characters</div>
-    </div>
   </div>

@@ -56,18 +56,19 @@ angular.module('Spurr', [
   // then look in local storage and find the user's token
   // then add it to the header so the server can validate the request
   const attach = {
-    request: function (object) {
+    request: (object) => {
+      const obj = object;
       const jwt = $window.localStorage.getItem('com.spurr');
       if (jwt) {
-        object.headers['x-access-token'] = jwt;
+        obj.headers['x-access-token'] = jwt;
       }
-      object.headers['Allow-Control-Allow-Origin'] = '*';
-      return object;
+      obj.headers['Allow-Control-Allow-Origin'] = '*';
+      return obj;
     },
   };
   return attach;
 })
-.run(function ($rootScope, $location, Auth) {
+.run(($rootScope, $location, Auth) => {
   // here inside the run phase of angular, our services and controllers
   // have just been registered and our app is ready
   // however, we want to make sure the user is authorized

@@ -1,24 +1,20 @@
 angular.module('Confess-Ctrl', [])
-.controller('confessCtrl', function ($scope, SpurrFact, confessFact) {
+.controller('confessCtrl', function ($rootScope, $scope, SpurrFact, confessFact) {
   $scope.showSender = true;
   $scope.showRecipient = true;
   $scope.showDate = true;
   $scope.showLocation = true;
+  const modal = document.getElementById('myModal');
 
   $scope.fonts = [
-    'Arial',
-    'Helvetica',
-    'Futura',
-    'Times',
-    'Comic Sans MS',
-    'Papyrus',
-    'Courier New',
-    'Arial Black',
-    'Impact',
-    'Earwig Factory',
-    'Jazz Ball',
-    'I Love Glitter',
-    'Andale Mono',
+    'Tangerine', 'Poiret One', 'Open Sans', 'Diplomata SC', 'Baloo', 'Griffy', 'Oswald',
+    'Montserrat', 'Merriweather', 'Rochester', 'Sirin Stencil', 'Indie Flower', 'Bitter',
+    'Fjalla One', 'Inconsolata', 'Dosis', 'Anton', 'Cabin', 'Arvo', 'Fascinate Inline',
+    'Vampiro One', 'Josefin Sans', 'Ravi Prakash', 'Mr Dafoe', 'Plaster', 'Frijole', 'Mogra',
+    'Faster One', 'Bungee', 'Monoton', 'Aladin', 'Rancho', 'Mirza', 'Simonetta', 'Farsan',
+    'Yesteryear', 'Lancelot', 'Wallpoet', 'Patrick Hand SC', 'Barrio', 'Rakkas', 'Angkor',
+    'Concert One', 'Mrs Saint Delafield', 'Erica One', 'Almendra Display', 'Squada One',
+    'New Rocker', 'Audiowide', 'Chelsea Market',
   ].sort();
 
   $scope.sizes = {
@@ -30,7 +26,6 @@ angular.module('Confess-Ctrl', [])
   };
 
   $scope.images = {
-    none: 'none',
     paper: '../assets/paper-back.png',
     letter: '../assets/letter-back.png',
     dot: '../assets/dot-back.png',
@@ -46,6 +41,7 @@ angular.module('Confess-Ctrl', [])
   };
 
   $scope.styleOut = {
+    'background-size': '',
     'background-image': 'none',
     'background-color': 'lightgrey',
   };
@@ -54,17 +50,28 @@ angular.module('Confess-Ctrl', [])
     sender: 'Sender',
     recipient: 'Recipient',
     date: new Date().toDateString(),
-    location: 'NOLA',
+    location: 'Getting location...',
     message: 'Message',
     inner_style: JSON.stringify($scope.styleIn),
     outer_style: JSON.stringify($scope.styleOut),
   };
 
+  $scope.setLocation = () => {
+    SpurrFact.geo()
+      .then((citySt) => {
+        $scope.secret.location = citySt;
+      })
+      .catch(() => {
+        $scope.secret.location = 'Earth';
+      });
+  };
+  $scope.setLocation();
+
   /**
    * Sets styles of $scope.secret object
    * Styles must be stringified before being sent to database
    */
-  $scope.set = function () {
+  $scope.set = () => {
     $scope.secret.inner_style = JSON.stringify($scope.styleIn);
     $scope.secret.outer_style = JSON.stringify($scope.styleOut);
   };
@@ -76,7 +83,7 @@ angular.module('Confess-Ctrl', [])
    * @param {String} size
    * @param {String} color
    */
-  $scope.setFont = function (font, size, color) {
+  $scope.setFont = (font, size, color) => {
     if (font) {
       $scope.styleIn['font-family'] = font;
     } else if (size) {
@@ -93,16 +100,37 @@ angular.module('Confess-Ctrl', [])
    * @param {String} url
    * @param {String} color
    */
-  $scope.setBackground = function (url, color) {
-    if (url) {
-      if (url === 'none') {
-        $scope.styleOut['background-image'] = 'none';
-      }
+
+  $scope.setBackground = (url, color) => {
+    if (!url && !color) {
+      $scope.styleOut['background-image'] = 'none';
+      $scope.styleOut['background-color'] = 'lightgrey';
+    } else if (url) {
       $scope.styleOut['background-image'] = `url(${url})`;
-    } else if (color) {
+    } else {
       $scope.styleOut['background-color'] = color;
     }
+    // close modal on click
+    modal.style.display = 'none';
+
     $scope.set();
+  };
+
+  let previousQuery;
+
+  $scope.searchForImage = (query) => {
+    modal.style.display = 'block';
+    if (query !== previousQuery) {
+      previousQuery = query;
+      $scope.images = $scope.images;
+      // open modal//
+      confessFact.query(query)
+          .then((imagesUrls) => {
+            imagesUrls.data.forEach((image) => {
+              $scope.images[image.id] = image.url;
+            });
+          }).catch(err => console.warn(err));
+    }
   };
 
   /**
@@ -112,17 +140,18 @@ angular.module('Confess-Ctrl', [])
    * Runs a function from confessFact to post secret to the database
    * @param {object} secret
    */
-  $scope.confess = function (secret) {
+  $scope.confess = (secret) => {
+    const secretBuilder = secret;
     if (!$scope.showSender) {
-      secret.sender = null;
+      secretBuilder.sender = null;
     } else if (!$scope.showRecipient) {
-      secret.recipient = null;
+      secretBuilder.recipient = null;
     } else if (!$scope.showDate) {
-      secret.date = null;
-    } else if (!$scope.showlocation) {
-      secret.location = null;
+      secretBuilder.date = null;
+    } else if (!$scope.showlocation || $scope.location === 'Getting location...') {
+      secretBuilder.location = null;
     }
-    secret.message = SpurrFact.esc(secret.message);
-    confessFact.post(secret);
+    secretBuilder.message = SpurrFact.esc(secretBuilder.message);
+    confessFact.post(secretBuilder, $rootScope.user);
   };
 });

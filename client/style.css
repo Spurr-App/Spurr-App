@@ -111,7 +111,7 @@ select {
 }
 
 .interface {
-  width: 201px;
+  width: 231px;
   height: 376px;
   padding: 12px;
 }
@@ -127,7 +127,12 @@ select {
   height: 340px;
   padding: 30px;
   background: #eee;
-}
+  background-repeat: no-repeat;
+  background-position-y: 50%;
+  background-position-x: 50%;
+  background-size: contain;
+  background-origin: content-box;
+  }
 
 .message, .message input, textarea {
   font-size: 15px;
@@ -160,6 +165,9 @@ select {
   width: 576px;
   height: 376px;
   padding: 12px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50% 50%;
 }
 
 #about {
@@ -175,4 +183,66 @@ h2 {
 form {
   width: 250px;
   margin: auto;
+}
+
+.shareButtons {
+  position: relative;
+  top: 245px;
+  right: 120px;
+}
+
+.fbButton {
+  width: 6%;
+}
+
+.twButton {
+  width: 5.4%;
+  padding-bottom: 1px;
+}
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #ffafaf;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    height: 30%;
+}
+.modal-content:hover{
+  background-color: #c3dfeb;
+}
+.modalimage {
+  max-height: 100%;
+  max-width: 100%;
+}
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }

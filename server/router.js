@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 require('dotenv').config();
+const Bluebird = require('bluebird');
 
 const USER = process.env.SPURR_DB_USER;
 const HOST = process.env.HOST;
@@ -16,6 +17,7 @@ const db = mysql.createConnection({
 
 const router = {};
 
+const dbBlue = Bluebird.promisifyAll(db);
 /**
  * Joins params and columns to comma separated string, with quotation marks if necessary
  * Creates query by combining params, columns, and table
@@ -29,14 +31,7 @@ router.post = function post(params, columns, table) {
   const attr = params.join("', '");
   const cols = columns.join(',');
   const query = `INSERT INTO ${table} (${cols}) VALUES ('${attr}')`;
-  console.log(query);
-  return db.query(query, (err, rows) => {
-    if (!err) {
-      console.log(rows);
-    } else {
-      console.log(err);
-    }
-  });
+  return db.query(query);
 };
 
 /**
@@ -48,9 +43,10 @@ router.post = function post(params, columns, table) {
  * @param {Object} res
  * @returns {Function} Promise from post request
  */
-router.postSpurr = function ({ body }, res) {
-  const columns = Object.keys(body);
-  const params = columns.reduce((arr, key) => arr.concat([body[key]]), []);
+
+router.postSpurr = function (req, res) {
+  const columns = Object.keys(req.body);
+  const params = columns.reduce((arr, key) => arr.concat([req.body[key]]), []);
   router.post(params, columns, 'spurrs');
   res.sendStatus(200);
 };
@@ -64,11 +60,21 @@ router.postSpurr = function ({ body }, res) {
  * @param {Object} res
  * @returns {Function} Promise from post request
  */
-router.saveSpurr = function ({ body }, res) {
-  const columns = Object.keys(body);
-  const params = columns.reduce((arr, key) => arr.concat([body[key]]), []);
-  router.post(params, columns, 'saved_spurrs');
-  res.sendStatus(200);
+
+router.saveSpurr = function (req, res) {
+  const query = `Select * FROM users WHERE username = '${req.body.user.data}'`;
+  dbBlue.queryAsync(query)
+    .then((rows) => {
+      const columns = Object.keys(req.body.secret);
+      const params = columns.reduce((arr, key) => arr.concat([req.body.secret[key]]), []);
+      columns.push('user_id');
+      params.push(rows[0].id);
+      router.post(params, columns, 'saved_spurrs');
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      throw new Error(err);
+    });
 };
 
 /**
@@ -80,11 +86,12 @@ router.saveSpurr = function ({ body }, res) {
  * @param {Boolean} del
  * @returns {Function} Promise from get request
  */
-router.get = function get(table, limit, del) {
-  const query = `SELECT * FROM ${table} ORDER BY spurr_id ASC LIMIT ${limit}`;
-  return new Promise(function (resolve) {
-    db.query(query, (err, rows) => {
-      if (!err) {
+router.get = function get(table, limit, del, id) {
+  const query = id ? `SELECT * FROM ${table} WHERE user_id = ${id} LIMIT ${limit}`
+    : `SELECT * FROM ${table} ORDER BY spurr_id ASC LIMIT ${limit}`;
+  return new Promise((resolve) => {
+    dbBlue.queryAsync(query)
+      .then((rows) => {
         if (del) {
           resolve(rows[0]);
           const remove = `DELETE FROM ${table} WHERE spurr_id = ${rows[0].spurr_id}`;
@@ -92,10 +99,10 @@ router.get = function get(table, limit, del) {
         } else {
           resolve(rows);
         }
-      } else {
-        console.log(err);
-      }
-    });
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
   });
 };
 
@@ -123,12 +130,22 @@ router.getSpurr = function (req, res) {
  * @param {Object} res
  */
 router.getSavedSpurrs = function (req, res) {
-  router.get('saved_spurrs', 8, false)
-  .then((data) => {
-    res.status(200).send(data);
-  });
+  if (req.query.data) {
+    const query = `Select * FROM users WHERE username = '${req.query.data}'`;
+    dbBlue.queryAsync(query)
+      .then(rows => router.get('saved_spurrs', 20, false, rows[0].id))
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
+  } else {
+    router.get('saved_spurrs', 20, false)
+    .then((data) => {
+      res.status(200).send(data);
+    });
+  }
 };
-
-
 
 module.exports = router;
