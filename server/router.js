@@ -2,15 +2,15 @@ const mysql = require('mysql');
 require('dotenv').config();
 const Bluebird = require('bluebird');
 
-
+const USER = process.env.SPURR_DB_USER;
 const HOST = process.env.HOST;
 const PASSWORD = process.env.PASSWORD;
 const DATABASE = process.env.DB;
 
 const db = mysql.createConnection({
   host: HOST,
-  user: 'root',
-  // user: USER,
+  // user: 'root',
+  user: USER,
   password: PASSWORD,
   database: DATABASE,
 });
