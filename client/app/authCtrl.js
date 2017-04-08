@@ -7,6 +7,7 @@ angular.module('Auth-Ctrl', [])
   $scope.user = {};
 
   $scope.signin = () => {
+    console.log('signin');
     Auth.signin($scope.user)
       .then((data) => {
         $scope.user = { data };
@@ -20,6 +21,7 @@ angular.module('Auth-Ctrl', [])
   };
 
   $scope.signup = () => {
+    console.log('signup');
     Auth.signup($scope.user)
       .then((data) => {
         $scope.user = { data };

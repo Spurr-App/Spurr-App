@@ -72,9 +72,9 @@ select {
 
 .bigButton {
   font-family: Jazz Ball;
-  color: #eee;
-  background: #ffafaf;
-  border: 5px solid #c3dfeb;
+  color: #ffafaf;
+  background: #eee;
+  border: 5px dotted #c3dfeb;
   border-radius: 20px;
   padding: 10px;
   margin: 10px;
