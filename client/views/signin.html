@@ -6,7 +6,7 @@
       <br><br>
       <input type="password" ng-model="user.password" required>
       <br><br>
-      <button class="bigButton">Sign in</button>
+      <button ng-click="signin()" class="bigButton">Sign in</button>
     </form>
 
     <div ng-messages="signUp.$error" class="error" role="alert">

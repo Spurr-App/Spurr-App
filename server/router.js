@@ -2,15 +2,14 @@ const mysql = require('mysql');
 require('dotenv').config();
 const Bluebird = require('bluebird');
 
-const USER = process.env.SPURR_DB_USER;
+// const USER = process.env.SPURR_DB_USER;
 const HOST = process.env.HOST;
 const PASSWORD = process.env.PASSWORD;
 const DATABASE = process.env.DB;
 
 const db = mysql.createConnection({
   host: HOST,
-  // user: 'root',
-  user: USER,
+  user: 'root',
   password: PASSWORD,
   database: DATABASE,
 });
@@ -62,9 +61,12 @@ router.postSpurr = function (req, res) {
  */
 
 router.saveSpurr = function (req, res) {
-  const query = `Select * FROM users WHERE username = '${req.body.user.data}'`;
+  console.log('help', req.body);
+  const query = `SELECT * FROM users WHERE username = '${req.body.user}'`;
+  console.log(query);
   dbBlue.queryAsync(query)
     .then((rows) => {
+      console.log(rows);
       const columns = Object.keys(req.body.secret);
       const params = columns.reduce((arr, key) => arr.concat([req.body.secret[key]]), []);
       columns.push('user_id');

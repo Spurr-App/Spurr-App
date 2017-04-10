@@ -26,6 +26,7 @@ angular.module('Confess-Ctrl', [])
   };
 
   $scope.images = {
+    none: '../assets/no-back.png',
     paper: '../assets/paper-back.png',
     letter: '../assets/letter-back.png',
     dot: '../assets/dot-back.png',

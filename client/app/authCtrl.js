@@ -7,10 +7,11 @@ angular.module('Auth-Ctrl', [])
   $scope.user = {};
 
   $scope.signin = () => {
+    console.log('signin');
     Auth.signin($scope.user)
       .then((data) => {
         $scope.user = { data };
-        $rootScope.user = { data };
+        localStorage.setItem('user', data);
         $window.localStorage.setItem('com.spurr', undefined);
         $location.path('/confess');
       })
@@ -20,6 +21,7 @@ angular.module('Auth-Ctrl', [])
   };
 
   $scope.signup = () => {
+    console.log('signup');
     Auth.signup($scope.user)
       .then((data) => {
         $scope.user = { data };
