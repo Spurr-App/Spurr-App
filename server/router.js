@@ -10,7 +10,6 @@ const DATABASE = process.env.DB;
 const db = mysql.createConnection({
   host: HOST,
   user: 'root',
-  // user: USER,
   password: PASSWORD,
   database: DATABASE,
 });
@@ -62,9 +61,12 @@ router.postSpurr = function (req, res) {
  */
 
 router.saveSpurr = function (req, res) {
-  const query = `Select * FROM users WHERE username = '${req.body.user.data}'`;
+  console.log('help', req.body);
+  const query = `SELECT * FROM users WHERE username = '${req.body.user}'`;
+  console.log(query);
   dbBlue.queryAsync(query)
     .then((rows) => {
+      console.log(rows);
       const columns = Object.keys(req.body.secret);
       const params = columns.reduce((arr, key) => arr.concat([req.body.secret[key]]), []);
       columns.push('user_id');

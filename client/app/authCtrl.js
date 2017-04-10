@@ -11,7 +11,7 @@ angular.module('Auth-Ctrl', [])
     Auth.signin($scope.user)
       .then((data) => {
         $scope.user = { data };
-        $rootScope.user = { data };
+        localStorage.setItem('user', data);
         $window.localStorage.setItem('com.spurr', undefined);
         $location.path('/confess');
       })

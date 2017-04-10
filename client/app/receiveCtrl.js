@@ -34,7 +34,7 @@ angular.module('Receive-Ctrl', [])
   $scope.save = (secret) => {
     secret.inner_style = JSON.stringify($scope.styleIn);
     secret.outer_style = JSON.stringify($scope.styleOut);
-    receiveFact.post(secret, $rootScope.user);
+    receiveFact.post(secret, localStorage.getItem('user'));
   };
 
   $scope.get();
