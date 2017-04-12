@@ -98,10 +98,22 @@ select {
   height: 226px;
   padding: 20px;
   margin-top: 25px;
+  position: relative;
   margin-bottom: 25px;
   background-size: 100%;
   background-color: transparent;
   box-shadow: 2px 2px 15px #888888;
+}
+
+.shareButtons {
+  position: absolute;
+  top: 275px;
+  right: 15px;
+  width: 75px;
+}
+
+.shareIcon {
+  width: 29%;
 }
 
 .upper {
@@ -192,21 +204,6 @@ h2 {
 form {
   width: 250px;
   margin: auto;
-}
-
-.shareButtons {
-  position: relative;
-  top: 245px;
-  right: 120px;
-}
-
-.fbButton {
-  width: 6%;
-}
-
-.twButton {
-  width: 5.4%;
-  padding-bottom: 1px;
 }
 
 

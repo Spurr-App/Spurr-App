@@ -1,5 +1,15 @@
 angular.module('Confess-Fact', [])
 .factory('confessFact', function ($http, $window) {
+  const images = {
+    none: '../assets/no-back.png',
+    paper: '../assets/paper-back.png',
+    letter: '../assets/letter-back.png',
+    dot: '../assets/dot-back.png',
+    wild: '../assets/crazy-back.png',
+    dark: '../assets/cross-back.png',
+    love: '../assets/heart-back.png',
+  };
+
   /**
    * Sends secret to the spurrs database
    * Redirects to receive view
@@ -25,6 +35,7 @@ angular.module('Confess-Fact', [])
     }).then(imagesUrls => imagesUrls);
 
   return {
+    images,
     post: postSpurr,
     query: queryImage,
   };

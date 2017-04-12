@@ -10,7 +10,9 @@ angular.module('Saved-Ctrl', [])
    * @returns {Function} Promise from get request resolving data
    */
   $scope.get = () => {
-    savedFact.get($rootScope.user)
+    const user = localStorage.getItem('user');
+    console.log(user);
+    savedFact.get(user)
     .then((secrets) => {
       $scope.secrets = secrets;
     });

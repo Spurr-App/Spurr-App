@@ -7,9 +7,9 @@ angular.module('Auth-Ctrl', [])
   $scope.user = {};
 
   $scope.signin = () => {
-    console.log('signin');
     Auth.signin($scope.user)
       .then((data) => {
+        console.log(data);
         $scope.user = { data };
         localStorage.setItem('user', data);
         $window.localStorage.setItem('com.spurr', undefined);
