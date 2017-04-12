@@ -61,12 +61,9 @@ router.postSpurr = function (req, res) {
  */
 
 router.saveSpurr = function (req, res) {
-  console.log('help', req.body);
   const query = `SELECT * FROM users WHERE username = '${req.body.user}'`;
-  console.log(query);
   dbBlue.queryAsync(query)
     .then((rows) => {
-      console.log(rows);
       const columns = Object.keys(req.body.secret);
       const params = columns.reduce((arr, key) => arr.concat([req.body.secret[key]]), []);
       columns.push('user_id');
@@ -123,17 +120,18 @@ router.getSpurr = function (req, res) {
   });
 };
 
+
 /**
  * Calls get request to saved_spurrs database
- * Specifies to get 8 spurrs
+ * Specifies to get 20 spurrs
  * Specifies to not delete anything
  * Sends 200 status and received spurrs back to client
  * @param {Object} req
  * @param {Object} res
  */
 router.getSavedSpurrs = function (req, res) {
-  if (req.query.data) {
-    const query = `Select * FROM users WHERE username = '${req.query.data}'`;
+  if (req.query.username) {
+    const query = `SELECT id FROM users WHERE username = '${req.query.username}'`;
     dbBlue.queryAsync(query)
       .then(rows => router.get('saved_spurrs', 20, false, rows[0].id))
       .then((data) => {

@@ -11,8 +11,11 @@ angular.module('Saved-Fact', [])
       $http({
         method: 'GET',
         url: '/api/savedSpurrs',
-        params: user,
+        params: {
+          username: user
+        },
       }).then((res) => {
+        console.log(res);
         res.data.forEach((spurr, index) => {
           res.data[index].inner_style = JSON.parse(res.data[index].inner_style);
           res.data[index].outer_style = JSON.parse(res.data[index].outer_style);

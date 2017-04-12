@@ -25,15 +25,7 @@ angular.module('Confess-Ctrl', [])
     'X-Large': 30,
   };
 
-  $scope.images = {
-    none: '../assets/no-back.png',
-    paper: '../assets/paper-back.png',
-    letter: '../assets/letter-back.png',
-    dot: '../assets/dot-back.png',
-    wild: '../assets/crazy-back.png',
-    dark: '../assets/cross-back.png',
-    love: '../assets/heart-back.png',
-  };
+  $scope.images = confessFact.images;
 
   $scope.styleIn = {
     'font-family': 'arial',
@@ -60,10 +52,13 @@ angular.module('Confess-Ctrl', [])
   $scope.setLocation = () => {
     SpurrFact.geo()
       .then((citySt) => {
+        console.log('Got it', citySt);
         $scope.secret.location = citySt;
+        $scope.$apply();
       })
       .catch(() => {
         $scope.secret.location = 'Earth';
+        $scope.$apply();
       });
   };
   $scope.setLocation();
@@ -113,7 +108,7 @@ angular.module('Confess-Ctrl', [])
     }
     // close modal on click
     modal.style.display = 'none';
-
+    $scope.images = confessFact.images;
     $scope.set();
   };
 
@@ -126,11 +121,12 @@ angular.module('Confess-Ctrl', [])
       $scope.images = $scope.images;
       // open modal//
       confessFact.query(query)
-          .then((imagesUrls) => {
-            imagesUrls.data.forEach((image) => {
-              $scope.images[image.id] = image.url;
-            });
-          }).catch(err => console.warn(err));
+        .then((imagesUrls) => {
+          $scope.images = [];
+          imagesUrls.data.forEach((image) => {
+            $scope.images[image.id] = image.url;
+          });
+        }).catch(err => console.warn(err));
     }
   };
 
