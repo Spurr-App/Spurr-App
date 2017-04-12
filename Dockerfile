@@ -1,15 +1,15 @@
 FROM node
 
-RUN mkdir -p /usr/src/app
+RUN mkdir -p /app
 
-WORKDIR /usr/src/app
+COPY . /app
 
-COPY package.json /user/src/app
+WORKDIR /app
+
+COPY package.json /app
 
 RUN npm install
 
-COPY . /usr/src/app
+EXPOSE 3000 80 443
 
-EXPOSE 80 443
-
-RUN npm start
+CMD npm start
