@@ -72,20 +72,23 @@
   </div>
 <!-- modal end -->
 
-  <div id="confessional" class="message" ng-style="styleOut">
-    <div class="upper" ng-style="styleIn">
-      <ul class="msgText">
-        <li ng-show="showLocation" class="left">{{ secret.location }}</li>
-        <li ng-show="showDate" class="right">{{ secret.date }}</li>
-      </ul>
-    </div>
-    <input type="text"
+  <div>
+    <div id="confessional" class="message" ng-style="styleOut">
+      <div class="upper" ng-style="styleIn">
+        <ul class="msgText">
+          <li ng-show="showLocation" class="left">{{ secret.location }}</li>
+          <li ng-show="showDate" class="right">{{ secret.date }}</li>
+        </ul>
+      </div>
+      <input type="text"
       class="msgText left"
       ng-model="secret.recipient"
       ng-show="showRecipient"
       ng-style="styleIn"
       maxlength="15">
-    <textarea id="msgbody" rows="4" class="msgText" ng-model="secret.message" ng-style="styleIn" maxlength="100"></textarea>
-    <input type="text" class="msgText right" ng-model="secret.sender" ng-show="showSender" ng-style="styleIn" maxlength="15">
+      <textarea id="msgbody" rows="4" class="msgText" ng-model="secret.message" ng-style="styleIn" maxlength="100"></textarea>
+      <input type="text" class="msgText right" ng-model="secret.sender" ng-show="showSender" ng-style="styleIn" maxlength="15">
+    </div>
+    <h2>Type directly on the card to update text!</h2>
   </div>
 </div>
