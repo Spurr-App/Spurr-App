@@ -147,12 +147,25 @@ select {
   height: 270px;
   padding: 30px;
   background: #eee;
-  background-repeat: no-repeat;
   background-position-y: 50%;
   background-position-x: 50%;
   background-size: 500px 330px;
+  background-repeat: no-repeat;
   background-origin: content-box;
   box-shadow: 2px 2px 15px #888888;
+}
+
+.message input {
+  border-bottom: #ddd 1px solid;
+  width: 50%;
+}
+
+.msgText.left {
+  float: left;
+}
+
+.msgText.right  {
+  float: right;
 }
 
 .message, .message input, textarea {
@@ -160,11 +173,11 @@ select {
 }
 
 .msgText, .left, .right {
+  outline: 0;
   width: 100%;
-  text-align: center;
   border: none;
   background: none;
-  outline: 0;
+  text-align: center;
 }
 
 .left {
@@ -175,14 +188,8 @@ select {
   text-align: right;
 }
 
-#msgbody {
-  /*width: 480px;*/
-  /*height: 210px;*/
-}
-
 #receivedMessage {
-  background: pink;
-  margin:auto;
+  margin: auto;
   width: 540px;
   height: 340px;
   padding: 30px;
@@ -250,18 +257,4 @@ form {
 .modalimage {
   max-height: 100%;
   max-width: 100%;
-}
-/* The Close Button */
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
 }
