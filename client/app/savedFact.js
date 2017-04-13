@@ -25,6 +25,23 @@ angular.module('Saved-Fact', [])
       });
     });
 
+  /**
+   * Gets saved spurrs from the saved_spurrs database
+   * Resets received data's style to parsed objects
+   * Changes font to 2/3 original size
+   * @returns {Function} Promise from get request resolving data
+   */
+  const deleteSavedSpurrs = (user, spurr) => (
+    $http({
+      method: 'DELETE',
+      url: '/api/savedSpurrs',
+      params: {
+        user_id: user,
+        spurr_id: spurr,
+      },
+    })
+  );
+
   const openWind = (secret, service) => {
     switch (service) {
       case 'facebook': {
@@ -51,6 +68,7 @@ angular.module('Saved-Fact', [])
 
   return {
     get: grabSavedSpurrs,
+    delete: deleteSavedSpurrs,
     openWind,
   };
 });

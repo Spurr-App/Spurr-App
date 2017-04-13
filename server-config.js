@@ -84,4 +84,6 @@ app.post('/api/savedSpurrs', reqTo.saveSpurr);
 
 app.get('/api/savedSpurrs', reqTo.getSavedSpurrs);
 
+app.delete('/api/savedSpurrs', reqTo.delSavedSpurrs);
+
 module.exports = app;
