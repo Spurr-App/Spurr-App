@@ -150,4 +150,17 @@ router.getSavedSpurrs = function (req, res) {
   }
 };
 
+/**
+ * Deletes spurr from saves spurr database
+ * @param {Object} req
+ * @param {Object} res
+ */
+router.delSavedSpurrs = function (req, res) {
+  console.log(req.query);
+  const query = `DELETE FROM saved_spurrs WHERE user_id = '${req.query.user_id}' AND spurr_id = ${req.query.spurr_id}`;
+  dbBlue.queryAsync(query)
+  .then(data => res.status(200).send(data))
+  .catch(err => console.error(err));
+};
+
 module.exports = router;

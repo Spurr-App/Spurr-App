@@ -23,6 +23,17 @@ angular.module('Saved-Ctrl', [])
   $scope.get();
 
   /**
+   * Delete selected spurr from database
+   * @param {integer}
+   * @param {integer}
+   */
+  $scope.delete = (user, id, index) => {
+    console.log(user, id, index);
+    $scope.secrets.splice(index, 1);
+    savedFact.delete(user, id);
+  };
+
+  /**
    * Escapes quotation marks in secret.message
    * Saves the secret to database
    */

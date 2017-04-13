@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 
 <label>Search: <input type="text" ng-model="searchText"></label>
+<div ng-if="!secrets.length">
+  <h2>This page is for saved spurrs!</h2>
+  <p>Looks like you don't have any saved!</p>
+  <p>Why not <a href="#!confess">confess something yourself</a> in the meantime?</p>
+</div>
 <div id="savedSpurrHolder">
   <div class="spurr"
     ng-style="secret.outer_style"
@@ -33,7 +38,7 @@
         class="shareIcon"
         type="image"
         src="../assets/delete-icon.png"
-        ng-click="test(secret)"
+        ng-click="delete(secret.user_id, secret.spurr_id, $index)"
       />
     </div>
   </div>

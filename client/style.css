@@ -21,6 +21,14 @@ body {
   font-family: arial;
 }
 
+a, a:hover, a:visited {
+  color: #ffafaf;
+}
+
+a:active {
+  color: #c3dfeb;
+}
+
 nav, ul {
   margin: 0;
   list-style: none;
@@ -193,7 +201,7 @@ select {
   width: 540px;
   height: 340px;
   padding: 30px;
-  background-size: contain;
+  background-size: 600px 400px;
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }
